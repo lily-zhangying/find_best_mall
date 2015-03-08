@@ -1,13 +1,14 @@
 import csv
 import glob
 
-dir = "/Users/lily/PycharmProjects/filter/dataset/"
+dir = "/Users/lily/workspace/find_best_mall/filter_industry_data/"
 
 exist_unique_keys = {}
 data = {}
 counties = {}
 
-for file in glob.glob(dir + "*.csv"):
+for file in glob.glob(dir + "dataset/*.csv"):
+    # print file
     with open(file, 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         title_row = next(reader)
@@ -25,8 +26,9 @@ for file in glob.glob(dir + "*.csv"):
             else:
                 counties[area_fips] = [unique_key]
 
-            if exist_unique_keys.has_key(unique_key):
-                data[unique_key] = data[unique_key].append(row)
+            if data.has_key(unique_key):
+                # print 'append'
+                data[unique_key].append(row)
             else:
                 data[unique_key] = [row]
     csvfile.close()
@@ -35,7 +37,6 @@ counties_set = []
 for k in counties:
     counties_set.append(set(counties[k]))
 u = list(set.intersection(*counties_set))
-
 with open(dir + 'final_industry_data.csv', 'wb') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(title_row)
