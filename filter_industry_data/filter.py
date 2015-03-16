@@ -1,15 +1,19 @@
 import csv
 import glob
-
-dir = "/Users/lily/workspace/find_best_mall/filter_industry_data/"
-
+import os
+import os.path
+dir = "/Users/John/Dropbox/NYU COURSES/Spring 2015/Real Time Analytics and Big Data/Datasets/Industry Information/2013_qtrly_by_area/"
 exist_unique_keys = {}
 data = {}
 counties = {}
 
-for file in glob.glob(dir + "dataset/*.csv"):
+file_count = len(glob.glob("/Users/John/Dropbox/NYU COURSES/Spring 2015/Real Time Analytics and Big Data/Datasets/Industry Information/2013_qtrly_by_area/2013.q1-q4.by_area/*"))
+i=0;
+for file in glob.glob(dir + "test/*.csv"):
     # print file
+    i=i+1;
     with open(file, 'r') as csvfile:
+        print("%i out of %i" % (i, file_count));
         reader = csv.reader(csvfile, delimiter=',')
         title_row = next(reader)
         for row in reader:
@@ -18,15 +22,15 @@ for file in glob.glob(dir + "dataset/*.csv"):
             industry_code = row[2]
             qtr = row[6]
             unique_key = industry_code + "_" + own_code + "_" + qtr
-            if counties.has_key(area_fips) :
+            if area_fips in counties:
                 if unique_key in counties[area_fips]:
-                    print 'replica'
+                    print('replica')
                 else:
                     counties[area_fips].append(unique_key)
             else:
                 counties[area_fips] = [unique_key]
 
-            if data.has_key(unique_key):
+            if unique_key in data:
                 # print 'append'
                 data[unique_key].append(row)
             else:
@@ -39,9 +43,11 @@ for k in counties:
 u = list(set.intersection(*counties_set))
 with open(dir + 'final_industry_data.csv', 'wb') as file:
     writer = csv.writer(file, delimiter=',')
-    writer.writerow(title_row)
+    #writer.writerow(title_row)
     for final_unique_key in u:
         for line in data[final_unique_key]:
+            #print(line);
+            #print(type(line))
             writer.writerow(line)
 file.close()
 
