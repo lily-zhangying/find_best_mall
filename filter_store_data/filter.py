@@ -48,6 +48,7 @@ with open(file, 'rU') as store_file:
         if not name in stores_dic.keys():
             stores_dic[name] = 1
 store_file.close()
+
 with open(final_file, 'wb') as file:
     writer = csv.writer(file, delimiter=',')
     for key in stores_dic.keys():
