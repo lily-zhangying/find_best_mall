@@ -2,14 +2,14 @@ import csv
 import glob
 import os
 import os.path
-dir = "/Users/John/Dropbox/NYU COURSES/Spring 2015/Real Time Analytics and Big Data/Datasets/Industry Information/2013_qtrly_by_area/"
+dir = "/Users/lily/workspace/find_best_mall/filter_industry_data/dataset/"
 exist_unique_keys = {}
 data = {}
 counties = {}
 
-file_count = len(glob.glob("/Users/John/Dropbox/NYU COURSES/Spring 2015/Real Time Analytics and Big Data/Datasets/Industry Information/2013_qtrly_by_area/2013.q1-q4.by_area/*"))
+file_count = len(glob.glob(dir + "2013.q1-q4.by_area/*.csv"))
 i=0;
-for file in glob.glob(dir + "test/*.csv"):
+for file in glob.glob(dir + "2013.q1-q4.by_area/*.csv"):
     # print file
     i=i+1;
     with open(file, 'r') as csvfile:
