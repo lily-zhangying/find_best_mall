@@ -40,10 +40,10 @@ with open(file, 'rU') as store_file:
         # remove ["location", "new location","two locations", "relocation"]
         name = re.sub("(\s*([-|\(|\*|\~]?)\s*((new\s*location(s?))|(location(s?))|(two location(s?)|(relocation(s?))\s*(.*)$))\s*(.*)$)", "", name)
 
-        # remove \s*-\s*  and after
+        # @todo remove \s*-\s*  and after
         # name =
 
-        #
+        # @todo replace - to space
 
         #change common stores name to the same
         common_stores = ["aldo" , "starbucks" , "att", "aaa", "advance america", "as seen on tv", "sanrio", "hollister", "five guy", "rubios", "ecoatm", "hooter", "joppa", "wasabi", "guitar center"," rainforest cafe", "relax the back", "uno chicago grill","nys collection"]
@@ -54,6 +54,9 @@ with open(file, 'rU') as store_file:
         # remove other special characters
         # *, #, !, ?, ', @,  $, +, ;
         name = re.sub("(\s*)[\.|\,|\\\"|\\\'|\(|\)|\?|\@|\$|\+|\;|\\'|\\\"|\!|\*|\#](\s*)", " ", name)
+
+        # @todo calculate the word frequency here, store them and manually analyse if they are repeated
+
         if not name in stores_dic.keys():
             stores_dic[name] = 1
 store_file.close()
