@@ -37,6 +37,14 @@ with open(file, 'rU') as store_file:
         #remove [".co" ",the" "outet" "and co." "Now Open" "Opening"]
         name = re.sub("(\s*and\s*co\.\s*)|(\s*co\.\s*)|(\s*\,\s*the\s*)|(\s*outlet\s*)|(\s*([-|\(|\*|\~]?)\s*((now\s*open)|(opening)|(reopening))\s*(.*)$)", " ", name)
 
+        # remove ["location", "new location","two locations", "relocation"]
+        name = re.sub("(\s*([-|\(|\*|\~]?)\s*((new\s*location(s?))|(location(s?))|(two location(s?)|(relocation(s?))\s*(.*)$))\s*(.*)$)", "", name)
+
+        # remove \s*-\s*  and after
+        # name =
+
+        #
+
         #change common stores name to the same
         common_stores = ["aldo" , "starbucks" , "att", "aaa", "advance america", "as seen on tv", "sanrio", "hollister", "five guy", "rubios", "ecoatm", "hooter", "joppa", "wasabi", "guitar center"," rainforest cafe", "relax the back", "uno chicago grill","nys collection"]
         for common_store in common_stores:
@@ -44,7 +52,8 @@ with open(file, 'rU') as store_file:
                 name = common_store
 
         # remove other special characters
-        name = re.sub("(\s*)[\.|\,|\\\"|\\\'|\(|\)](\s*)", " ", name)
+        # *, #, !, ?, ', @,  $, +, ;
+        name = re.sub("(\s*)[\.|\,|\\\"|\\\'|\(|\)|\?|\@|\$|\+|\;|\\'|\\\"|\!|\*|\#](\s*)", " ", name)
         if not name in stores_dic.keys():
             stores_dic[name] = 1
 store_file.close()
