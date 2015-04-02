@@ -11,6 +11,7 @@ dir = "/Users/lily/workspace/find_best_mall/filter_store_data/dataset"
 file = dir + "/store.csv"
 final_file = dir + "/final_store.csv"
 stores_dic = {}
+store_name_frequency = {}
 
 def remove_accent_marks(input_str):
     nkfd_form = unicodedata.normalize('NFKD', unicode(input_str))
@@ -40,10 +41,15 @@ with open(file, 'rU') as store_file:
         # remove ["location", "new location","two locations", "relocation"]
         name = re.sub("(\s*([-|\(|\*|\~]?)\s*((new\s*location(s?))|(location(s?))|(two location(s?)|(relocation(s?))\s*(.*)$))\s*(.*)$)", "", name)
 
-        # @todo remove \s*-\s*  and after
-        # name =
+        # remove \s*-\s*  and all after words
+        name = re.sub("(\s+\-\s+.*)$", "", name)
 
-        # @todo replace - to space
+        # replace - to space
+        name = re.sub("\-", " ", name)
+
+        # remove  lower level  upper level  level 2  2nd level
+        name = re.sub("(^((level)|(next level))\s*(\d?)\s+)", "", name)
+        name = re.sub("(\s*((level)|(upper level)|(lower level))\s*(\d?)(.*)$)", "", name)
 
         #change common stores name to the same
         common_stores = ["aldo" , "starbucks" , "att", "aaa", "advance america", "as seen on tv", "sanrio", "hollister", "five guy", "rubios", "ecoatm", "hooter", "joppa", "wasabi", "guitar center"," rainforest cafe", "relax the back", "uno chicago grill","nys collection"]
@@ -55,9 +61,14 @@ with open(file, 'rU') as store_file:
         # *, #, !, ?, ', @,  $, +, ;
         name = re.sub("(\s*)[\.|\,|\\\"|\\\'|\(|\)|\?|\@|\$|\+|\;|\\'|\\\"|\!|\*|\#](\s*)", " ", name)
 
-        # @todo calculate the word frequency here, store them and manually analyse if they are repeated
-
         if not name in stores_dic.keys():
+            #calculate the word frequency here, store them and try manually analyse the repeat name
+            name_tokens = name.split(" ")
+            for i in name_tokens:
+                if i in store_name_frequency.keys():
+                    store_name_frequency[i] += 1
+                else:
+                    store_name_frequency[i] = 1
             stores_dic[name] = 1
 store_file.close()
 
@@ -66,6 +77,15 @@ with open(final_file, 'wb') as file:
     for key in stores_dic.keys():
         writer.writerow([key])
 file.close()
+
+print store_name_frequency
+with open(dir + "frequency.csv", "wb") as file:
+    writer = csv.writer(file, delimiter=',')
+    for key, val in store_name_frequency.items():
+        writer.writerow([key, val])
+file.close()
+
+# write frequency file to manually remove some data
 
 
 
