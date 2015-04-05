@@ -5,6 +5,7 @@ import re
 import unicodedata
 import sys
 reload(sys)
+import operator
 sys.setdefaultencoding("utf-8")
 
 dir = "/Users/lily/workspace/find_best_mall/filter_store_data/dataset"
@@ -52,7 +53,7 @@ with open(file, 'rU') as store_file:
         name = re.sub("(\s*((level)|(upper level)|(lower level))\s*(\d?)(.*)$)", "", name)
 
         #change common stores name to the same
-        common_stores = ["aldo" , "starbucks" , "att", "aaa", "advance america", "as seen on tv", "sanrio", "hollister", "five guy", "rubios", "ecoatm", "hooter", "joppa", "wasabi", "guitar center"," rainforest cafe", "relax the back", "uno chicago grill","nys collection"]
+        common_stores = ["aldo" , "starbucks" , "att", "aaa", "advance america", "as seen on tv", "sanrio", "hollister", "five guy", "rubios", "ecoatm", "hooter", "joppa", "wasabi", "guitar center"," rainforest cafe", "relax the back", "uno chicago grill","nys collection", "tmobile", "macdonald", "verizon"]
         for common_store in common_stores:
             if(re.search(common_store, name)):
                 name = common_store
@@ -78,10 +79,11 @@ with open(final_file, 'wb') as file:
         writer.writerow([key])
 file.close()
 
-print store_name_frequency
-with open(dir + "frequency.csv", "wb") as file:
+with open(dir + "/frequency.csv", "wb") as file:
     writer = csv.writer(file, delimiter=',')
-    for key, val in store_name_frequency.items():
+    sorted_x = sorted(store_name_frequency.items(), key=operator.itemgetter(1))
+    print sorted_x
+    for key, val in sorted_x():
         writer.writerow([key, val])
 file.close()
 
