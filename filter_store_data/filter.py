@@ -10,9 +10,8 @@ sys.setdefaultencoding("utf-8")
 
 dir = "/Users/lily/workspace/find_best_mall/filter_store_data/dataset"
 file = dir + "/store.csv"
-final_file = dir + "/final_store.csv"
-stores_dic = {}
-store_name_frequency = {}
+final_file = dir + "/sort_final_store.csv"
+stores_list = []
 
 def remove_accent_marks(input_str):
     nkfd_form = unicodedata.normalize('NFKD', unicode(input_str))
@@ -22,6 +21,7 @@ with open(file, 'rU') as store_file:
     reader = csv.reader(store_file, delimiter=",")
     for row in reader:
         # lowercase and trim string
+        mall_id = row[2].lower().strip()
         name = row[1].lower().strip()
         # replace several spaces to one space
         name = re.sub("\s+", " ", name)
@@ -59,35 +59,27 @@ with open(file, 'rU') as store_file:
                 name = common_store
 
         # remove other special characters
-        # *, #, !, ?, ', @,  $, +, ;
-        name = re.sub("(\s*)[\.|\,|\\\"|\\\'|\(|\)|\?|\@|\$|\+|\;|\\'|\\\"|\!|\*|\#](\s*)", " ", name)
+        # *, #, !, ?, ', @,  $, +, ; % { }
+        name = re.sub("(\s*)[\.|\,|\\\%|\\\"|\\\'|\(|\)|\?|\@|\$|\+|\;|\\'|\\\"|\{|\}|\!|\*|\#](\s*)", " ", name)
+        if(len(re.sub("\s*", "", name)) > 0):
+            stores_list.append([name, mall_id])
 
-        if not name in stores_dic.keys():
-            #calculate the word frequency here, store them and try manually analyse the repeat name
-            name_tokens = name.split(" ")
-            for i in name_tokens:
-                if i in store_name_frequency.keys():
-                    store_name_frequency[i] += 1
-                else:
-                    store_name_frequency[i] = 1
-            stores_dic[name] = 1
+        #calculate the word frequency here, store them and try manually analyse the repeat name
+        # name_tokens = name.split(" ")
+        # for i in name_tokens:
+        #     if i in store_name_frequency.keys():
+        #         store_name_frequency[i] += 1
+        #     else:
+        #         store_name_frequency[i] = 1
 store_file.close()
 
 with open(final_file, 'wb') as file:
     writer = csv.writer(file, delimiter=',')
-    for key in stores_dic.keys():
-        writer.writerow([key])
+    my_list = sorted(stores_list, key=operator.itemgetter(0))
+    for val in my_list:
+        writer.writerow(val)
 file.close()
 
-with open(dir + "/frequency.csv", "wb") as file:
-    writer = csv.writer(file, delimiter=',')
-    sorted_x = sorted(store_name_frequency.items(), key=operator.itemgetter(1))
-    print sorted_x
-    for key, val in sorted_x():
-        writer.writerow([key, val])
-file.close()
-
-# write frequency file to manually remove some data
 
 
 
