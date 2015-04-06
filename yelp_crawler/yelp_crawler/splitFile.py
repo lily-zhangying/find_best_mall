@@ -1,7 +1,6 @@
 import csv
 
 dir = "/Users/lily/workspace/crwaler/yelp_crawler/yelp_crawler/yelp_crawler/dataset/"
-# file = dir + "final_store.csv"
 chunksize = 5000
 fid = 1
 

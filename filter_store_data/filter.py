@@ -11,7 +11,9 @@ sys.setdefaultencoding("utf-8")
 dir = "/Users/lily/workspace/find_best_mall/filter_store_data/dataset"
 file = dir + "/store.csv"
 final_file = dir + "/sort_final_store.csv"
+store_id_file = dir + "/store_id_file.csv"
 stores_list = []
+stores_dic = {}
 
 def remove_accent_marks(input_str):
     nkfd_form = unicodedata.normalize('NFKD', unicode(input_str))
@@ -61,16 +63,17 @@ with open(file, 'rU') as store_file:
         # remove other special characters
         # *, #, !, ?, ', @,  $, +, ; % { }
         name = re.sub("(\s*)[\.|\,|\\\%|\\\"|\\\'|\(|\)|\?|\@|\$|\+|\;|\\'|\\\"|\{|\}|\!|\*|\#](\s*)", " ", name)
-        if(len(re.sub("\s*", "", name)) > 0):
+
+        if(len(re.sub("\s*", "", name)) <= 0):
+            continue
+
+        if(len(re.sub("\s*", "", namegit)) > 0):
             stores_list.append([name, mall_id])
 
-        #calculate the word frequency here, store them and try manually analyse the repeat name
-        # name_tokens = name.split(" ")
-        # for i in name_tokens:
-        #     if i in store_name_frequency.keys():
-        #         store_name_frequency[i] += 1
-        #     else:
-        #         store_name_frequency[i] = 1
+        # create unique id for stores
+        if not(name in stores_dic):
+            store_id = len(stores_dic) + 1
+            stores_dic[name] = store_id
 store_file.close()
 
 with open(final_file, 'wb') as file:
@@ -78,6 +81,12 @@ with open(final_file, 'wb') as file:
     my_list = sorted(stores_list, key=operator.itemgetter(0))
     for val in my_list:
         writer.writerow(val)
+file.close()
+
+with open(store_id_file, "wb") as file:
+    writer = csv.writer(file, delimiter=',')
+    for key, val in stores_dic.items():
+        writer.writerow([key, val])
 file.close()
 
 
