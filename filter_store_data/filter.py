@@ -67,7 +67,7 @@ with open(file, 'rU') as store_file:
         if(len(re.sub("\s*", "", name)) <= 0):
             continue
 
-        if(len(re.sub("\s*", "", namegit)) > 0):
+        if(len(re.sub("\s*", "", name)) > 0):
             stores_list.append([name, mall_id])
 
         # create unique id for stores
