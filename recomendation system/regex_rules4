@@ -1,0 +1,26 @@
+9346
+delete these substrings in strings:
+"^\s*"
+"\s*$"
+General RUles:
+if "[a-zA-Z]\'[a-zA-Z]" then, "\'"
+
+change these strings into:
+dial nstyle -> dial n style
+diamonds by chainary -> diamonds by chainery
+
+find strings containing these substrings and replace them with this string:
+designer fashion
+designer fragrance
+designer perfume
+designer sunglases
+destination maternity
+dial n style
+diamondsgold
+dick van dyke appliance world
+dicks sporting goods
+didoughs
+dillards
+dingbats
+^dinos
+^dior

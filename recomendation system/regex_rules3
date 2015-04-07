@@ -1,0 +1,162 @@
+3854
+delete these substrings in strings:
+"^\s*"
+"\s*$"
+
+change these strings into:
+77kids -> 77 kids
+boeaubelle -> boeau belle
+brooklyns -> brooklyn
+browz around -> browz a round
+bubba gump shimp -> bubba gump shrimp
+coming soon -> coming soon
+buffalo wingsrings -> buffalo wild wings
+cajungrill -> cajun grill
+cali pro nail -> cali pronail
+cali pro nails -> cali pronail
+cali pronails -> cali pronail
+jewelers -> jewelry
+jeweler -> jewelry
+: ->  
+century .* theaters -> century theaters
+champs sp -> champs sport
+` ->   
+china town -> chinatown
+lake county fare food court ->  
+lake county ->  
+christopher and banks -> christopherbanks
+^cinema [0-9|i|v].* -> cinema
+
+
+
+find strings containing these substrings and replace them with this string:
+bloomingdales
+blossoms
+bobs sports
+body art
+body shop
+body jewel
+boeau belle
+bon bon
+bon ton
+bonworth
+bonnies
+books a million
+borders
+borics
+boscovs
+bose
+boudin
+bounce around
+bourbon
+bradleys book
+bravo cucina
+brendas crafts
+breslers ice cream
+brewzzi
+bridgewater commons
+bridgeport
+bright house networks
+brighton
+brixx
+brooks brothers
+^brow art
+brueggers bagel
+bruno bro
+brusters
+buddy squirrel
+buffalo wild wings
+build a bear
+burlington coat factory
+bushi tei
+busy bee
+c j banks
+c d clark
+c2 education
+cabo cabana
+cafe bistro
+cafe carolina
+cafe fresh
+nordstrom
+cafe typhoon japanese
+cajun cafe
+cajun grill
+calendar club
+cali nails
+caliente
+california nail
+california chicken roast 
+california pizza
+calistoga bakery
+call it spring
+calvin klein
+calypso
+camilla day spa
+cancun mex
+candy wrapper
+candymaker
+cantina 1
+capital grille
+^carino
+carlene data
+carls jr
+carlson wagonlit travel
+carlton cards
+carlton hair
+carlyle
+carmen carmen
+carmike cinema
+carolina gold buyers
+carson pirie scott
+carters
+casa bella
+casablanca
+castle dental center
+casual male
+cathy jean
+catherines plus
+^cato
+cc unisex
+cel net
+cefiore
+celebrity kids
+celebrity tuxedos
+cell accessories
+cell fashion
+cell max
+cell needs
+cell phone access
+cellular wear
+cellular planet
+cellular zone
+cellutions
+center management
+champps
+champs sport
+chao praya
+charles david
+charley
+charming charlie
+charter school
+chaucers
+cheesecake factory
+chevron
+chevys mexican
+chicos
+childrens dental
+childrens place
+chilis
+chinex
+chipolte
+chloe
+christian science
+christopherbanks
+chrome hair design
+chuck e cheese
+ciao bella
+cibola
+cincinnati bell
+cincinnati nail
+cinemark
+cinnabon
+city blue
