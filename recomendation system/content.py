@@ -47,4 +47,18 @@ class content(recsys.recsys):
     def score(self, truth_index):
         super(content,  self).score(truth_index)
 
+def distance(X_train, item_feat, user_feat):
+    LONG_IND =
+    LAD_IND =
+    #stores that mallls belong into
+    #creating a new item_transform matrix
+    # LONG_IND is the colomn index of the user feature matrix
+    user_transform = user_feat[:, (LONG_IND, LAD_IND)]
+    item_transform = np.zeros((X_train.shape[0], 2))
+    for i in np.arange(X_train.shape[0]):
+        mall_indexes = (X_train[i, :] == 1)
+        stores_coordinates = user_feat[mall_indexes, (LONG_IND, LAD_IND) ]
+        item_transform[i, :]= np.mean(stores_coordinates, axis=0)
+
+    return (item_transform, user_transform)
 
