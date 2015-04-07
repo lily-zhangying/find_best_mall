@@ -1,0 +1,8 @@
+NMF+user-based-collaborative-filtering:
+-topics
+-(optional)lambda (sparseness)
+
+Wlas:
+-topics
+-(optional)lambda (sparseness)
+-(optional) delta
