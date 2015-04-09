@@ -53,6 +53,17 @@ def nmf_feature_extraction(X, n_topics=10, sparse_degree = 1, rand_id=40):
     #can access by fit_transform
     return(mall) #see if the reconstruction error matches for the same error.
 
+#This will be used to obtain a new latent matrix for the mall
+def mall_latent_features(X, feat, n_topics=10, sparse_degree = 1):
+    #This is used to get features for malls based off their topics
+    #doing nmf on the topics
+    mall = decomposition.NMF(n_components=n_topics, sparseness='components', beta=sparse_degree ).fit(feat.T)
+    return(mall.components_.T)
+
+#This is the lambda function where you plug in stuff
+def mall_latent_helper(n_topics=10, sparse_degree = 1):
+    return(lambda X, feat: mall_latent_features(X, feat, n_topics, sparse_degree))
+
 def get_topics(X, feature_names, n_topics=10, n_top_words=10,  sparse_degree=1 ):
     #obtains the topics of nmf
     nmf = decomposition.NMF(n_components=n_topics, sparseness='components',  beta=sparse_degree ).fit(X.T) #l1 sparseness
@@ -63,5 +74,3 @@ def get_topics(X, feature_names, n_topics=10, n_top_words=10,  sparse_degree=1 )
                         for i in topic.argsort()[:-n_top_words - 1:-1]]))
         print()
 
-(X, feature_names) = get_category_matrix()
-get_topics(X, feature_names, n_topics=50)

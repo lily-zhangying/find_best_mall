@@ -8,8 +8,9 @@ from numpy.linalg import inv
 from sklearn.decomposition import ProjectedGradientNMF
 from itertools import groupby
 import itertools
-np.random.seed(42);
-
+import similarity
+import cf;
+import nmf_analysis
 class one_class:
     def __init__(self, data =None, item_mat = None, mall_mat = None):
         X = data; #X is the matrix that we are dealing with. The rows are items and columns are users.
@@ -22,14 +23,72 @@ class one_class:
             #default constants
         #cons =
 
+    #partitions data into training and testing data by percentage
+    def cv_percent(self, X, percent):
+        #keywords:
+        #percent - the percent that you want the traiining data to be random
+        #folds - number of folds you are working with
+
+        #find indices of ones and put them into training/testing sets
+        ones_x, ones_y = np.nonzero(X[: ,:] == 1)
+        one_coord =np.array([ones_x, ones_y]);
+        one_coord = one_coord.T
+        np.random.shuffle(one_coord)
+        ones_train, ones_test = train_test_split(one_coord, test_size=percent)
+
+        #find indices of ones and put them into training/testing sets
+        zero_x, zero_y = np.nonzero(X[: ,:] == 0)
+        zero_coord = np.array([zero_x, zero_y]);
+        zero_coord = zero_coord.T
+        np.random.shuffle(zero_coord)
+        zero_train, zero_test = train_test_split(zero_coord, test_size=percent)
+
+        #create a numpy array
+        return( (np.concatenate((ones_train, zero_train),axis=0), np.concatenate((ones_test, zero_test),axis=0) ))
+        #concatenate the training and test array
+    #equal cv for each user
+
+    #partitions data into training and testing data by percentage
+    def cv_equal_user(self, X, percent):
+        #keywords:
+        #percent - the percent that you want the traiining data to be random
+        #folds - number of folds you are working with
+
+        #find indices of ones and put them into training/testing sets
+        #go through each user and randomly split
+        for i in range(X.shape[1]):
+
+            ones_x, = np.nonzero(X[: ,i] == 1)
+            np.random.shuffle(ones_x) #fix this
+            ones_x = ones_x.T
+            ones_train, ones_test = train_test_split(ones_x, test_size=percent)
+
+            #find indices of ones and put them into training/testing sets
+
+            zero_x, = np.nonzero(X[: ,i] == 0)
+            np.random.shuffle(zero_x)
+            zero_x = zero_x.T
+            zero_train, zero_test = train_test_split(zero_x, test_size=percent)
+
+            #concatenating stuff
+            train = np.concatenate((ones_train, zero_train),axis=0)
+            test= np.concatenate((ones_test, zero_test),axis=0)
+            train = np.column_stack((train, i*np.ones((train.shape[0], 1))))
+            test = np.column_stack((test, i*np.ones((test.shape[0], 1))))
+            if i == 0:
+                result_train = train
+                result_test = test
+            else:
+                result_train = np.concatenate((result_train, train),axis=0)
+                result_test = np.concatenate((result_test, test),axis=0)
+
+            #create a numpy array
+        return( (result_train, result_test ))
+            #concatenate the training and test array
 
 
 
-
-
-
-
-    def parameter_tuning(self, learner,  iter_consts, helper_functions, filename = "parameter_tuning_result.txt", training_ind = None, testing_ind = None):
+    def parameter_tuning(self, learner,  iter_consts, helper_functions, filename = "parameter_tuning_result.txt", testing_ind = None):
         #note the the leaner and score_helper must already be constructed
         #iter_consts is a dictionary:
             #key = name of the parameter
@@ -39,11 +98,10 @@ class one_class:
             #value = the actual function
 
         #This model assumes that iter_consts.value[1], helper_function.key, and one of the formal parameters in get_helpers will match
-
-
-        parameter_category = list();
+        parameter_category = list()
         parameter_name = list()
-        iter_parameters = list()
+        iter_parameters = list() #goes through every combination of parameters and plug them into the formula
+        multidimensional = list() #master list of the parameters
         file = open(filename, "w+")
         max_score = 0
 
@@ -51,25 +109,29 @@ class one_class:
         #iterating through parameter category
         for (key, value) in iter_consts.items():
             parameter_category.append(value[1])
+            multidimensional.append(value[0])
             parameter_name.append(key)
 
-        #creating multidimensional array storing enumerate all the different possibilities
-        for element in itertools.product(*iter_consts):
+        #creating multidimensional array enumerate all the different possibilities
+        for element in itertools.product(*multidimensional):
             print(element)
             iter_parameters.append(element)
 
         for parameters in iter_parameters:
             #creating these parameters to put in model
             #creates the initial dictionary for each list.
-            c = dict()
-            for i in range(len(parameter_name)):
             #key = category of the function
             #value = the actual function
+            c = dict()
+            #finds the category for the parameters
+            for i in range(len(parameter_name)):
                 #adds parameters to their respective category dictionary
                 #adds parameters to function i if it matches
-                for (category, function) in helper_functions:
-                    if(parameter_category [i] == category):
-                        c[category] = {parameter_name[i] : parameters[i]}
+                if(parameter_category[i] in c):
+                    c[parameter_category [i]][parameter_name[i]] = parameters[i]
+                else:
+                    c[parameter_category [i]] = {parameter_name[i] : parameters[i]}
+
 
             #plug in functions to use model and create algorithm
             #use add_function to the learner to plug in values if the function is not None
@@ -78,15 +140,15 @@ class one_class:
             #new diction
                 #key = category name
                 #value = function after being plugged in
-            for category in parameter_category:
+            for category in list(set(parameter_category)): #goes through a unique list of parameter categories
                 if( not(helper_functions[category] == None)):
                     if(len(c[category]) > 0):
-
+                        #plugging in stuff for the function. It should work
                         f = helper_functions[category](**c[category])
-                        learner.get_helpers(**{category, f}) #This needs to be tested
+                        learner.get_helpers(**{category : f}) #This needs to be tested
                     else:
                         f = helper_functions[category]()
-                        learner.get_helpers(**{category, f})
+                        learner.get_helpers(**{category: f})
                 if(category == "learner"):
                     if(len(c[category]) > 0):
                         learner.get_parameters(**category)
@@ -96,7 +158,8 @@ class one_class:
             #writing into text file
             key_input = "(" + ", ".join([str(x) for x in parameters] ) +")"
             file.write( "%s %s" % (key_input, val) )
-
+            #create lines that will indicate that the the parameter tuned functions will become none
+            learner.remove_helpers(list(set(parameter_category)))
             if(val > max_score):
                 max_score = val
         return max_score
@@ -122,19 +185,25 @@ def bipartite_projection(adj, item_allocation):
     recommend_items= np.dot(W, item_allocation); #This will give you the item distribution for a certain users
     return (recommend_items, W);
 
+#a 50 by 10 matrix
 
-cons =  dict([('iter_max', 50), ('lambda', 0), ('error', 1)])
-# cons["lambda"] = .10
-# cons["error"] = 1
+X = np.concatenate((np.ones((25, 10)), np.zeros((25, 10)) ),axis=0)
+one_class(X)
+print("lol")
+dawg = one_class(X);
+dawg.cv_percent(X, .20)
 
-test = one_class()
-tuple_size = (300, 30)
-R = np.random.choice([0, 1], size=tuple_size, p=[.95, .05])
-d = 10
-model = ProjectedGradientNMF(n_components=d, init='random', random_state=0)
-model.fit(R)
 
-V_init = (model.components_).T #the matrix comes out as a d*n matrix, so you have to do the transpose to fix it.
-#V_init = .1 * np.random.randn(tuple_size[1], d) + 0
-W = np.ones(tuple_size)
-test.wlas(R, W, d, V_init, cons)
+
+
+
+
+
+#
+# helper_functions = {"feature":nmf_analysis.mall_latent_helper, "similar":similarity.gaussian}
+# iter_consts = {"n_topics" : ([5, 10, 20, 50], "feature"), 'sparse_degree' :([.1, .2, .3, .5, 1, 1.2], "feature"), 'alpha' : ([.1, .2, .3, .4], "similar") }
+# hi = one_class()
+# X=np.zeros((2, 2))
+# learner = cf.cf(X)
+# hi.parameter_tuning(learner, iter_consts, helper_functions)
+# #iter_consts = {"n_topics" : ([5, 10, 20, 50], "feature"), 'sparse_degree' :([.1, .2, .3, .5, 1, 1.2], "feature") }

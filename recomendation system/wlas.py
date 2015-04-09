@@ -25,9 +25,51 @@ class wlas(recsys.recsys):
         self.tol = tol
         self.n_topics = n_topics
 
+    def predict_for_user(self, user_ratings, user_feat, k, feature_transform_all =None):
+        #feature_transform_all refers to items
+        # shape return the rows and colonms of the matrix
+        self.X = np.concatenate(self.X, user_ratings)
+        Nrow, Ncol = self.X.shape
+        if (feature_transform_all == None):
+            if self.feature_helper == None:
+                W = np.ones(Nrow, Ncol) #default
+            else:
+                W = self.feature_helper(self.X, np.concatenate(self.user_feat, user_feat), self.item_feat)
+        else:
+            W = feature_transform_all
+        n_topics = self.n_topics
+        nmf_data= decomposition.NMF(n_components=n_topics, sparseness='components', beta=1).fit(self.X)
+        V_init = nmf_data.components_.T
+        U = np.zeros((Nrow, n_topics))
+        I = np.eye(n_topics)
+        V = V_init
 
-    def fit(self, train_indices):
-        super(wlas, self).transform_training(train_indices)
+
+
+        for k in range(self.iter_max):
+            for i in range(Nrow):
+                W_hat_i = np.diag(W[i, :])
+                (V.T).dot(W_hat_i)
+                psm = (V.T).dot(W_hat_i).dot(V) +self.sparseness*sum(W[i, :])*I #the long matrix in the paper that is claimed to be semi positive definite
+                U[i, :] = self.X[i, :].dot(W_hat_i).dot(V).dot(inv(psm))
+            for j in range(Ncol):
+                W_hat_j = np.diag(W[:, j])
+                psm = U.T.dot(W_hat_j).dot( U) + self.sparseness*sum(W[:, j])*I
+                V[j, :] = (self.X[:, j].T).dot(W_hat_j).dot(U).dot(inv(psm))
+            #computing error
+            diff = self.X - np.dot(U, V.T)
+            diff_square = np.multiply(diff, diff)
+            error = sum(sum(np.multiply(W, diff_square)))
+            if(error < self.tol):
+                break
+        predicted_values = np.dot(U, V.T)[Nrow]
+        predicted_values[np.asarray(user_ratings)] = 0
+        result = np.argsort(predicted_values)
+        return result[0:k]
+
+
+    def fit(self, train_indices=None, test_indices = None):
+        super(wlas, self).transform_training(train_indices, test_indices)
         Nrow, Ncol = self.X_train.shape
         #unpack constants from dictionary here
         #setting constants
@@ -70,13 +112,6 @@ def uniform_weight(X, user_feat=None, item_feat=None, delta=.05):
     W=X
     W[W==0] = delta
     return W
-
-X = np.eye(3, 5);
-const = {"delta":.1, "n_topics":2}
-eggie = wlas(X, feature_helper=uniform_weight, const=const, score_helper=evaluate.map)
-eggie.fit(np.array([[0, 0], [1, 1]]) )
-eggie.score(np.array([[2, 2], [1, 1], [0, 1], [1, 0], [0, 0], [2, 1], [0, 3], [1, 3], [1, 4]]))
-
 #hi = np.zeros((5, 5))
 
 #eggie = wlas(hi)
