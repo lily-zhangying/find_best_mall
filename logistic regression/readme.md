@@ -1,4 +1,4 @@
-## decription
+## description
 
 * use logistic regression to analyze
 
@@ -21,3 +21,6 @@ $ spark-submit --master local logistic.py
 ```bash
 spark-submit help
 ```
+
+## in case I cannot find
+http://spark.apache.org/docs/1.2.1/quick-start.html#self-contained-applications
