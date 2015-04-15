@@ -11,6 +11,8 @@ def logistic_regression(store, trianing, testing):
      # analyze the result for one store in malls
     #  https://github.com/apache/spark/blob/master/examples/src/main/python/mllib/logistic_regression.py
     model = LogisticRegressionWithSGD.train(points, iterations)
+     # use precision
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
