@@ -1,48 +1,37 @@
-import numpy as np
-from numpy.linalg import norm
-
-def test(name):
-    print(name)
-def hello(a, b):
-    print(a, b)
-
-dummy = list()
-dummy.append("a")
-dummy.append("b")
-dummy.append("c")
-l = [1,2,3,7]
-print("(" + ", ".join([str(x) for x in l] ) +")")
+import csv
+from nmf_analysis import get_category_matrix
+import os
+import re
+import pandas
+#dir = "C:\\Users\\John\\Dropbox\\NYU COURSES\\Spring 2015\\Real Time Analytics and Big Data\\find_best_mall\\recomendation system\\"
+#file = dir + "\\final_mall_with_demo.csv"
+#file = os.path.abspath('final_mall_demo_data.csv')
+mall_dic = {}
+#hi = open(file, 'rU')
+#go through function again to get old id.
 
 
+with open(os.path.abspath('final_mall_demo_data.csv'), 'rU') as f:
+    reader = csv.reader(f, delimiter=",")
+    title_row = next(reader)
+    for row in reader:
+        mall_name = row[1].lower()
+        category = row[-1]  #get old rows
+        category = re.sub(', ', ',', category)
+        category = category.split(",")
+        mall_dic[mall_name]={}
+        if (category == [""]):
+            continue
+        for i in category:
+            (key, val)= i.split(":")
+            key = re.sub('^ ', '', key)
+            mall_dic[mall_name][key] = int(val)
 
 
-#ranked_precision()
-prediction = np.arange(20, 0, -1)
-
-X_predict = np.array([prediction.T, prediction.T])
-X_predict = X_predict.T
-X =np.array([[1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0],
-[0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0] ])
-X=X.T
-ind = np.random.permutation(20)
-X_predict = X_predict[ind]
-X = X[ind]
-#the prediction and the ground truth are randomly permuted
-selected = np.arange(20)[ X_predict[:, 0] > 10]
-ones = np.array([selected.T, np.ones(10).T.astype(int)]).T
-zeros = np.array([selected.T, np.zeros(10).T.astype(int)]).T
-test_ind = np.row_stack((ones, zeros))
-print(selected)
-# (sorted_pred, index) = sort_prediction_all(X_predict[ones[:, 0], ones[:, 1]])
-# print(X[index, 1])
-
-
-print(map(X, X_predict, test_ind))
-
-# prediction = prediction[::-1]
-# ind = np.random.permutation(10)
-# truth = np.array([1, 0, 1, 0, 0, 1, 0, 0, 1, 1])
-# # print(prediction[ind])
-# # print([truth[ind]])
+f.close()
+df = pandas.DataFrame(mall_dic).T.fillna(0)
+df.as_matrix()
+category_list = list(df.columns.values)
+#print(df.head())
 #
-# print(ranked_precision(prediction, truth))
+# user_feat = get_category_matrix(mall_dic)

@@ -36,7 +36,7 @@ class content(recsys.recsys):
                 item_transform, user_transform = self.feature_helper(X=user_ratings, item_feat = self.item_feat, user_feat = user_feat)
         else:
             item_transform= feature_transform_all
-            lol, user_transform = self.feature_helper(X=user_ratings, item_feat = self.item_feat[:, 0], user_feat = user_feat)
+            lol, user_transform = self.feature_helper(X=user_ratings, item_feat = self.item_feat[:, 1], user_feat = user_feat)
 
         #assume that the similarity matrix is
         S = pairwise_distances(item_transform, user_transform, self.similarity_helper)
@@ -71,6 +71,7 @@ class content(recsys.recsys):
         super(content,  self).score(truth_index)
 
 
+
 # def distance(X_train, item_feat, user_feat):
 #     LONG_IND =
 #     LAD_IND =
@@ -85,3 +86,41 @@ class content(recsys.recsys):
 #         item_transform[i, :]= np.mean(stores_coordinates, axis=0)
 #
 #     return (item_transform, user_transform)
+
+#finds a way to represent item features as the same as users
+# def demographic(X_train, item_feat, user_feat):
+#     START =
+#     END = + 1#remember to +1 as an offset
+#     #stores that mallls belong into
+#     #creating a new item_transform matrix
+#     # LONG_IND is the colomn index of the user feature matrix
+#     user_transform = user_feat[:, (START, END)]
+#     item_transform = np.zeros((X_train.shape[0], END - START-1))
+#     #possibly faster if you use a join and a group in pandas
+#     for i in np.arange(X_train.shape[0]):
+#         mall_indexes = (X_train[i, :] == 1)
+#         stores_coordinates = user_feat[mall_indexes, : ][:, START:END] #get coordinates fast
+#         item_transform[i, :]= np.mean(stores_coordinates, axis=0)
+#
+#     return (item_transform, user_transform)
+
+def user_to_item(X_train, item_feat, user_feat, start, end):
+    #creates a nice lambda function
+    START = start
+    END = end + 1#remember to +1 as an offset
+    #stores that mallls belong into
+    #creating a new item_transform matrix
+    # LONG_IND is the colomn index of the user feature matrix
+    user_transform = user_feat[:, (START, END)]
+    item_transform = np.zeros((X_train.shape[0], END - START-1))
+    #possibly faster if you use a join and a group in pandas
+    for i in np.arange(X_train.shape[0]):
+        mall_indexes = (X_train[i, :] == 1)
+        stores_coordinates = user_feat[mall_indexes, : ][:, START:END] #get coordinates fast
+        item_transform[i, :]= np.mean(stores_coordinates, axis=0)
+
+    return (item_transform, user_transform)
+
+#a much more general form of the actual shit
+def user_to_item_helper(start, end):
+    return lambda X_train, item_feat, user_feat : user_to_item(X_train, item_feat, user_feat, start, end)

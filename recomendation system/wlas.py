@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.decomposition import ProjectedGradientNMF
 import recsys
 import evaluate
+import content
 from sklearn import decomposition
 from numpy.linalg import inv
 
@@ -108,10 +109,36 @@ class wlas(recsys.recsys):
     def score(self, truth_index):
         super(wlas,  self).score(truth_index)
 
+def content_based_weight(content_helper):
+    return lambda X, item_feat, user_feat : 1- content_helper(X, item_feat, user_feat ) #put less weight on disimilar
+
+def user_weight(X, item_feat=None, user_feat=None ):
+    #find the column sum
+    sum_weight = np.sum(X,axis=0)
+    sum_weight = sum_weight/np.max(sum_weight) #normalize
+
+    #values within a column are the same
+    #generate the W matrix for each column. So duplicate rowwise by the number of items X.shape[0]
+    W = np.array([sum_weight]*X.shape[0])
+    W[X] = 1
+    return W
+
+def item_weight(X, item_feat=None, user_feat=None ):
+    #find the column sum
+    sum_weight = np.sum(X,axis=1)
+    sum_weight = sum_weight/np.max(sum_weight) #normalize
+
+    #values within a row are the same
+    #generate the W matrix for each column. So duplicate rowwise by the number of items X.shape[0]
+    W = 1 - np.array([sum_weight]*X.shape[1]).T
+    W[X] = 1
+    return W
+
 def uniform_weight(X, user_feat=None, item_feat=None, delta=.05):
     W=X
     W[W==0] = delta
     return W
+
 #hi = np.zeros((5, 5))
 
 #eggie = wlas(hi)

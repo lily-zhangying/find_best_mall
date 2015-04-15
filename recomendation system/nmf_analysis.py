@@ -1,11 +1,11 @@
 __author__ = 'John'
-from mall_count_dataset import dict as data
+#from mall_count_dataset import dict as data
 import re
 import numpy as np
 from sklearn import decomposition
 from numpy import linalg as LA
 
-def get_category_matrix():
+def get_category_matrix(data):
     #get the category count matrix from the joe jean dataset.
     #This dataset is clean
     #constants
@@ -13,8 +13,10 @@ def get_category_matrix():
     category_id = dict
     mall_id = dict
     mall_size = 0
-    category_id = {'stupid': 100000000000} #fillers to define the type in the dictionary
-    mall_id = {'stupid': 100000000000}
+    category_id ={}
+    mall_id ={}
+    #category_id = {'stupid': 100000000000} #fillers to define the type in the dictionary
+    #mall_id = {'stupid': 100000000000}
     #setting up category representation first
     for mall in data:
         for category in data[mall]:
@@ -31,8 +33,8 @@ def get_category_matrix():
         category_id.pop(category)
 
 
-    category_id.pop('stupid')
-    mall_id.pop('stupid')
+    #category_id.pop('stupid')
+    #mall_id.pop('stupid')
 
     #convert the count dataset into a matrix
     X = np.zeros((category_size, mall_size))

@@ -56,7 +56,7 @@ class recsys(object):
         self.X_train = self.X;
         if((test_indices== None) and (train_indices == None) ):
             return
-        if(not (test_indices== None)):
+        elif(not (test_indices== None)):
             self.X_train[test_indices[:, 0], test_indices[:, 1]]  = np.zeros((1, test_indices.shape[0]))
             return
         else:
