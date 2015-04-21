@@ -51,7 +51,7 @@ def get_category_matrix():
         reader = csv.reader(f, delimiter=",")
         title_row = next(reader)
         for row in reader:
-            mall_name = row[1].lower()
+            mall_name = int(row[0])
             category = row[-1]  #get old rows
             category = re.sub(', ', ',', category)
             category = category.split(",")
@@ -66,31 +66,54 @@ def get_category_matrix():
 
     f.close()
     df = pd.DataFrame(mall_dic).T.fillna(0)
+
+    df.to_csv("category_matrix.csv")
     category_list = list(df.columns.values)
     return(df.as_matrix(), category_list)
 
-#This is the skeleton of how to create the binary matrix shop-mall matrix
-#needs dataframe with the stores and unique id.
-mall_demo = pd.read_csv("final_mall_demo_data.csv", encoding = "ISO-8859-1", index_col=False) #every entry will not be Nan
-N_malls = len(mall_demo.index)
-item = pd.read_csv("../filter_store_data/dataset/store.csv", names=["instances", "store", "mall_id"], encoding = "ISO-8859-1")
-joined = pd.merge(mall_demo[["new_id", "old_id", "mall"]], item, left_on='old_id', right_on='mall_id', how='inner') #a simple join betweem the old id in the mall table and the mall id in the store table
-joined = joined["new_id", "store"] #information of the mall having a the name of the store. but we actually want the store id rather than the store name
-N_stores = joined["store"].nunique()
-X = np.zeros( (N_stores, N_malls)) #the result
+
+def get_binary_matrix():
+    #This is the skeleton of how to create the binary matrix shop-mall matrix
+    #needs dataframe with the stores and unique id.
+    mall_demo = pd.read_csv("final_mall_demo_data.csv", encoding = "ISO-8859-1", index_col=False) #every entry will not be Nan
+    N_malls = len(mall_demo.index)
+    item = pd.read_csv("../filter_store_data/dataset/store.csv", names=["instances", "store", "mall_id"], encoding = "ISO-8859-1")
+    joined = pd.merge(mall_demo[["new_id", "old_id", "mall"]], item, left_on='old_id', right_on='mall_id', how='inner') #a simple join betweem the old id in the mall table and the mall id in the store table
 
 
-#####
-stores = pd.unique(joined["store"].values.ravel()) #get unique ids for each store
-values = range(N_stores)
-stores = stores.tolist()
-store_dict = dict(zip(stores, values))
-d = {'store_name': stores, 'store_id': values }
-stores_df = pd.DataFrame(d)
-#the line above can be replaced by reading the store table with the unique ids of the stores
+
+    #joined = joined[["new_id", "store"]] #information of the mall having a the name of the store. but we actually want the store id rather than the store name
+    N_stores = joined["store"].nunique()
+    X = np.zeros( (N_stores, N_malls)) #the result
 
 
-joined = pd.merge(joined, stores_df, left_on="store", right_on="store_name", how="inner")
-joined = joined[["new_id", "store_id"]]
-indices = joined.values.astype(int)
-X[indices[:, 1], indices[:, 0]] = np.ones(len(joined.index)) #fill in the entries of the matrix fast
+    #####
+    stores = pd.unique(joined["store"].values.ravel()) #get unique ids for each store
+    values = range(N_stores)
+    stores = stores.tolist()
+    store_dict = dict(zip(stores, values)) #created a new id for all the stores. THis was necessary to do to remove bad duplicates
+    d = {'store_name': stores, 'store_id': values }
+    stores_df = pd.DataFrame(d)
+    stores_df.to_csv("store_id.csv", header="true")
+    #save for future reference
+    #the line above can be replaced by reading the store table with the unique ids of the stores
+
+
+    joined = pd.merge(joined, stores_df, left_on="store", right_on="store_name", how="inner")
+
+    database = joined[[ "mall", "new_id", "old_id", "store", "store_id"]]
+    database.to_csv("mall_store_list.csv", header="true")
+
+    joined = joined[["new_id", "store_id"]] #find the relationship between stores
+    #joined.to_csv()
+
+
+    indices = joined.values.astype(int)
+    X[indices[:, 1], indices[:, 0]] = np.ones(len(joined.index)) #fill in the entries of the matrix fast
+    shop_mall_df = pd.DataFrame(X.astype(int))
+    #shop_mall_df = pd.DataFrame(X.T)
+    shop_mall_df.to_csv("mall_store_matrix.csv") #index=False, index_label=False)
+    shop_mall_df.ix[0:100,:].to_csv("mall_store_matrix_sample.csv") # get top 50 malls
+
+#get_binary_matrix()
+# get_category_matrix()

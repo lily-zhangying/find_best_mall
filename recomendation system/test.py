@@ -35,3 +35,6 @@ category_list = list(df.columns.values)
 #print(df.head())
 #
 # user_feat = get_category_matrix(mall_dic)
+
+
+

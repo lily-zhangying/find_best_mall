@@ -17,9 +17,35 @@ class recsys(object):
         if ( not(similarity_func == None) or (self.similarity_helper== None)):
             self.similarity_helper = similarity_func;
 
+    def similarity(self, features, similarity_helper, cluster, k):
+        #creates an N-by-N matrix where the i, j entry tell how the ith person is related to the jth person. the column is referring to one persn
+        # this matrix is NOT SYMMETRIC
+        # input
+        # feature - matrix how you are going to compare the objects where you have N peop
+        # similarity_helper -
+
+        S=pairwise_distances(features, metric=similarity_helper)
+        #S = self.similarity_helper(W)
+        S = S-np.diag(S.diagonal())
+        #modifies S for cluster information
+        cluster_ind = np.array([cluster]*features.shape[0])
+        S = np.multiply(S, 1*(cluster_ind == cluster_ind.T))
+        #implement the neighborbased part. This is for better results. Get top K similar people for each user.
+        np.apply_along_axis(find_top_k, 0,S , k=k) #computations can be slow for this model
+        sum_recip = np.sum(S, axis=0)
+        S_norm =np.multiply(S, 1/np.sum(S, axis=0))  #fast multiplication
+
+        S_norm[np.isnan(S_norm)]=0 #deals with nan problem. (Consider the instance that you are the only user and nobody is similar to you.)
+        return S_norm
+
+
     def get_parameters(self, **kwargs):
         pass
-        #this varies from learner to learner. Some learners do not have this because they do not need to get learned
+        #this varies from learner to learner. Some learners do not have this because they do not have parameters to be tuned
+
+    def get_parameters_2(self, **kwargs):
+        pass
+
 
     def predict_for_user(self, user_ratings, user_feat, k, feature_transform_all =None):
         #output: predicted indices of the stores that are most liked by a user
@@ -53,7 +79,7 @@ class recsys(object):
     def transform_training(self, train_indices,  test_indices):
         #train_incides must be a |Train_Data|-by-2 matrix.
         #train_indices come in tuples
-        self.X_train = self.X;
+        self.X_train = np.copy(self.X);
         if((test_indices== None) and (train_indices == None) ):
             return
         elif(not (test_indices== None)):
@@ -85,5 +111,34 @@ class recsys(object):
         #do ranked precision
         #first
 
+    def get_helper2(self, name, function):
+        if(name == 'feature_helper'):
+            self.feature_helper = function
+            return
+        if(name == 'similarity_helper'):
+            self.similarity_helper = function
+            return
+        if(name == 'score_helper'):
+            self.score_helper = function
+            return
+        else:
+            raise Exception("Cannot find feature function corresponding to the input name")
 
+def find_top_k(x, k):
+    #return an array where anything less than the top k values of an array is zero
+    if( np.count_nonzero(x) <k):
+        return x
+    else:
+        x[x < -1*np.partition(-1*x, k)[k]] = 0
+        return x
+
+#This will be used if the algorithm is too slow
+def test_helper(x, k):
+    fun = lambda i: find_top_k(x[:, i], k)
+    return np.vectorize(fun)
+
+#clean similarity matrix
+# def cluster_neighbors(cluster, S):
+#     fun = lambda i : (S[i, cluster[i]] = 0)
+#     return np.vectorize(fun)
 
