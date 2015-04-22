@@ -9,10 +9,10 @@ def remove_accent_marks(input_str):
 
 @outputSchema("t:tuple(name,mall_id)")
 def filter(name,mall_id):
-	mall_id = str(mall_id).lower().strip()
+	mall_id = unicode(mall_id, "utf8").lower().strip()
         if(mall_id == "none"):
 		return (name, -1)
-	name = str(name).lower().strip()
+	name = unicode(name, "utf8").lower().strip()
 	# replace several spaces to one space
         name = re.sub("\s+", " ", name)
         # remove special characters
