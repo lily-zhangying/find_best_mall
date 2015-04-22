@@ -65,9 +65,13 @@ def map(X, X_predict, test_indices):
 
 
 #computes the rmse of the results
+def negative_rmse(X, X_predict, test_indices):
+    #print(X_predict[test_indices[0:10, 0], test_indices[0:10, 1]])
+    return -1*np.sqrt( (np.average(np.square(X[test_indices[:, 0], test_indices[:, 1]] - X_predict[test_indices[:, 0], test_indices[:, 1]]))))
+
+
 def rmse(X, X_predict, test_indices):
-    return (np.average(np.square(X[test_indices[:, 0], test_indices[:, 1]] - X_predict[test_indices[:, 0], test_indices[:, 1]])))
-
-
+    #print(X_predict[test_indices[0:10, 0], test_indices[0:10, 1]])
+    return np.sqrt( (np.average(np.square(X[test_indices[:, 0], test_indices[:, 1]] - X_predict[test_indices[:, 0], test_indices[:, 1]]))))
 
 

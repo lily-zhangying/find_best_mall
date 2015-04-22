@@ -12,7 +12,8 @@ from sklearn.metrics.pairwise import pairwise_distances
 #feature helper and user_feature are derived from lambda functions
 
 class pop_rec(recsys.recsys):
-    def __init__(self,X, similarity_helper = None, feature_helper = None, score_helper = None, user_feat = None, cluster=None):
+    def __init__(self,X, similarity_helper = None, feature_helper = None, score_helper = None,\
+                 user_feat = None, cluster=None):
         super(pop_rec, self).__init__(X)
         self.feature_helper = feature_helper
         self.score_helper = score_helper
@@ -29,11 +30,19 @@ class pop_rec(recsys.recsys):
             self.feature_helper = feature;
         if ( not(similar == None) or (self.similarity_helper== None)):
             self.similarity_helper = similar;
+   #a way to get functions easily, one by one
+    def get_helper2(self, name, function):
+        super(pop_rec, self).get_helper2(name, function)
+
+
     def remove_helpers(self, list):
         if "similar" in list:
             self.similarity_helper = None
         if "feature" in list:
             self.feature_helper = None
+
+    def get_helper2(self, name, function):
+        super(pop_rec, self).get_helper2(name, function)
 
     def predict_for_user(self, user_ratings, user_feat, k, feature_transform_all =None):
         #output: predicted indices of the stores that are most liked by a user
@@ -72,18 +81,10 @@ class pop_rec(recsys.recsys):
         self.X_predict[self.X_train == 1] = 1
 
 
-
         return self.X_predict
 
     def score(self, truth_index):
-        super(pop_rec,  self).score(truth_index)
+        return super(pop_rec,  self).score(truth_index)
 
 
 
-cosine = similarity.cosine()
-nmf = nmf_helper(2)
-X= np.array([[1, 0, 0, 0],[0, 1, 1, 1], [0, 1, 1, 0]])
-feat = np.array([[0, 0, 0, 1, 1, 1, 1], [7, 7, 7, 0, 0, 0,0], [7, 8, 7, 0, 0, 0, 0], [7, 7, 7, 0, 0, 0, 0]])
-
-test = cf(X, feature_helper=nmf, user_feat=feat, similarity_helper=cosine)
-test.fit(test_indices =np.array([[2, 3]]))

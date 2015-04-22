@@ -11,20 +11,77 @@ import itertools
 import similarity
 import cf;
 import nmf_analysis
+import content
+import wlas
+import evaluate
+import pop_rec
+from sklearn import cross_validation
+
 class one_class:
-    def __init__(self, data =None, item_mat = None, mall_mat = None):
-        X = data; #X is the matrix that we are dealing with. The rows are items and columns are users.
+    def __init__(self, filename = 'dummy.txt', learner =None, X=None):
+        self.learner = learner; #X is the matrix that we are dealing with. The rows are items and columns are users.
         #training_data #binary mat determining which is enteries are in the training set
         #testing_data #binary mat determining which is enteries are in the testing set
-        test = {0:None, 1:None, "data":None}
-        train = {0:None, 1:None, "data":None}
-        self.mall_mat = mall_mat
-        self.item_mat = item_mat
+        self.writing_string =""
+        self.filename = filename
+        self.file = open(filename, "w+")
+        self.string_parameters = list()
+        self.corresponding_values = list()
+
             #default constants
         #cons =
 
     #partitions data into training and testing data by percentage
-    def cv_percent(self, X, percent):
+    def cv(self, k):
+        #output: gives you a list of items to output
+        X = self.learner.X
+        #find indices of ones and put them into training/testing sets
+        ones_x, ones_y = np.nonzero(X[: ,:] == 1)
+        one_coord =np.array([ones_x, ones_y]);
+        one_coord = one_coord.T
+        np.random.shuffle(one_coord)
+        kf_ones = cross_validation.KFold(one_coord.shape[0], n_folds=k)
+
+        #find indices of ones and put them into training/testing sets
+        zero_x, zero_y = np.nonzero(X[: ,:] == 0)
+        zero_coord = np.array([zero_x, zero_y]);
+        zero_coord = zero_coord.T
+        np.random.shuffle(zero_coord)
+        kf_zeros = cross_validation.KFold(zero_coord.shape[0], n_folds=k)
+
+
+        training = list()
+        testing = list()
+
+        for ones, zeros in zip(kf_ones, kf_zeros):
+            training.append(np.concatenate((one_coord[ones[0]], zero_coord[zeros[0]]),axis=0))
+            testing.append(np.concatenate((one_coord[ones[1]], zero_coord[zeros[1]]),axis=0))
+            #This makes the training set
+
+
+
+        #create a numpy array
+        return (training, testing)
+        #return( (np.concatenate((ones_train, zero_train),axis=0), np.concatenate((ones_test, zero_test),axis=0) ))
+        #concatenate the training and test array
+    #equal cv for each user
+
+    def cv_parameter_tuning(self, k, learner_dict=None, fun_list = None):
+
+        training_ind, testing_ind=self.cv(self.learner.X, k)
+        self.values = list()
+        self.corresponding_values = list()
+        for test in testing_ind:
+            self.string_parameters = list()
+            self.recursive_parameter_tuning(self.learner, test, learner_dict =learner_dict, fun_list=fun_list)
+            self.values.append(self.corresponding_values)
+            self.corresponding_values = list()
+            self.file.close()
+
+
+
+    def train_test_split_percent(self, percent):
+        X = self.learner.X
         #keywords:
         #percent - the percent that you want the traiining data to be random
         #folds - number of folds you are working with
@@ -49,7 +106,7 @@ class one_class:
     #equal cv for each user
 
     #partitions data into training and testing data by percentage
-    def cv_equal_user(self, X, percent):
+    def train_test_split_equal_user(self, X, percent):
         #keywords:
         #percent - the percent that you want the traiining data to be random
         #folds - number of folds you are working with
@@ -87,114 +144,138 @@ class one_class:
             #concatenate the training and test array
 
 
-
-    def parameter_tuning(self, learner,  iter_consts, helper_functions, filename = "parameter_tuning_result.txt", testing_ind = None):
-        #note the the leaner and score_helper must already be constructed
-        #iter_consts is a dictionary:
-            #key = name of the parameter
-            #value = tuple (domain of the parameters it belongs into[], string indicating the function it tunes)
-        #helper_functions is a dictionary:
-            #key = category of the function
-            #value = the actual function
-
-        #This model assumes that iter_consts.value[1], helper_function.key, and one of the formal parameters in get_helpers will match
-        parameter_category = list()
+    def function_plugger(self, fun,fun_dict):
         parameter_name = list()
-        iter_parameters = list() #goes through every combination of parameters and plug them into the formula
-        multidimensional = list() #master list of the parameters
-        file = open(filename, "w+")
-        max_score = 0
-
-
-        #iterating through parameter category
-        for (key, value) in iter_consts.items():
-            parameter_category.append(value[1])
-            multidimensional.append(value[0])
+        iterating_values = list()
+        possible_parameters = list()
+        for key, value in fun_dict.items(): #breaking dictionary into two lists
             parameter_name.append(key)
+            iterating_values.append(value)
+        enumerated_values = list(itertools.product(*iterating_values))
+        possible_functions = list()
+        for combo in enumerated_values:
+            parameters = dict(zip(parameter_name, combo)) #this may be enumerated
+            possible_parameters.append(parameters)
+            possible_functions.append(fun(**parameters))
+        return (possible_functions, possible_parameters)
 
-        #creating multidimensional array enumerate all the different possibilities
-        for element in itertools.product(*multidimensional):
-            print(element)
-            iter_parameters.append(element)
+    def recursive_parameter_tuning(self, learner, test_ind, learner_dict=None, fun_list=None):
 
-        for parameters in iter_parameters:
-            #creating these parameters to put in model
-            #creates the initial dictionary for each list.
-            #key = category of the function
-            #value = the actual function
-            c = dict()
-            #finds the category for the parameters
-            for i in range(len(parameter_name)):
-                #adds parameters to their respective category dictionary
-                #adds parameters to function i if it matches
-                if(parameter_category[i] in c):
-                    c[parameter_category [i]][parameter_name[i]] = parameters[i]
-                else:
-                    c[parameter_category [i]] = {parameter_name[i] : parameters[i]}
+        #fun_list is a tuple with (name of function, actual helper function, dictionary ('parameter string', domain)
+        #output best value
+        #best combo, a multidimensional dictionary with d[name of function][parameter] = value
+        best_value = 0
+        if(fun_list == None or len(fun_list) ==0 ):
+            pass
+        else:
+            best_combo = dict()
+            fun_list_copied = fun_list.copy()
+            current_function = fun_list_copied.pop()
+            name = current_function[0]
+            (possible_functions, possible_combinations) = self.function_plugger(current_function[1], current_function[2])
+            #go through two lists at the same time
+            old_string = self.writing_string
 
-
-            #plug in functions to use model and create algorithm
-            #use add_function to the learner to plug in values if the function is not None
-
-            #use add_functions by placing the functions into dictionaries
-            #new diction
-                #key = category name
-                #value = function after being plugged in
-            for category in list(set(parameter_category)): #goes through a unique list of parameter categories
-                if( not(helper_functions[category] == None)):
-                    if(len(c[category]) > 0):
-                        #plugging in stuff for the function. It should work
-                        f = helper_functions[category](**c[category])
-                        learner.get_helpers(**{category : f}) #This needs to be tested
-                    else:
-                        f = helper_functions[category]()
-                        learner.get_helpers(**{category: f})
-                if(category == "learner"):
-                    if(len(c[category]) > 0):
-                        learner.get_parameters(**category)
-            #This part tests the accuracy of the model after getting everything in placed
-            learner.fit(test_indices = testing_ind)
-            val = learner.score(testing_ind)
-            #writing into text file
-            key_input = "(" + ", ".join([str(x) for x in parameters] ) +")"
-            file.write( "%s %s" % (key_input, val) )
-            #create lines that will indicate that the the parameter tuned functions will become none
-            learner.remove_helpers(list(set(parameter_category)))
-            if(val > max_score):
-                max_score = val
-        return max_score
+            for fun, current_combo in zip(possible_functions, possible_combinations):
+                learner.get_helper2(name , fun)
+                self.writing_string =self.writing_string + name+str(current_combo) #This is for writing stuff
+                (value, combined_combo)= self.recursive_parameter_tuning(learner, test_ind, learner_dict, fun_list_copied)
+                self.writing_string = old_string
+                if(value >best_value):
+                    best_value= value
+                    copy_combined_combo = combined_combo #may not be necessary to do this
+                    copy_combined_combo[name] = current_combo
+                    best_combo = copy_combined_combo
+                    #best_combo[name] =  zip( current_function[2].keys(), current_combo)
+            return (best_value, best_combo)
 
 
 
+        if(learner_dict==None or len(learner_dict) ==0):
+            #combined_combo is an empty dictionary
+            combined_combo = dict()
+            learner.fit(test_indices=test_ind)
+            value = learner.score(test_ind)
+            self.string_parameters.append(self.writing_string)
+            self.corresponding_values.append(value)
+            self.writing_string =self.writing_string+str(value)+'\n'
+            self.file.write(self.writing_string)
+            print(self.writing_string)
+            return (value, combined_combo) #just run test here
+        else:
+            best_value =0
+            best_parameters = dict()
+            parameter_name = list()
+            iterating_values = list()
+            #possible_parameters = list()
+            for key, value in learner_dict.items(): #breaking dictionary into two lists
+                parameter_name.append(key)
+                iterating_values.append(value)
+            enumerated_values = list(itertools.product(*iterating_values))
+            old_string = self.writing_string
+            for combo in enumerated_values:
+                parameters = dict(zip(parameter_name, combo)) #this may be enumerated
+                #possible_parameters.append(parameters)
+                learner.get_parameters_2(parameters) #awesome
+                self.writing_string =self.writing_string + 'learner'+str(parameters) #This is for writing stuff
+                (value, combined_combo)= self.recursive_parameter_tuning(learner, test_ind)
+                self.writing_string = old_string
+                if(value >best_value):
+                    best_value= value
+                    combined_combo['learner'] = combined_combo
+                    best_parameters = combined_combo
+            return (value, best_parameters)
 
 
 
 
 
-def bipartite_projection(adj, item_allocation):
-    #gives you
-    #adj is assumed to be the binary item-user matrix where item are the rows and user are the column
-    #see paper in bipartite network projection and personal recommendation for reference
-    adj = np.array([[1, 1, 0, 1], [0, 1, 1, 0], [0, 1, 1, 1]]);
-    size = adj.shape;
-    item_deg=np.dot(adj, np.ones((size[1], 1))) #this finds the degree of the nodes in the item set
-    item_power = np.transpose(adj * (1/item_deg));
-    user_deg = np.dot(np.ones((1, size[0])),adj);
-    user_power = adj * (1/user_deg)
-    W = np.dot(user_power, item_power) #This tells you how much weight that item i will give to j depending how similar it is to j
-    recommend_items= np.dot(W, item_allocation); #This will give you the item distribution for a certain users
-    return (recommend_items, W);
 
 #a 50 by 10 matrix
 
-X = np.concatenate((np.ones((25, 10)), np.zeros((25, 10)) ),axis=0)
-one_class(X)
-print("lol")
-dawg = one_class(X);
-dawg.cv_percent(X, .20)
+# X = np.concatenate((np.ones((25, 10)), np.zeros((25, 10)) ),axis=0)
+# one_class(X)
+# print("lol")
+# dawg = one_class(X);
+# dawg.cv_percent(X, .20)
+# #recursive_parameter_tuning(self, learner, test_ind, learner_dict=None, fun_list=None)
+#
+# def stupid_fun1(a, b=1, c=1):
+#     return lambda d: d*a*b *c
+# def stupid_fun2(e, f=1, g=1):
+#     return lambda d: d*e*f *g
+#
+# fun_list = [['similarity_helper', stupid_fun1, {'a': [1, 2, 3], 'b': [4, 5, 6], 'c': [7, 5, 4]}], \
+#             ['feature_helper', stupid_fun2, {'e':[1, 2, 3], 'f': [4, 5, 6], 'g': [1, 3, 2]}]]
+#
+# X = np.array([[1, 1,1, 1, 0 ], [1, 1, 0, 0, 0], [1, 0, 1, 0, 0]])
 
 
 
+#
+# X = np.array([[1, 1, 1, 1] , [1, 1, 0, 0], [1, 0, 1, 0]])
+# user_feat = np.array([[1, 1, 1, 2, 3], [0, 0, 4, 5, 6], [1, 0, 7, 8, 9], [0,1 , 10, 11, 12]])
+# item_feat = None
+# fun = content.user_to_item_helper(2, 4)
+#
+# cosine = similarity.cosine()
+# content_helper = wlas.content_based_weight(fun,cosine)
+#
+# learner_dict = {"n_topics": [1, 2], "sparseness": [1, 2, 3] }
+#
+#
+#
+#
+# learner = wlas.wlas(X, score_helper=evaluate.rmse, feature_helper = content_helper, user_feat=user_feat, item_feat=item_feat, n_topics=2)
+#
+#
+# test = one_class()
+# train_ind, test_ind = test.cv_percent(X, .20)
+# test.recursive_parameter_tuning(learner, test_ind, learner_dict=learner_dict)
+# #3 users and 5 items
+#
+#
+#
 
 
 

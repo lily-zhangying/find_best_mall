@@ -11,13 +11,18 @@ from sklearn.metrics.pairwise import pairwise_distances
 #feature helper and user_feature are derived from lambda functions
 
 class content(recsys.recsys):
-    def __init__(self,X, similarity_helper = None, feature_helper = None, score_helper = None, item_feat = None, user_feat = None, cluster=None):
+    def __init__(self,X, similarity_helper = None, feature_helper = None, score_helper = None, \
+                 item_feat = None, user_feat = None, cluster=None):
         super(content, self).__init__(X)
         self.feature_helper = feature_helper
         self.score_helper = score_helper
         self.item_feat = item_feat
         self.user_feat = user_feat
         self.similarity_helper = similarity_helper
+
+    def get_helper2(self, name, function):
+        super(content, self).get_helper2(name, function)
+
 
     def get_parameters(self):
         pass
@@ -48,7 +53,6 @@ class content(recsys.recsys):
     def fit(self, train_indices = None, test_indices = None):
         super(content, self).transform_training(train_indices, test_indices)#setting up training data
         # shape return the rows and colonms of the matrix
-        Nitems, Nusers = self.X_train.shape
         #unpack constants from dictionary here
         #setting constants
 
@@ -68,59 +72,37 @@ class content(recsys.recsys):
         self.X_predict = S
 
     def score(self, truth_index):
-        super(content,  self).score(truth_index)
+        return super(content,  self).score(truth_index)
 
 
 
-# def distance(X_train, item_feat, user_feat):
-#     LONG_IND =
-#     LAD_IND =
-#     #stores that mallls belong into
-#     #creating a new item_transform matrix
-#     # LONG_IND is the colomn index of the user feature matrix
-#     user_transform = user_feat[:, (LONG_IND, LAD_IND)]
-#     item_transform = np.zeros((X_train.shape[0], 2))
-#     for i in np.arange(X_train.shape[0]):
-#         mall_indexes = (X_train[i, :] == 1)
-#         stores_coordinates = user_feat[mall_indexes, : ][:, (LONG_IND, LAD_IND)] #get coordinates fast
-#         item_transform[i, :]= np.mean(stores_coordinates, axis=0)
-#
-#     return (item_transform, user_transform)
-
-#finds a way to represent item features as the same as users
-# def demographic(X_train, item_feat, user_feat):
-#     START =
-#     END = + 1#remember to +1 as an offset
-#     #stores that mallls belong into
-#     #creating a new item_transform matrix
-#     # LONG_IND is the colomn index of the user feature matrix
-#     user_transform = user_feat[:, (START, END)]
-#     item_transform = np.zeros((X_train.shape[0], END - START-1))
-#     #possibly faster if you use a join and a group in pandas
-#     for i in np.arange(X_train.shape[0]):
-#         mall_indexes = (X_train[i, :] == 1)
-#         stores_coordinates = user_feat[mall_indexes, : ][:, START:END] #get coordinates fast
-#         item_transform[i, :]= np.mean(stores_coordinates, axis=0)
-#
-#     return (item_transform, user_transform)
 
 def user_to_item(X_train, item_feat, user_feat, start, end):
     #creates a nice lambda function
     START = start
-    END = end + 1#remember to +1 as an offset
+    END = end+1#remember to +1 as an offset
     #stores that mallls belong into
     #creating a new item_transform matrix
     # LONG_IND is the colomn index of the user feature matrix
-    user_transform = user_feat[:, (START, END)]
-    item_transform = np.zeros((X_train.shape[0], END - START-1))
+    user_transform = user_feat[:, START:END]
+    item_transform = np.zeros((X_train.shape[0], END - START))
     #possibly faster if you use a join and a group in pandas
-    for i in np.arange(X_train.shape[0]):
-        mall_indexes = (X_train[i, :] == 1)
-        stores_coordinates = user_feat[mall_indexes, : ][:, START:END] #get coordinates fast
-        item_transform[i, :]= np.mean(stores_coordinates, axis=0)
+    for i in np.arange(X_train.shape[0]): #go through all stores
+        mall_indexes = (X_train[i, :] == 1) #finds all the malls that have store i
+        store_features = user_feat[mall_indexes, : ][:, START:END] #get coordinates fast
+        test = np.average(store_features, axis=0)
+        item_transform[i, :]= test
 
     return (item_transform, user_transform)
 
-#a much more general form of the actual shit
+#helper that extracts columns from a the mall matrix
 def user_to_item_helper(start, end):
-    return lambda X_train, item_feat, user_feat : user_to_item(X_train, item_feat, user_feat, start, end)
+    return lambda X, item_feat, user_feat : user_to_item(X, item_feat, user_feat, start, end)
+
+# X = np.array([[1, 1, 1, 1] , [1, 1, 0, 0], [1, 0, 1, 0]])
+# user_feat = np.array([[1, 1, 1, 2, 3], [0, 0, 4, 5, 6], [1, 0, 7, 8, 9], [0,1 , 10, 11, 12]])
+# item_feat = None
+# fun = user_to_item_helper(2, 4)
+# cosine = similarity.cosine()
+# test = content(X, similarity_helper=cosine, user_feat=user_feat, item_feat=item_feat, feature_helper=fun)
+# test.fit()
