@@ -15,25 +15,21 @@ import content
 import wlas
 import evaluate
 import pop_rec
+import pandas as pd
 from sklearn import cross_validation
 
 class one_class:
-    def __init__(self, filename = 'dummy.txt', learner =None, X=None):
+    def __init__(self, filename = None, learner =None, X=None):
         self.learner = learner; #X is the matrix that we are dealing with. The rows are items and columns are users.
         #training_data #binary mat determining which is enteries are in the training set
         #testing_data #binary mat determining which is enteries are in the testing set
         self.writing_string =""
         self.filename = filename
-        self.file = open(filename, "w+")
-        self.string_parameters = list()
-        self.corresponding_values = list()
 
-            #default constants
-        #cons =
 
     #partitions data into training and testing data by percentage
     def cv(self, k):
-        #output: gives you a list of items to output
+        #output: gives you a list of indices
         X = self.learner.X
         #find indices of ones and put them into training/testing sets
         ones_x, ones_y = np.nonzero(X[: ,:] == 1)
@@ -62,22 +58,59 @@ class one_class:
 
         #create a numpy array
         return (training, testing)
-        #return( (np.concatenate((ones_train, zero_train),axis=0), np.concatenate((ones_test, zero_test),axis=0) ))
-        #concatenate the training and test array
-    #equal cv for each user
 
-    def cv_parameter_tuning(self, k, learner_dict=None, fun_list = None):
+    def split_training(self, k, training):
+        #output: returns to you a kfold validation split in the training set
+        np.random.shuffle(training)
+        kf_indices = cross_validation.KFold(training.shape[0], n_folds=k)
 
-        training_ind, testing_ind=self.cv(self.learner.X, k)
-        self.values = list()
-        self.corresponding_values = list()
+        #X = self.learner.X
+
+
+
+        training_set = list()
+        validation_set = list()
+
+        for training_ind, validation_ind in kf_indices:
+            training_set.append(training[training_ind])
+            validation_set.append(training[validation_ind])
+
+        return (training_set, validation_set)
+
+
+    def cv_parameter_tuning(self, k, learner_dict=None, fun_list = None, filename = None): #next time add testing indices as variable
+        #put results into a dictionary
+        training_ind, testing_ind=self.cv(k)
+        self.results = dict()
+        self.iteration = 0
+        #save everything to a csv file
         for test in testing_ind:
-            self.string_parameters = list()
             self.recursive_parameter_tuning(self.learner, test, learner_dict =learner_dict, fun_list=fun_list)
-            self.values.append(self.corresponding_values)
-            self.corresponding_values = list()
-            self.file.close()
+            self.iteration = self.iteration +1
+        writeup = pd.DataFrame(self.results).T
+        if(not(filename == None)):
+            writeup.to_csv(self.filename) #save results here
+        return writeup
 
+    def cv_parameter_tuning_on_validation(self, k, training, testing, learner_dict=None, fun_list = None, filename = None):
+        #creates a split on the training set to make a local training and validation set. This is used to train the recursive_parameter_tuning
+        training_ind, validation_ind=self.split_training(k, training)
+        self.results = dict()
+        self.iteration = 0
+        #save everything to a csv file
+        for validate in validation_ind:
+            print(validate.shape)
+            print(testing.shape)
+            lol = np.concatenate((validate ,testing ),axis=0)
+
+            print(lol)
+            self.recursive_parameter_tuning(self.learner, validate, learner_dict =learner_dict, fun_list=fun_list)
+            #self.recursive_parameter_tuning(self.learner, np.concatenate((validate, testing), axis=0), learner_dict =learner_dict, fun_list=fun_list)
+            self.iteration = self.iteration +1
+        writeup = pd.DataFrame(self.results).T
+        if(not(filename == None)):
+            writeup.to_csv(self.filename) #save results here
+        return writeup
 
 
     def train_test_split_percent(self, percent):
@@ -159,6 +192,7 @@ class one_class:
             possible_functions.append(fun(**parameters))
         return (possible_functions, possible_parameters)
 
+
     def recursive_parameter_tuning(self, learner, test_ind, learner_dict=None, fun_list=None):
 
         #fun_list is a tuple with (name of function, actual helper function, dictionary ('parameter string', domain)
@@ -196,10 +230,12 @@ class one_class:
             combined_combo = dict()
             learner.fit(test_indices=test_ind)
             value = learner.score(test_ind)
-            self.string_parameters.append(self.writing_string)
-            self.corresponding_values.append(value)
+            if not (str(self.writing_string) in self.results):
+                self.results[str(self.writing_string)] = dict()
+
+            self.results[str(self.writing_string)][self.iteration] = value
+
             self.writing_string =self.writing_string+str(value)+'\n'
-            self.file.write(self.writing_string)
             print(self.writing_string)
             return (value, combined_combo) #just run test here
         else:

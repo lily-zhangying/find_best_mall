@@ -64,7 +64,7 @@ def mall_latent_features(X, feat, n_topics=10, sparse_degree = 1):
 
 #This is the lambda function where you plug in stuff
 def mall_latent_helper(n_topics=10, sparse_degree = 1):
-    return(lambda X, feat: mall_latent_features(X, feat, n_topics, sparse_degree)+.000000001) #using an offset
+    return(lambda X, feat: mall_latent_features(X, feat, n_topics, sparse_degree)) #using an offset
 
 def get_topics(X, feature_names, n_topics=10, n_top_words=10,  sparse_degree=1 ):
     #obtains the topics of nmf

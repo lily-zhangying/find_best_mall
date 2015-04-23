@@ -151,7 +151,7 @@ def user_weight(X, item_feat=None, user_feat=None ):
     #generate the W matrix for each column. So duplicate rowwise by the number of items X.shape[0]
     W = np.array([sum_weight]*X.shape[0])
     W[X==1] = 1
-    return W+.0000000001
+    return W
 
 def item_weight(X, item_feat=None, user_feat=None ):
     #find the column sum
