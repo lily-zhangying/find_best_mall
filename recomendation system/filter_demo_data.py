@@ -210,5 +210,27 @@ def get_X(): #just reads in X and category matrix so loading it will not take ti
     slave = pd.read_csv("Demographic Filtering/mall_with_demographic_category.csv", encoding = "ISO-8859-1", index_col=False)
     slave = slave.ix[:, " accessories": ].as_matrix()
 
+
+
     return (X, slave)
 
+def save_for_purnima(): #just reads in X and category matrix so loading it will not take time
+    master = pd.read_csv("Demographic Filtering/mall_store_list.csv", encoding = "ISO-8859-1", index_col=False)
+    N_stores = master["store"].nunique()
+    N_mall = max(master["new_id"])
+    X = np.zeros( (N_stores, N_mall+1)) #the result
+    joined3 = master[["new_id", "store_id"]]
+    indices = joined3.values.astype(int)
+    X[indices[:, 1], indices[:, 0]] = np.ones(len(joined3.index)) #fill in the entries of the matrix fast
+
+    shop_mall_df = pd.DataFrame(X.T.astype(int))
+
+    #shop_mall_df.to_csv("Purnima/mall_store_matrix.csv") #index=False, index_label=False)
+    shop_mall_df.ix[0:10,0:20].to_csv("Purnima/mall_store_matrix_sample.csv") # get top 50 malls
+
+    slave = pd.read_csv("Demographic Filtering/mall_with_demographic_category.csv", encoding = "ISO-8859-1", index_col=False)
+    slave = slave.ix[0:10, : ].to_csv("Purnima/mall_with_demographic_category.csv")
+
+    return (X, slave)
+
+save_for_purnima()
