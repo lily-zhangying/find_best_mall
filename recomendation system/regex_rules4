@@ -1,13 +1,50 @@
-9346
+9404
+9830
 delete these substrings in strings:
 "^\s*"
 "\s*$"
 General RUles:
 if "[a-zA-Z]\'[a-zA-Z]" then, "\'"
 
+delete these stores:
+massage chairs 1
+massage chairs 2
+
+
 change these strings into:
 dial nstyle -> dial n style
 diamonds by chainary -> diamonds by chainery
+® -> 
+dippindots -> dippin dots
+dippin' dots -> dippin dots
+theatre -> theater
+direct source furniture -> direct furniture
+direct tv -> directv 
+visionworks -> vision works
+dolce \w* salon -> dolce salon
+dollar tree
+dollar value
+doloresreligious -> dolores religious
+doubletree -> double tree
+dr; -> dr
+dressbarn -> dress barn
+drs -> dr
+pikins -> pickins
+edge by ks -> edge
+edward d jones -> edward jones
+edwards \d* cimenas -> edwards theatre
+einstein \w bagels -> einstein bagels
+encore 4 -> encore
+encore 6 -> encore
+escobar \w* tailoring -> escobar tailoring
+evensons hallmark -> evenson hallmark
+executive celluar -> executive cellular
+expressexpress -> express
+chrisian -> christian
+fast-fix jewelery -> fast fix jewelery
+jewlers -> jewelers
+fink jewelers -> finks jewelers
+
 
 find strings containing these substrings and replace them with this string:
 designer fashion
@@ -24,3 +61,143 @@ dillards
 dingbats
 ^dinos
 ^dior
+dippin
+directv
+discount tire
+discount perfume
+discover life
+^discovery
+disney
+diva beauty
+diva nail
+^dk
+dmv
+doc greens
+doc popcorn
+dominos
+don pablo
+don roberto
+donald j pilner
+donatos
+donna karan
+^dq
+^dr
+dragon city
+drakes place
+dragons lair
+dress barn
+dream nails
+dream home
+dreyers
+^dsw
+dtlr
+duclaw brewing
+dunhams
+dunkin
+^duo
+earthbound trading
+easy spirit
+eb games
+^ecco
+^eckerd
+^ecko
+eddie bauer
+edward beiner
+edward jones
+edwards theatre
+^edys
+^ejs
+el carrusel
+el chico
+el dorado
+el jardin
+el paso
+el pollo
+el rincon
+el rodeo
+el taco
+el torito
+elder beerman
+elegance perfume
+elements
+elephant bar
+elephants trunk
+elevation burger
+elite golddiamond
+elite spa
+elizabeth arden
+elizabeth grady
+embarcadero
+embroidery
+emerald city smoothie
+empire today
+encore shoe
+energy armor
+^engraving
+enigma
+^entertainmart
+envy nails
+^enzo
+epiphany
+epitome
+equinox fitness clubs
+ermenegildo zegna
+escada
+escape nail
+eskimo joes
+estee lauder
+eternal trendz
+etiquette
+european wax
+eva varro
+everything yogurt
+excalibur cutlery
+exclusive jewelry
+extreme power
+exxon
+eye care
+eyebrow bar
+^eyebrow beauty
+^eyebrow design
+eyebrow master
+eyebrow plus
+eyebrow threading
+eyemaster
+eyemart
+eyes by india
+f y e
+f2o
+fabulous nails
+factory connection
+factory card
+factory shoe
+fadz
+fairfield inn
+^family affair
+family christian books
+family christian store
+family restroom
+famous daves
+famous hair
+famous teriyaki
+fanzz
+farmers insurance
+farrells ice cream
+fashion bags
+fashion bug
+fashion island
+fashion nail
+fashion tailor
+fashion time
+fashion valley
+fast fix jewelery
+fedex
+femina
+fiesta hair
+fiesta mexican
+finish line
+finishing touch
+firebirds
+firestone
+firewheel town center
+fishbone

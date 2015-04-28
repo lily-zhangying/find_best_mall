@@ -1,0 +1,180 @@
+30009
+delete these substrings in strings:
+"^\s*"
+"\s*$"
+coming soon
+
+
+General RUles:
+if "[a-zA-Z]\'[a-zA-Z]" then, "\'"
+
+
+delete everything containing:
+
+
+
+change these strings into:
+obikamozzarella -> obika mozzarella
+office max -> officemax
+quick fix-it -> quick fix it
+radioshack -> radio shack
+razz-matazz -> razz ma tazz
+razzmatazz -> razz ma tazz
+recreation equip -> recreation equipment
+manago -> mango
+cup cakery -> cupcakery
+regal [0-9]* cinemas -> regal cinema
+regal 18 megaplex -> regal cinema
+regal theaters -> regal cinema
+regal theatres -> regal cinema
+riddle?s -> riddles
+rite-aid -> rite aid
+rocky mtn chocolate  -> rocky mountain chocolate 
+rogerhollands -> rogershollands
+romanos macoroni -> romanos macaroni
+ross-simons -> ross simons
+rue21 -> rue 21
+ruths chris steak house -> ruths chris steakhouse
+sakkio of japan -> sakkio japan
+^sallys -> sally
+^sally’s -> sally
+sarku-japanese -> sarku japanese
+savvi formalwear -> savvi formal wear
+sd; underground -> sd underground
+himalayen -> himalayan
+see’s -> sees
+sees candy -> sees candies
+seiki-shi -> seiki shi
+shirt ofun -> shirt o fun
+shoe depot -> shoe dept
+sign-a-rama -> sign a rama
+sign*a*rama -> sign a rama
+
+find strings containing these substrings and replace them with this string:
+quencher smoothies
+quicksilver
+quiznos
+^qwest
+r stafford
+rack room
+radio shack
+rafferty
+rallys
+ralphs
+randalls
+^rangoli
+rave motion pictures
+reading cinema
+recreational equipment
+red mango
+red nails
+red persimmon
+red ribbon
+red robin
+reebok
+regions bank
+regis
+rejuvenation spa
+relax station
+relaxation station
+remax
+rice village
+^riddles
+right size alterations
+ritas ice
+ritas italian ice
+rite aid
+ritz camera
+^road runner
+^robbins bro
+robbstucky
+robert wayne
+rocco altobelli
+rochelle
+rock bottom
+^rockport
+rocky mountain chocolate
+rocky rococo
+rogershollands
+roman delight
+rooms to go
+rosario salazar
+rose valenti
+rosetta stone
+ross simons
+royal jewelers
+royal touch
+ruby tuesday
+ruby thai
+rudykelly
+rue 21
+ruffinos pizza
+rum runners
+ruths chris steakhouse
+s a elite
+saad jewelers
+safari mini golf
+saks fifth avenue
+sakura japan
+salem five bank
+sally beauty supply
+sally beauty supply
+salvatore ferragamo
+samis ice creamsmoothie
+sample house
+sams tailor
+sams watch
+^samsonite
+samurai sams
+^sansei
+sarku japan
+sarku sushi
+sassy tees
+sassy nail
+saul good restaurantpub
+say cheese photo
+^sbarro
+schakolad chocolate
+scheel
+schianos
+schmitt music
+^schubach
+^scoops
+^scooters
+scotts brewery
+scrub shack
+^seacret
+sean john
+^sears
+seasons 52
+secret nail
+seen on tv
+seiki shi
+selah collection
+select comfort
+self expressions
+self storage
+sephora
+serenity nail
+serranos
+^seven seas
+^sgh
+^shaans
+shakeys
+shalimar
+shapiro luggage
+shear performance
+sheepskin
+shemoni
+shenanigans
+shenktittle
+sheraton
+sherees natural cosmetic
+shi shoes
+shiekh
+shining star
+shoe carnival
+shoe dept
+shoebilee
+shogun japanese
+sign a rama

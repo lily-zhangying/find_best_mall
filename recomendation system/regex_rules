@@ -2,6 +2,7 @@
 delete these substrings in strings:
 "^\s*"
 "\s*$"
+single spacing
 
 change these strings into:
 77kids -> 77 kids
@@ -96,7 +97,7 @@ andrews fine jewel
 angel nail
 ann taylor
 anisas shoes
-anthonys shoe
+anthonysg shoe
 applebee
 apsara
 apropo

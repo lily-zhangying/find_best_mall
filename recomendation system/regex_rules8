@@ -1,0 +1,203 @@
+21150
+delete these substrings in strings:
+"^\s*"
+"\s*$"
+
+
+General RUles:
+if "[a-zA-Z]\'[a-zA-Z]" then, "\'"
+
+
+delete everything containing:
+massage chairs
+meeting room
+
+
+change these strings into:
+k b  -> kb 
+m a c -> mac
+macy?s -> macys
+macy*s -> macys
+macy’s -> macys
+maggianos little ltaly -> maggianos little italy
+maggiemoos -> maggie moos
+maid rite -> maid-rite
+mainland surfskate -> mainland skate
+max ; -> max
+max studio -> maxstudio
+mc donalds -> mcdonalds
+mens warehouse -> mens wearhouse
+metropcs -> metro pcs
+miamaxx -> miamax
+mimi’s cafe -> mimis cafe
+mineral make-up -> mineral make up
+mineral makeup -> mineral make up
+mitchells hair styling -> mitchells hairstyling
+mobile solutions -> t-mobile
+monique’s -> moniques
+mortons the steak house -> mortons steakhouse
+mortons the steakhouse -> mortons steakhouse
+motherhood® -> motherhood
+motherood -> motherhood
+movies \d* -> movies (delete anything with extra digits)
+mrs field’s -> mrs fields
+ms; grill -> ms grill
+my nail -> my nails
+naartije -> naartijie
+optomerty -> optometry
+nestle tollhouse -> nestle toll house
+nestles -> nestle
+nestletoll -> nestle toll
+nordstom -> nordstrom
+nr; gold and silver -> nr gold and silver
+
+find strings containing these substrings and replace them with this string:
+kabobi
+^lucky brand
+^lush
+lush fresh handmade
+^luxe home
+^luxe nail
+luxury nail
+luxury perfume
+lv nails
+lynns hallmark
+mac 
+macconnell research
+macys
+maggie moo
+magic nail
+maidenform
+maid-rite
+mainland skate
+make it fit
+make it personal
+mandala
+marc ecko
+marble slab
+maria antonieta
+marie callender
+^marines
+mario tricoci
+mark pis
+market cellar
+marks barber
+marksmorgan
+maroon bells
+marquee cinemas
+marriott
+marshalls
+martin lawrence
+marukai
+massage envy
+master wok
+mastercuts
+mathnasium
+maui wowi
+maxermas
+maxstudio
+mayo clinic
+mcdonald
+mcguckin
+me-n-eds
+med spa
+mega perfume
+melt gelato
+mens wearhouse
+mephisto
+mercedes
+merle norman
+merrell
+mervyns
+metro barber
+metro pcs
+miamaxx
+miamis best latin american grill
+michael brandon
+michael hill
+michael kors
+michigan army national
+mickeymooch
+mid dakota
+^mignon
+milan golddiamond
+milanos pizza
+mimi maternity
+mineral make up
+mini express
+miracle ear
+miracle eyebrow
+mirror maze
+mitchells fish market
+mng by mango
+mobile connections
+mobile now
+mobile one
+mobile systems
+mobile zone
+modern nail
+modern salon
+modern tailor
+moms cinnamon rolls
+mongolian grill
+moonwalk adventures
+morning glory
+motherhood maternity
+mr bulky
+mr fuzzy
+mr goldman
+mrs cavanaughs
+mrs fields
+^multiplex
+murano glass
+music masters
+musicarts
+my big fat greek
+my gym
+my nails
+my pillow pets
+n3l
+na hoku
+nail bar
+nail care
+nail city
+^nail gallery
+^nail pro
+^nail studio
+^nail trix
+nails so happy
+^naomis
+nathans famous
+nathans coffee
+national university
+nationwide vision
+natural beauty spa
+natural body spa
+natural nail
+natural touch
+nautica
+^navy
+nedrebos
+neiman marcus
+nestle toll house
+new balance
+new dimension comic
+new smoking alternatives
+new york fashion
+new york golddiamond
+new york jewelry
+newbury comics
+newsstand
+nextel
+nickelodeon
+^nike
+nine west
+nineties nails
+nissley wine
+^no fear
+^no limits
+noble romans pizza
+nordstrom
+northside medical
+^ntelos
+nypd pizza
