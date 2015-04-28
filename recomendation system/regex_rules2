@@ -21,9 +21,7 @@ jeweler -> jewelry
 century .* theaters -> century theaters
 champs sp -> champs sport
 ` ->   
-china town -> chinatown
-lake county fare food court ->  
-lake county ->  
+china town -> chinatown 
 christopher and banks -> christopherbanks
 ^cinema [0-9|i|v].* -> cinema
 

@@ -1,13 +1,9 @@
-35000
+38000
 delete these substrings in strings:
 "^\s*"
 "\s*$"
 coming soon
 kiosk
-
-
-General RUles:
-if "[a-zA-Z]\'[a-zA-Z]" then, "\'"
 
 
 delete everything containing the subsets:
