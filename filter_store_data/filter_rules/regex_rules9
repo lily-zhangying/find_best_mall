@@ -1,0 +1,179 @@
+27000
+delete these substrings in strings:
+"^\s*"
+"\s*$"
+
+
+General RUles:
+if "[a-zA-Z]\'[a-zA-Z]" then, "\'"
+
+
+delete everything containing:
+
+
+
+change these strings into:
+obikamozzarella -> obika mozzarella
+office max -> officemax
+ono hawaiian bbq -> onos hawaiian bbq
+penquin -> penguin
+sun wear -> sunwear
+peguin -> penguin
+paul mitchell the school -> paul mitchell school
+peachmac -> peach mac
+perfumegifts -> perfume gifts
+perfumes 4u -> perfumes 4 u
+pharmacy boardshop -> pharmacy board shop
+steakhoagie -> steak hoagie
+philip pelusi -> phillip pelusi
+philips seafood -> phillips seafood
+pinch-a-penny -> pinch a penny 
+piroshky-piroshky -> piroshky piroshky
+polacheks -> polachecks
+police substation -> police sub station
+polo by ralph -> polo ralph
+mens wear -> menswear
+mountain wear -> mountainwear
+pretzelmaker -> pretzel maker
+pro activ -> pro active
+pro active -> pro-active
+pro-activ -> pro-active
+proactiv -> pro-active
+puffs-n-stuffs -> puffs n stuffs
+puffsn stuff -> puffs n stuff
+pursesmore -> purses more
+purses nmore -> purses more
+
+find strings containing these substrings and replace them with this string:
+ocean blue
+oddsends
+off broadway
+okee dokee 
+okongo
+olan mills
+old chicago
+^old navy
+old orchard
+old virginia tabacco 
+olive garde
+olympia sports
+on the bridge
+on the spot jewelry
+one hour photo
+one stop wireless
+ooh la la
+optical image
+optometrist
+orange julius
+orange leaf
+orange tree
+^oreck
+original philly steak
+orvis
+oshkosh
+^outback
+^ovation
+oxford perfume
+p f changs
+pacific sunwear
+pacific theatre
+paciugo
+pacsun
+pagecomm
+^pagoda
+pan asia
+^panda
+pandora
+^panera
+paninoteca
+papaya clothing
+papillon
+pappagallo
+pappoules
+paradise bakery
+paradise found
+paradise pen
+paradise smoothie
+parfumerie
+passage to india
+passion nail
+patchington
+paul brown
+payless
+^pcc
+^pcs
+^pcx
+peach mac
+peets coffee
+pei wei asian
+peninsula luggage
+pepsi
+perfect brow
+perfect eyebrow
+^performance bike
+^perfumania
+^perfume plus
+^periwinkle
+perry ellis
+^personal training
+^pet pillow
+^pet supply
+petco
+peterbrooke
+pf chang
+phillip pelusi
+phillips seafood
+philly cheese steak
+phlayva cut
+physicians imagingvein care clinic
+piazza di giorgio
+piazza sempione
+piccadilly cafeteria
+piccomolo
+picture people
+^picture perfect
+^picture show
+picture this
+pier 1 imports
+piercing pagoda
+pigtails
+pinch a penny
+^pink palm
+pinkabella
+pinkberry
+pinstripes
+pipe dreams
+piroshky piroshky
+pittsburgh steelers
+pizza hut
+^pizza pizza
+planet fitness
+planet hollywood
+planet smoothie
+platinum portrait
+poblanos mexican
+pocket change
+polachecks
+polaris of gainesville
+polished nails
+ralph lauren
+^ponseti
+^pop art
+popeyes
+^potbelly
+^pottery barn
+premier salon
+premier wireless
+premiere cinema
+premiere nail club
+prepaid zone
+president tuxedo
+pretty girl
+pretzel twister
+pretzel maker
+pro-active
+professional hair
+professional tailor
+^pure beauty
+purrfect auto
+quality cellular

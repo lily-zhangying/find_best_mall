@@ -8,16 +8,36 @@ reload(sys)
 import operator
 sys.setdefaultencoding("utf-8")
 
-dir = "/Users/lily/workspace/find_best_mall/filter_store_data/dataset"
+root = "/Users/lily/workspace/find_best_mall/filter_store_data"
+dir = root + "/dataset"
 file = dir + "/store.csv"
 final_file = dir + "/sort_final_store.csv"
-store_id_file = dir + "/store_id_file.csv"
+store_id_file = dir + "/sort_store_id_file.csv"
 stores_list = []
 stores_dic = {}
 
 def remove_accent_marks(input_str):
     nkfd_form = unicodedata.normalize('NFKD', unicode(input_str))
     return u"".join([c for c in nkfd_form if not unicodedata.combining(c)])
+
+def get_rules(name):
+    file = root + "/filter_rules/" + name + "_name_rules.csv"
+    tmp = []
+    with open(file, "rU") as f:
+        reader = csv.reader(f)
+        for row in reader:
+            tmp.append(row[0])
+    f.close()
+    return tmp
+
+ # delete role
+delete_rules = get_rules("delete")
+
+# sub rule
+sub_rules = get_rules("sub")
+# change rule
+change_rules = get_rules("change")
+# print change_rules
 
 with open(file, 'rU') as store_file:
     reader = csv.reader(store_file, delimiter=",")
@@ -62,31 +82,66 @@ with open(file, 'rU') as store_file:
 
         # remove other special characters
         # *, #, !, ?, ', @,  $, +, ; % { }
-        name = re.sub("(\s*)[\.|\,|\\\%|\\\"|\\\'|\(|\)|\?|\@|\$|\+|\;|\\'|\\\"|\{|\}|\!|\*|\#](\s*)", " ", name)
+        name = re.sub("(\s*)[\.|\,|\\\%|\\\"|\\\'|\(|\)|\?|\@|\$|\+|\;|\\'|\\\"|\{|\}|\!|\*|\#|\:|\;|\\'|\!|\\\](\s*)", " ", name)
 
+        name = re.sub("\s+", " ", name)
+        name = name.strip()
+
+        # delete rule
+        # meet these words in delte rules, just ignore them
+        IS_IGNORE = False
+        for rule in delete_rules:
+            if (re.search(rule, name) != None):
+                IS_IGNORE = True
+                break
+        if(IS_IGNORE):
+            continue
+
+        # sub rule
+        # meet sub rules, replace the origin names with the sub sule name
+        for rule in sub_rules:
+            if (re.search(rule, name) != None):
+                new_rule = re.sub("\^", "", rule)
+                name = new_rule
+                break
+
+        # change rule
+        # change store name from A -> B
+        change_rules = get_rules("change")
+        for rule in change_rules:
+            rule = rule.split("->")
+            rule_from = rule[0].strip()
+            # rule_from = pattern = re.compile(re.escape(rule[0].strip()))
+            rule_to = rule[1].strip()
+            name = re.sub(rule_from, rule_to, name)
+
+        # if the name just have spaces, ignore
         if(len(re.sub("\s*", "", name)) <= 0):
             continue
 
         if(len(re.sub("\s*", "", name)) > 0):
-            stores_list.append([name, mall_id])
-
-        # create unique id for stores
-        if not(name in stores_dic):
-            store_id = len(stores_dic) + 1
-            stores_dic[name] = store_id
+            # create unique id for stores
+            if not(name in stores_dic):
+                store_id = len(stores_dic)
+                stores_dic[name] = store_id
+            stores_list.append([name, stores_dic[name],mall_id])
 store_file.close()
+
 
 with open(final_file, 'wb') as file:
     writer = csv.writer(file, delimiter=',')
-    my_list = sorted(stores_list, key=operator.itemgetter(0))
+    my_list = sorted(stores_list, key=operator.itemgetter(1))
+    writer.writerow(["store_name", "store_new_id", "mall_id"])
     for val in my_list:
         writer.writerow(val)
 file.close()
 
 with open(store_id_file, "wb") as file:
     writer = csv.writer(file, delimiter=',')
-    for key, val in stores_dic.items():
-        writer.writerow([key, val])
+    writer.writerow(["store_name", "store_new_id"])
+    my_dic = sorted(stores_dic.items(), key=lambda x: x[1])
+    for val in my_dic:
+        writer.writerow(val)
 file.close()
 
 
