@@ -99,6 +99,8 @@ def user_to_item(X_train, item_feat, user_feat, start, end):
 def user_to_item_helper(start, end):
     return lambda X, item_feat, user_feat : user_to_item(X, item_feat, user_feat, start, end)
 
+
+#This is for testing purposes
 # X = np.array([[1, 1, 1, 1] , [1, 1, 0, 0], [1, 0, 1, 0]])
 # user_feat = np.array([[1, 1, 1, 2, 3], [0, 0, 4, 5, 6], [1, 0, 7, 8, 9], [0,1 , 10, 11, 12]])
 # item_feat = None

@@ -1,7 +1,7 @@
 __author__ = 'John'
 import numpy as np
-import math
 from numpy.linalg import norm
+from haversine import haversine
 #all of the functions return the lambda function
 
 def cosine():
@@ -9,3 +9,6 @@ def cosine():
 
 def gaussian(alpha=1, sigma=1):
     return lambda x, y: alpha* np.exp(-1*pow(norm(x-y), 2)/sigma)
+
+def haversine_helper():
+    return lambda x, y: haversine(x, y, miles=True)

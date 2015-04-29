@@ -12,9 +12,9 @@ class recsys(object):
         pass
     #get the necessary helper functions to do an analysis. may require more parameters for derived classes
     def get_helpers(self, feature_func = None, similarity_func = None):
-        if ( not(feature_func == None) or (self.feature_helper == None)):
+        if ( not(feature_func is None) or (self.feature_helper is None)):
             self.feature_helper = feature_func;
-        if ( not(similarity_func == None) or (self.similarity_helper== None)):
+        if ( not(similarity_func is None) or (self.similarity_helper is None)):
             self.similarity_helper = similarity_func;
 
     def similarity(self, features, similarity_helper, cluster, k):
@@ -30,9 +30,8 @@ class recsys(object):
         #modifies S for cluster information
         cluster_ind = np.array([cluster]*features.shape[0])
         S = np.multiply(S, 1*(cluster_ind == cluster_ind.T))
-        #implement the neighborbased part. This is for better results. Get top K similar people for each user.
-        np.apply_along_axis(find_top_k, 0,S , k=k) #computations can be slow for this model
-        sum_recip = np.sum(S, axis=0)
+        #implement the neighborbased part. This is for better results. Get top K similar people for each user.        np.apply_along_axis(find_top_k, 0,S , k=k) #computations can be slow for this model
+        print(np.nonzero(S[1, :]))
         S_norm =np.multiply(S, 1/np.sum(S, axis=0))  #fast multiplication
 
         S_norm[np.isnan(S_norm)]=0 #deals with nan problem. (Consider the instance that you are the only user and nobody is similar to you.)
@@ -80,9 +79,9 @@ class recsys(object):
         #train_incides must be a |Train_Data|-by-2 matrix.
         #train_indices come in tuples
         self.X_train = np.copy(self.X);
-        if((test_indices== None) and (train_indices == None) ):
+        if((test_indices is None) and (train_indices is None) ):
             return
-        elif(not (test_indices== None)):
+        elif(not (test_indices is None)):
             self.X_train[test_indices[:, 0], test_indices[:, 1]]  = np.zeros((1, test_indices.shape[0]))
             return
         else:

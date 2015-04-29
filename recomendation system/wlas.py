@@ -98,6 +98,10 @@ class wlas(recsys.recsys):
             W = np.ones(Nrow, Ncol) #default
         else:
             W = self.feature_helper(self.X_train, self.item_feat, self.user_feat)
+            if train_indices is None:
+                W[test_indices[:, 0], test_indices[:, 1]] = 0 #This is due to the fact that the test indices should not be considered in the matrix factorization part.
+
+
 
         n_topics = self.n_topics
         nmf_data= decomposition.NMF(n_components=n_topics, sparseness='components', beta=1).fit(self.X)
