@@ -5,6 +5,55 @@ dict = {"test mall": {"footwear": 3, "fasion wholesale": 2, "restaurant": 2, "gu
 import os
 import re
 import numpy as np
+def get_final_demo():
+    mall_dic = {}
+
+    with open(os.path.abspath('mall_with_demo.csv'), 'rU') as f:
+        reader = csv.reader(f, delimiter="\t")
+        title_row = next(reader)
+        title_row[0] = "old_id"
+        title_row.insert(0, "new_id")
+        for row in reader:
+             mall_name = row[1].lower()
+             # delete the old mall id
+             #row.pop(0)
+             mall_dic[mall_name] = row
+    f.close()
+
+    with open(os.path.abspath('..\filter_store_data\dataset\store.csv'), 'rU') as g:
+        reader = csv.reader(g, delimiter=",")
+        next(reader)
+        for row in reader:
+             mall_name = row[1].lower()
+             # delete the old mall id
+             #row.pop(0)
+             mall_dic[mall_name] = row
+    f.close()
+
+    s1 = set(dict.keys())
+    s2 = set(mall_dic.keys())
+    s3 = s1.intersection(s2)
+
+    final = []
+    j = 0
+    for i in s3:
+        id = len(final)
+        demo = mall_dic[i]
+        demo.insert(0, id)
+        category =  ",".join(["%s:%s" % (k, v) for k, v in dict[i].items()])
+        demo.append(category)
+        # append new list here
+        final.append(demo)
+
+
+    with open('final_mall_demo_data.csv', 'w', newline='') as file:
+        writer = csv.writer(file, delimiter=',')
+
+        writer.writerow(title_row)
+        title_row.append("category")
+        for i in final:
+            writer.writerow(i)
+    file.close()
 
 def get_final_demo_revisited():
     #get dictionaries can clan them
@@ -67,6 +116,86 @@ def get_final_demo_revisited():
     #mall_with_category.rename(columns={"mallid": "old_id"}, inplace = True)
     mall_with_category.to_csv("Demographic Filtering/mall_with_demographic_category.csv")
     mall_with_category.to_csv("Demographic Filtering/mall_with_demographic_category_tabbed.csv", sep='\t')
+
+
+
+
+
+
+
+
+
+
+def get_category_matrix():
+    mall_dic = {}
+    with open(os.path.abspath('final_mall_demo_data.csv'), 'rU') as f:
+        reader = csv.reader(f, delimiter=",")
+        title_row = next(reader)
+        for row in reader:
+            mall_name = int(row[0])
+            category = row[-1]  #get old rows
+            category = re.sub(', ', ',', category)
+            category = category.split(",")
+            mall_dic[mall_name]={}
+            if (category == [""]):
+                continue
+            for i in category:
+                (key, val)= i.split(":")
+                key = re.sub('^ ', '', key)
+                mall_dic[mall_name][key] = int(val)
+
+
+
+    f.close()
+    df = pd.DataFrame(mall_dic).T.fillna(0)
+
+    df.to_csv("category_matrix.csv")
+    category_list = list(df.columns.values)
+    return(df.as_matrix(), category_list)
+
+
+def get_binary_matrix():
+    #This is the skeleton of how to create the binary matrix shop-mall matrix
+    #needs dataframe with the stores and unique id.
+    mall_demo = pd.read_csv("Demographic Filtering/mall_with_demographic_category.csv", encoding = "ISO-8859-1", index_col=False) #every entry will not be Nan
+    N_malls = len(mall_demo.index)
+    item = pd.read_csv("../filter_store_data/dataset/store.csv", names=["instances", "store", "mall_id"], encoding = "ISO-8859-1")
+    item = item[item["mall_id"].isin(mall_demo["old_id"])] #This is to make the data smaller
+    joined = pd.merge(mall_demo[["new_id", "old_id", "mall"]], item, left_on='old_id', right_on='mall_id', how='inner') #a simple join betweem the old id in the mall table and the mall id in the store table
+
+
+    #initializing things
+    N_stores = joined["store"].nunique()
+    X = np.zeros( (N_stores, N_malls)) #the result
+
+
+    #####Created new id for the stores
+    stores = pd.unique(joined["store"].values.ravel()) #get unique ids for each store
+    values = range(N_stores)
+    stores = stores.tolist()
+    d = {'store_name': stores, 'store_id': values }
+    stores_df = pd.DataFrame(d)
+    stores_df.to_csv("store_id.csv", header="true")
+    #save for future reference
+    #the line above can be replaced by reading the store table with the unique ids of the stores
+
+
+    joined2 = pd.merge(joined, stores_df, left_on="store", right_on="store_name", how="inner")
+    #Saving to file
+    joined2[[ "mall", "new_id", "old_id", "store", "store_id"]].to_csv("Demographic Filtering/mall_store_list.csv", header="true")
+    joined3 = joined2[["new_id", "store_id"]] #find the relationship between stores
+    #joined.to_csv()
+
+
+    indices = joined3.values.astype(int)
+    print(X.shape)
+    X[indices[:, 1], indices[:, 0]] = np.ones(len(joined3.index)) #fill in the entries of the matrix fast
+    shop_mall_df = pd.DataFrame(X.astype(int))
+    total_stores = np.sum(X, axis=0)
+
+    #shop_mall_df = pd.DataFrame(X.T)
+    shop_mall_df.to_csv("Demographic Filtering/mall_store_matrix.csv") #index=False, index_label=False)
+    shop_mall_df.ix[0:100,:].to_csv("Demographic Filtering/mall_store_matrix_sample.csv") # get top 50 malls
 
 
 def get_X(): #just reads in X and category matrix so loading it will not take time
