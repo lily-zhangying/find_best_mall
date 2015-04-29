@@ -99,11 +99,8 @@ class one_class:
         self.iteration = 0
         #save everything to a csv file
         for validate in validation_ind:
-            print(validate.shape)
-            print(testing.shape)
             lol = np.concatenate((validate ,testing ),axis=0)
 
-            print(lol)
             self.recursive_parameter_tuning(self.learner, validate, learner_dict =learner_dict, fun_list=fun_list)
             #self.recursive_parameter_tuning(self.learner, np.concatenate((validate, testing), axis=0), learner_dict =learner_dict, fun_list=fun_list)
             self.iteration = self.iteration +1
