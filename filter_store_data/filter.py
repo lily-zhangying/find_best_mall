@@ -106,6 +106,7 @@ with open(file, 'rU') as store_file:
                 break
 
         # change rule
+        # change store name from A -> B
         change_rules = get_rules("change")
         for rule in change_rules:
             rule = rule.split("->")
