@@ -73,7 +73,7 @@ def get_final_demo_revisited():
     category['mall'] = category.index
     #apparently, there are malls with no stores. so they will get eleminated
 
-    mall = pd.read_csv("mall_with_demo.csv", encoding = "ISO-8859-1", index_col=False, sep="\t")
+    mall = pd.read_csv("Demographic Filtering/mall_with_demo.csv", encoding = "ISO-8859-1", index_col=False, sep="\t")
     mall["mall"] = mall["mall"].str.lower()
     mall.rename(columns={'name': 'county'}, inplace=True)
     mall = mall.groupby("mall", sort=True).filter(lambda x: len(x) ==1) #remove all entries with extra names. THis creates ambiguity and skewed results
