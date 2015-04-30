@@ -7,9 +7,22 @@ To determine what store should be selected to fit an empty slot in a (target) sh
 * Demographic information of the area, such as earning capacity of the people in the county, the racial groups in the county and so forth, that is a key indicator of the degree of affordability, lifestyle and preferences of the people in the county where the target mall is located. (Data Source: BLS)
 * The category and high-endedness of every brand in every mall in the dataset. (Data Source: Considering scraping Yelp for this information)
 
-## tech
+## technologies
 
-We intend to use two technologies: Pig and Spark in order to carry out this project. Currently, we are evaluating potential Machine Learning libraries and algorithms that will provide most accurate results in our analytics.
+* big data technologies: Pig and Spark 
+* machine learning technologies 
+    * using item-based collaborative filtering, 
+    * user-based collaborative filtering
+    * top-k items
+    * content based recommendation 
+    * occf
+    * combine all the results together
+
+## clusers
+* use aws
+* AWS run hadoop :http://aws.amazon.com/cn/elasticmapreduce/
+* AWS run pig: http://aws.amazon.com/cn/elasticmapreduce/
+* run spark on EC2: https://spark.apache.org/docs/latest/ec2-scripts.html
 
 ## grateful
 We are grateful to Professor Shasha, Professor Lawrence and Professor McIntosh for their guidance.
