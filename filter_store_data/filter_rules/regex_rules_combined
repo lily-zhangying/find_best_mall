@@ -1,0 +1,1919 @@
+3854
+delete these substrings in strings:
+"^\s*"
+"\s*$"
+single spacing
+
+change these strings into:
+: ->  
+` ->
+® ->   
+77kids -> 77 kids
+^cinema [0-9|i|v].* -> cinema
+^sally’s -> sally
+^sallys -> sally
+90’s nails -> 90s nails
+aaronbrothers -> aaron brothers
+accesories -> accessories
+all american frozen -> all american ice cream
+allure -> allure 
+andersson -> anderson
+apple inc -> apple computer
+apple store -> apple computer
+aqua.*spa -> aqua spa
+ardenb -> arden b
+avis.*car -> avis car
+babbagesgame -> babbages game
+babies ‘r -> babies r
+babiesr -> babies r
+babygap -> baby gap
+babys r -> babies r
+back yard -> backyard
+baja mexican -> baja fresh
+barnes and noble -> barnes noble
+barnesnoble -> barnes noble
+bed .*beyond -> bed beyond
+beldens jewel -> belden jewel
+bennett auto -> bennet auto
+best buy mobile -> best buy
+best buy modile -> best buy
+best buy office -> best buy
+betsey johnson -> betsy johnson
+bistro at -> bistro
+bj's -> bjs
+black angus -> black angus
+black diamond skatepark -> black diamond skate park
+boeaubelle -> boeau belle
+brooklyns -> brooklyn
+browz around -> browz a round
+bubba gump shimp -> bubba gump shrimp
+buffalo wingsrings -> buffalo wild wings
+cajungrill -> cajun grill
+cali pro nail -> cali pronail
+cali pro nails -> cali pronail
+cali pronails -> cali pronail
+century .* theaters -> century theaters
+champs sp -> champs sport 
+china town -> chinatown 
+chrisian -> christian
+christopher and banks -> christopherbanks
+co-op -> coop
+coming soon -> coming soon
+crabshack -> crab shack
+cup cakery -> cupcakery
+dial nstyle -> dial n style
+dippin' dots -> dippin dots
+dippindots -> dippin dots
+direct source furniture -> direct furniture
+direct tv -> directv 
+dolce \w* salon -> dolce salon
+dollar tree
+dollar value
+doloresreligious -> dolores religious
+doubletree -> double tree
+dr; -> dr
+dressbarn -> dress barn
+drs -> dr
+edge by ks -> edge
+edward d jones -> edward jones
+edwards \d* cimenas -> edwards theatre
+einstein \w bagels -> einstein bagels
+encore [0-9]* -> encore
+escobar \w* tailoring -> escobar tailoring
+evensons hallmark -> evenson hallmark
+executive celluar -> executive cellular
+expressexpress -> express
+fast-fix jewelery -> fast fix jewelery
+fink jewelers -> finks jewelers
+flemmings -> flemings
+flemmings -> flemings
+fletchers music -> fletcher music
+flipflopshops -> flip flop shops
+foot locker -> footlocker
+forever xxi -> forever 21
+forever21 -> forever 21
+francesca’s -> francescas
+francescos -> francescas
+frederick’s -> fredericks
+freedom wireless -> verison
+frulati -> frullati 
+funk-e-breeze -> funk e breeze
+furnish 1-2-3 -> furnish 1 2 3
+furnish 123 -> furnish 1 2 3
+fusion salonspa -> fusion spa
+g n c -> gnc
+gamestop -> game stop
+gen19 -> gen 19
+general nutrition center -> gnc
+georgios pizze -> georgios pizza
+ghirardelli -> ghiradelli
+glow golf -> glowgolf
+gold ndiamonds -> gold n diamonds
+gold nheart jewelers -> gold n heart jewelers
+gold njewels -> gold n jewels 
+gold ntime -> gold n time
+goldn -> gold n
+goldr -> gold r
+goumet -> gourmet
+great outdoor prov -> great outdoor provision
+greenberg -> greenbergs
+gyu kaku -> gyu-kaku
+harris jewelry -> harris jewelers
+harry richie -> harry ritchie
+hh gregg -> hhgregg
+hibbet -> hibbett
+himalayen -> himalayan
+hollywood theater -> hollywood theatre
+hometowne sports -> hometown sports
+horseshoeshandgrenades -> horseshoeshand grenades
+hr; block -> hr block
+integrity wireless -> t-mobile
+invisiblesheild -> invisible sheild
+itz-a-puzzle -> itz a puzzle
+^j b  -> jb 
+j c penney -> jcpenney
+jack-in-the-box -> jack in the box
+jackson hewit -> jackson hewitt
+jc penney -> jcpenney
+jc penny -> jcpenney
+jcpenny -> jcpenney
+jeweler -> jewelry
+jewelers -> jewelry
+jimmy buffets -> jimmy buffetts
+jo-ann -> joann
+journey kids -> journeys kids
+journey kidz -> journeys kidz
+jump 4 joy -> jump for joy
+just horse naround -> just horsen around
+^k b  -> kb 
+k f c -> kfc
+kay jewel -> kay jewelers
+keiths .* furniture -> keiths furniture
+kellar -> keller
+kentucky fried chicken -> kfc
+kerby’s koney island -> kerbys koney island
+kirklins hallmark -> kirlins hallmark
+kirlin’s -> kirlins
+korean barbecue -> korean bbq
+^l a  -> la 
+l e a p s  -> leaps
+^l k  -> lk 
+^l l  -> ll 
+l m t d -> limited
+la parilla -> la parrilla 
+lay-z-boy -> la-z-boy
+lipoillusion -> lipo illusion
+lk; -> lk
+ll; -> ll
+lollilocko -> lollilocks
+lucielles -> lucilles
+m a c -> mac
+macy?s -> macys
+macy’s -> macys
+macy*s -> macys
+maggianos little ltaly -> maggianos little italy
+maggiemoos -> maggie moos
+maid rite -> maid-rite
+mainland surfskate -> mainland skate
+manago -> mango
+max ; -> max
+max studio -> maxstudio
+mc donalds -> mcdonalds
+mens warehouse -> mens wearhouse
+mens wear -> menswear
+metropcs -> metro pcs
+miamaxx -> miamax
+mimi’s cafe -> mimis cafe
+mineral make-up -> mineral make up
+mineral makeup -> mineral make up
+mitchells hair styling -> mitchells hairstyling
+mobile solutions -> t-mobile
+monique’s -> moniques
+mortons the steak house -> mortons steakhouse
+mortons the steakhouse -> mortons steakhouse
+motherhood® -> motherhood
+motherood -> motherhood
+mountain wear -> mountainwear
+movies \d* -> movies (delete anything with extra digits)
+mrs field’s -> mrs fields
+ms; grill -> ms grill
+my nail -> my nails
+naartije -> naartijie
+nestle tollhouse -> nestle toll house
+nestles -> nestle
+nestletoll -> nestle toll
+nordstom -> nordstrom
+nr; gold and silver -> nr gold and silver
+obikamozzarella -> obika mozzarella
+office max -> officemax
+ono hawaiian bbq -> onos hawaiian bbq
+optomerty -> optometry
+paul mitchell the school -> paul mitchell school
+peachmac -> peach mac
+peguin -> penguin
+penquin -> penguin
+perfumegifts -> perfume gifts
+perfumes 4u -> perfumes 4 u
+pharmacy boardshop -> pharmacy board shop
+philip pelusi -> phillip pelusi
+philips seafood -> phillips seafood
+pikins -> pickins
+pinch-a-penny -> pinch a penny 
+piroshky-piroshky -> piroshky piroshky
+pizzareia -> pizzaria
+polacheks -> polachecks
+police substation -> police sub station
+polo by ralph -> polo ralph
+pretzelmaker -> pretzel maker
+pro activ -> pro active
+pro active -> pro-active
+pro-activ -> pro-active
+proactiv -> pro-active
+puffs-n-stuffs -> puffs n stuffs
+puffsn stuff -> puffs n stuff
+purses nmore -> purses more
+pursesmore -> purses more
+puzzel -> puzzle
+quick fix-it -> quick fix it
+radioshack -> radio shack
+razz-matazz -> razz ma tazz
+razzmatazz -> razz ma tazz
+recreation equip -> recreation equipment
+regal [0-9]* cinemas -> regal cinema
+regal 18 megaplex -> regal cinema
+regal theaters -> regal cinema
+regal theatres -> regal cinema
+riddle?s -> riddles
+rite-aid -> rite aid
+ritz-carlton -> ritz carlton
+rocky mtn chocolate  -> rocky mountain chocolate 
+rogerhollands -> rogershollands
+romanos macoroni -> romanos macaroni
+ross-simons -> ross simons
+rue21 -> rue 21
+ruths chris steak house -> ruths chris steakhouse
+sakkio of japan -> sakkio japan
+sarku-japanese -> sarku japanese
+savvi formalwear -> savvi formal wear
+sd; underground -> sd underground
+see’s -> sees
+sees candy -> sees candies
+seiki-shi -> seiki shi
+shirt ofun -> shirt o fun
+shoe depot -> shoe dept
+sign-a-rama -> sign a rama
+sign*a*rama -> sign a rama
+sizes 5-7-9 -> size 5-7-9
+smashburger -> smash burger
+smoothies paradise -> smoothie paradise
+solarx -> solar x
+soltice sunglass -> solstice sunglass
+somas intimates -> soma intimates
+spotlight performance wea -> spotlight performance wear
+stacy’s -> stacys
+stacys mens wear -> stacys menswear
+steak nbake -> steak n bake
+steakbake -> steak n bake
+steakhoagie -> steak hoagie
+steakn shake -> steak n shake
+straightner -> straightener
+stride-rite -> stride rite
+striderite -> stride rite
+studio fx -> studio f x
+suki-hana -> suki hana
+sun wear -> sunwear
+sunsights soltice -> sunsights solstice
+sweet scentsnmore -> sweet scents-n-more
+swim - n - sport -> swim n sport
+swim nsport -> swim n sport
+t - mobile -> t mobile
+t -mobile -> t mobile
+t g i fridays -> tgi fridays
+t j maxx -> tj maxx
+t-mobiel -> t mobile
+t-mobil -> t mobile
+t-mobile -> t mobile 
+taco john’s -> taco johns
+tapestries by hanoli -> tapestries by hauoli
+taqueria la chacha -> taqueria la cha cha
+teescollectables -> teescollectibles
+the art of tthreading -> the art of threading
+the bon-ton -> the bon ton
+the cheescake factory -> the cheesecake factory
+the children’s -> the childrens
+the cosmetic company -> the cosmetics company 
+the honeybaked ham -> the honey baked ham
+theatre -> theater
+things remebered -> things remembered
+ticket master -> ticketmaster
+ticketm -> ticketmaster
+tmobile -> t mobile
+tosconova -> toscanova
+totesisotonersunglass -> totes isotoner sunglass
+toys - r - us  -> toys r us 
+toys rus -> toys r us
+toys-r-us -> toys r us
+travelworks -> travel works
+tricked out -> tricked-out
+u s air force -> us air force
+u s armed forces -> us armed forces
+u s army -> us army
+u s bank -> us bank
+u s cellular -> us cellular
+u s marine -> us marine
+u s navy -> us navy
+u s polo -> us polo
+u s post office -> us post office
+u s postal service -> us postal service
+u s recruit -> us recruit
+united states post office-> us post office
+universi tees -> universitees
+untd studio-self defense -> untd studios-self defense
+victoria’ -> victoria
+victorias -> victoria
+victorias secret -> victoria secret
+vikings -> viking
+visionworks -> vision works
+vitiman -> vitamin
+weimans shoes -> weiman shoes
+well fargo -> wells fargo
+wendy’s -> wendys
+wetzel pretzel -> wetzels pretzels
+wetzel’s pretzels -> wetzels pretzels
+whichwich -> which wich
+white houseblack market -> white house black market
+wicksn sticks -> wicks n sticks
+wicksnsticks -> wicks n sticks
+williams-sonoma -> williams sonoma
+wings-pizza-n-things -> wings pizza n things
+yardhouse -> yard house
+yogenfruz -> yogen fruz
+f y e -> fye
+united states armed forces career center -> us armed forces
+
+
+find strings containing these substrings and replace them with the left side of the arrow except if they right side of the arrow has these patterns:
+amc -> namco | creamc |amcomm
+^ecco -> ^eccoci
+
+
+
+find strings containing these substrings and replace them with this string:
+24 hour fitness
+^ambers
+^asha 
+^b toy
+^bally
+^barber shop
+^baubles
+^bebe
+^bellagio
+^birkenstock
+^brow art
+^carino
+^cato
+^dinos
+^dior
+^discovery
+^dk
+^dq
+^dsw
+^duo
+^eckerd
+^ecko
+^edys
+^ejs
+^engraving
+^entertainmart
+^enzo
+^eyebrow beauty
+^eyebrow design
+^family affair
+^fuego
+^gap
+^garage
+^garcias
+^gci
+^gents
+^gg
+^gq
+^guess
+^guest service
+^haagen daz
+^habanero
+^habitat
+^hairstyler
+^hallmark
+^hanes
+^happy feet
+^happy nails
+^happy sumo
+^hat world
+^hat zone
+^heakin
+^hm
+^honeybaked ham
+^hot spot
+^hot topic
+^house of hoops
+^house of style
+^how do you roll?
+^howards shoes
+^hurricane grill
+^ihop
+^indulgence
+^industrial ride
+^instyle
+^international perfume
+^intouch
+^ivars
+^j crew
+^japan cafe
+^jared
+^joann
+^jos a bank
+^journeys
+^justice
+^kaplan
+^kicks
+^kodak
+^la bella
+^la belle
+^la moda
+^lids
+^life uniform
+^lifestyle
+^lifeway christian
+^linen
+^lola rouge
+^luciano
+^lucky brand
+^lush
+^luxe home
+^luxe nail
+^marines
+^mignon
+^multiplex
+^nail gallery
+^nail pro
+^nail studio
+^nail trix
+^naomis
+^navy
+^nike
+^no fear
+^no limits
+^ntelos
+^old navy
+^oreck
+^outback
+^ovation
+^pagoda
+^panda
+^panera
+^pcc
+^pcs
+^pcx
+^performance bike
+^perfumania
+^perfume plus
+^periwinkle
+^personal training
+^pet pillow
+^pet supply
+^picture perfect
+^picture show
+^pink palm
+^pizza pizza
+^ponseti
+^pop art
+^potbelly
+^pottery barn
+^pure beauty
+^qwest
+^rangoli
+^riddles
+^road runner
+^robbins bro
+^rockport
+^samsonite
+^sansei
+^sbarro
+^schubach
+^scoops
+^scooters
+^seacret
+^sears
+^seven seas
+^sgh
+^shaans
+^signature nail 
+^sirens
+^sit back
+^skechers
+^sonic
+^sony
+^spencer
+^sprint
+^sprockets
+^stitch it
+^stone oven
+^stoney river
+^subway
+^sun city
+^sun diego
+^sun kiss
+^suncoast
+^sweet frog
+^swirl
+^talbots
+^team sports
+^the grape
+^the salon
+^the shoe dept
+^time out
+^time square
+^toojays
+^top of the line
+^travelex
+^tricked out
+^tropik sun
+^twigs bistro
+^ulta
+^vans
+^vons
+^walking company
+^watch this
+^whole foods
+^windsor
+^wireless world
+^wow smile
+^wrapsody
+^xxi
+^yali
+^yamato jap
+^yihi
+^yuca
+^zagg
+^zales
+^zara
+^ziba
+^zota
+5 7 9
+5 guys
+5 minute rock chip
+7 eleven
+77 kids
+90s nails
+99 cent
+99 restaurant
+a dollar
+a mart
+aaron brothers
+abercrombie
+abuelos
+acapulco
+ad buffalo
+added touch
+adidas
+aerie
+alamo flag
+albertsons
+alexander jewel
+alexis
+all american ice cream
+all natural
+alley cat
+allstar insurance
+alltel
+allure 
+alta moda
+always cellular
+american commodore
+american country
+american eagle
+american express
+american girl
+american greeting
+american jewel
+american nail
+american signature
+americas tire
+ameripark
+ameriprise financial
+ameritel
+amys hallmark
+amys ice cream
+andersen bakery
+andrews fine jewel
+angel nail
+anisas shoes
+ann taylor
+anthonysg shoe
+applebee
+apropo
+apsara
+aqua massage
+aquariums
+arby
+archivers
+arena sports bargrill
+aria bridal
+ariana
+armani
+armed forces
+army national guard
+army recruit
+art is in market
+artfram
+arthur murray dance
+arthur treachers
+as seen on 
+ashley furniture
+ashley stewart
+asian chao
+asian gift
+athletes foot
+atlanta bread
+atlanta jewel
+audible hearing
+auntie anne
+aurora police
+aurora quick
+aussie 
+authentiks
+auto spa
+avalon
+aveda environmental
+aveda institute
+aveda lifestyle
+avenues news
+avia salon
+avon beauty
+aw all american food
+babbages
+baby depot
+baby gap
+bachrach
+backyard burger
+bags n jewelry
+baja fresh
+bamboo garden
+banana republic
+bangolufsen
+bank of america
+bank of hawaii
+banners hallmark
+bare feet
+bare minerals
+bareminerals
+barnes noble
+barneys new york
+barnies coffee
+baskin robbins
+bass pro
+bassett furniture
+bath fitter
+bathbody
+bathfitter
+bb news
+bcbg max
+beard papa
+beautiful nails
+beauty bar
+beauty club
+beauty effect
+beauty express
+beauty plus
+beauty salons of america
+beauty things
+bedazzled
+^belk
+bella luna
+bella pierre
+bella rinova
+bellini
+ben bridge
+ben franklin
+benchmark
+beneash
+beneficial
+benjerry
+bennigans
+bens soft pretzel
+benson
+benzer
+bernini
+bertuccis
+best com
+best western
+bestway rental
+biaggis
+big bowl
+big easy cajun
+big fish
+big island smoothie
+bikram yoga
+bjs
+blackfly
+bling bling
+bliss cupcakes
+blockbuster
+blooming beauty
+bloomingdales
+blossoms
+bobs sports
+body art
+body jewel
+boeau belle
+bon bon
+bon ton
+bonnies
+bonworth
+books a million
+borders
+borics
+boscovs
+bose
+boudin
+bounce around
+bourbon
+bradleys book
+bravo cucina
+brendas crafts
+breslers ice cream
+brewzzi
+bridgeport
+bridgewater commons
+bright house networks
+brighton
+brixx
+brooks brothers
+brueggers bagel
+bruno bro
+brusters
+buddy squirrel
+buffalo wild wings
+build a bear
+burlington coat factory
+bushi tei
+busy bee
+c d clark
+c j banks
+c2 education
+cabo cabana
+cafe bistro
+cafe carolina
+cafe fresh
+cafe typhoon japanese
+cajun cafe
+cajun grill
+calendar club
+cali nails
+caliente
+california chicken roast 
+california nail
+california pizza
+calistoga bakery
+call it spring
+calvin klein
+calypso
+camilla day spa
+cancun mex
+candy wrapper
+candymaker
+cantina 1
+capital grille
+carlene data
+carls jr
+carlson wagonlit travel
+carlton cards
+carlton hair
+carlyle
+carmen carmen
+carmike cinema
+carolina gold buyers
+carson pirie scott
+carters
+casa bella
+casablanca
+castle dental center
+casual male
+catherines plus
+cathy jean
+cc unisex
+cefiore
+cel net
+celebrity kids
+celebrity tuxedos
+cell accessories
+cell fashion
+cell max
+cell needs
+cell phone access
+cellular planet
+cellular wear
+cellular zone
+cellutions
+center management
+champps
+champs sport
+chao praya
+charles david
+charley
+charming charlie
+charter school
+chaucers
+cheesecake factory
+chevron
+chevys mexican
+chicos
+childrens dental
+childrens place
+chilis
+chinex
+chipolte
+chloe
+christian science
+christopherbanks
+chrome hair design
+chuck e cheese
+ciao bella
+cibola
+cincinnati bell
+cincinnati nail
+cinemark
+cinnabon
+city blue
+coffee bean
+credit union
+designer fashion
+designer fragrance
+designer perfume
+designer sunglases
+destination maternity
+dial n style
+diamondsgold
+dick van dyke appliance world
+dicks sporting goods
+didoughs
+dillards
+dingbats
+dippin
+directv
+discount perfume
+discount tire
+discover life
+disney
+diva beauty
+diva nail
+dmv
+doc greens
+doc popcorn
+dominos
+don pablo
+don roberto
+donald j pilner
+donatos
+donna karan
+dragon city
+dragons lair
+drakes place
+dream home
+dream nails
+dress barn
+dreyers
+dtlr
+duclaw brewing
+dunhams
+dunkin
+earthbound trading
+easy spirit
+eb games
+eddie bauer
+edward beiner
+edward jones
+edwards theatre
+el carrusel
+el chico
+el dorado
+el jardin
+el paso
+el pollo
+el rincon
+el rodeo
+el taco
+el torito
+elder beerman
+elegance perfume
+elements
+elephant bar
+elephants trunk
+elevation burger
+elite golddiamond
+elite spa
+elizabeth arden
+elizabeth grady
+embarcadero
+embroidery
+emerald city smoothie
+empire today
+encore shoe
+energy armor
+enigma
+envy nails
+epiphany
+epitome
+equinox fitness clubs
+ermenegildo zegna
+escada
+escape nail
+eskimo joes
+estee lauder
+eternal trendz
+etiquette
+european wax
+eva varro
+everything yogurt
+excalibur cutlery
+exclusive jewelry
+extreme power
+exxon
+eye care
+eyebrow bar
+eyebrow master
+eyebrow plus
+eyebrow threading
+eyemart
+eyemaster
+eyes by india
+f2o
+fabulous nails
+factory card
+factory connection
+factory shoe
+fadz
+fairfield inn
+family christian books
+family christian store
+family restroom
+famous daves
+famous hair
+famous teriyaki
+fanzz
+farmers insurance
+farrells ice cream
+fashion bags
+fashion bug
+fashion island
+fashion nail
+fashion tailor
+fashion time
+fashion valley
+fast fix jewelery
+fedex
+femina
+fiesta hair
+fiesta mexican
+finish line
+finishing touch
+firebirds
+firestone
+firewheel town center
+fishbone
+flash! digital portrait
+flemings
+fletcher music
+flip flop shop
+florsheim
+flying saucer
+focus world
+follow the bunny
+foodland
+foot action
+foot locker
+foot print
+footaction
+forever 21
+forever silver
+fortune gift
+four seasons
+fox and hound
+foxhound
+foxy nail
+frameworks
+francescas
+fratellos
+fred meyer
+freshens yogurt
+frullati
+fuddruckers
+fuji japan
+fuji sushi
+fujiyama
+fun zone
+furry babies
+fusion spa
+fuzziwigs
+fye
+g-star
+gables
+galerie
+game stop
+gameday
+garfields
+gen x
+gene juarez salon
+genghis grill
+genki sushi
+genos
+gentle dental
+georgiou
+geppettos
+gertrude hawk
+get inked
+get it straight
+ghiradelli
+giftsmore
+gilly hicks
+giorgio armani
+girlfriendz
+glamour girl
+glamour shots
+global cellular
+global luggage
+global wireless
+gloria jeans
+glowgolf
+gnc
+go game
+go wireless
+go! calendars
+go! games
+go! the game
+godiva
+gold and diamond
+gold buyer
+gold mine
+gold n gems
+gold n gifts
+gold n heart
+gold n jewels
+gold n silver
+gold n time
+gold n watches
+gold plaza
+golddiamond
+golden krust
+golden links
+golden nail
+golden river
+golden spoon
+golden time
+goldmans
+good hand
+good luck
+good night
+good times
+goodwill
+goodyear
+goodys
+gordon biersch
+gourmet grill
+graffiti
+grand buffet
+grandrabbits
+granite city
+granite transformation
+great american cookie
+great american steak
+great cookie
+great earth
+great kahn
+great lakes bear factory
+great steak
+greek gyros
+green tangerine
+greenberg
+greene turtle
+gregs hallmark
+gringos mexican
+grizzlys grill
+group usa
+gymboree
+hair cuttery
+hair excitement
+hair straightener
+hana grill
+handstone massage
+hard rock cafe
+harkins theatre
+harley davidson
+harold pener
+harpers
+harris jewelers
+harry ritchie
+hawaiian bbq
+headstart
+helzberg diamond
+her style
+hibachi-san
+hibbett
+hickory river smokehouse
+holiday gift wrap
+holiday hair
+holiday inn
+hollidays
+hollywood eyebrow
+hollywood hair
+hollywood nails
+hollywood shot
+hollywood theatre
+home collection
+home paradise
+hometown sports
+horseshoeshand grenades
+hr block
+hugo boss
+hurricane simulator
+hush puppies
+hy-vee
+iguana
+image nails
+image sunwear
+imax
+imperial palace
+improv comedy club
+in touch wireless
+inland ocean
+innovations salon
+instant beauty
+international bank of commerce
+invisible sheild
+island carousel
+island legacy
+islands burger
+islands fine burgers
+italia express
+italian delight
+italian jewelry
+its a pillow
+its fashion
+ivy nails
+ivys
+j barbaro clothiers
+james avery
+jasmine bubble 
+jasmine smoothie
+jb robinson
+jcpenney
+jean madeline
+jeff chang pottery
+jenny craig
+jerrys sub
+jersey mikes
+jestibo
+jet mobile
+jewel box
+jewelz
+jiffy lube
+jillians
+jimmy buffetts margarita
+jimmy choo
+jimmy johns
+joes american bar
+john l scott
+johnny carinos
+johnny carinos
+johns incredible pizza
+joli hair salon
+jolie fleur flower
+jollibee
+jones new york
+jordans hallmark
+jose eber
+jp morgan
+jp sports
+juice it up
+juicy couture
+jules vision
+jump for joy
+just 4 kid
+just dogs
+just sports
+kabobi
+kaleidoscoop
+kangaroo express
+kansas gift store
+kare foot
+karen allen
+karmelkorn
+kasper
+kb home
+kb toy
+keepsake diamond
+keller williams
+kellys cajun
+kellys coffee
+kenneth cole
+kerbys koney island
+kerr drug
+kfc
+kiddie koncepts
+kiddie rides
+kiehls
+kilwin
+kims tailor
+kincaids
+kirklands
+kirlins hallmark
+kitchen magic
+kmart
+kobe japan
+kohr bro
+koko marina
+kona grill
+kool nails
+kool smiles
+kutt 52
+l a nails
+la biotique
+la boutique
+la fleur
+la furniture
+la herencia
+la nails
+la parrilla
+la perfumania
+la perla
+la salsa
+la sandia
+la-z-boy
+labiotique
+lamour nails
+landau
+landsend
+lane bryant
+law office
+layla
+le nail
+le petit
+learning express
+leather company
+lee michaels
+lee nail
+lees hallmark
+lees nail
+lees tailor
+legal sea food
+legends in sports
+lego
+lenscrafter
+leroys
+les nail
+les parfum
+leslies pool
+levis
+liberty finance
+liberty mutual
+liberty steakhouse
+liberty tax
+library
+life strength
+limited
+links of london
+little angel
+little athens
+little tokyo
+liz claiborne
+lizs nail
+ll; hawaiian
+loccitane
+loco moco
+loco-motives
+lolabella
+lordsladys
+los cerritos
+los compadres
+los ranchos
+louis vuitton
+loving hut
+luca pizza
+lush fresh handmade
+luxury nail
+luxury perfume
+lv nails
+lynns hallmark
+mac cosmetics
+macconnell research
+macys
+maggie moo
+magic nail
+maid-rite
+maidenform
+mainland skate
+make it fit
+make it personal
+mandala
+marble slab
+marc ecko
+maria antonieta
+marie callender
+mario tricoci
+mark pis
+market cellar
+marks barber
+marksmorgan
+maroon bells
+marquee cinemas
+marriott
+marshalls
+martin lawrence
+marukai
+massage envy
+master wok
+mastercuts
+mathnasium
+maui wowi
+maxermas
+maxstudio
+mayo clinic
+mcdonald
+mcguckin
+me-n-eds
+med spa
+mega perfume
+melt gelato
+mens wearhouse
+mens wearhouse
+mephisto
+mercedes
+merle norman
+merrell
+mervyns
+metro barber
+metro pcs
+miamaxx
+miamis best latin american grill
+michael brandon
+michael hill
+michael kors
+michigan army national
+mickeymooch
+mid dakota
+milan golddiamond
+milanos pizza
+mimi maternity
+mineral make up
+mini express
+miracle ear
+miracle eyebrow
+mirror maze
+mitchells fish market
+mng by mango
+mobile connections
+mobile now
+mobile one
+mobile systems
+mobile zone
+modern nail
+modern salon
+modern tailor
+moms cinnamon rolls
+mongolian grill
+moonwalk adventures
+morning glory
+motherhood maternity
+mr bulky
+mr fuzzy
+mr goldman
+mrs cavanaughs
+mrs fields
+murano glass
+music masters
+musicarts
+my big fat greek
+my gym
+my nails
+my pillow pets
+n3l
+na hoku
+nail bar
+nail care
+nail city
+nails so happy
+nathans coffee
+nathans famous
+national university
+nationwide vision
+natural beauty spa
+natural body spa
+natural nail
+natural touch
+nautica
+nedrebos
+neiman marcus
+nestle toll house
+new balance
+new dimension comic
+new smoking alternatives
+new york fashion
+new york golddiamond
+new york jewelry
+newbury comics
+newsstand
+nextel
+nickelodeon
+nine west
+nineties nails
+nissley wine
+noble romans pizza
+nordstrom
+nordstrom
+northside medical
+nypd pizza
+ocean blue
+oddsends
+off broadway
+okee dokee 
+okongo
+olan mills
+old chicago
+old orchard
+old virginia tabacco 
+olive garde
+olympia sports
+on the bridge
+on the spot jewelry
+one hour photo
+one stop wireless
+ooh la la
+optical image
+optometrist
+orange julius
+orange leaf
+orange tree
+original philly steak
+orvis
+oshkosh
+oxford perfume
+p f changs
+pacific sunwear
+pacific theatre
+paciugo
+pacsun
+pagecomm
+pan asia
+pandora
+paninoteca
+papaya clothing
+papillon
+pappagallo
+pappoules
+paradise bakery
+paradise found
+paradise pen
+paradise smoothie
+parfumerie
+passage to india
+passion nail
+patchington
+paul brown
+payless
+peach mac
+peets coffee
+pei wei asian
+peninsula luggage
+pepsi
+perfect brow
+perfect eyebrow
+perry ellis
+petco
+peterbrooke
+pf chang
+phillip pelusi
+phillips seafood
+philly cheese steak
+phlayva cut
+physicians imagingvein care clinic
+piazza di giorgio
+piazza sempione
+piccadilly cafeteria
+piccomolo
+picture people
+picture this
+pier 1 imports
+piercing pagoda
+pigtails
+pinch a penny
+pinkabella
+pinkberry
+pinstripes
+pipe dreams
+piroshky piroshky
+pittsburgh steelers
+pizza hut
+planet fitness
+planet hollywood
+planet smoothie
+platinum portrait
+poblanos mexican
+pocket change
+polachecks
+polaris of gainesville
+police department
+polished nails
+popeyes
+premier salon
+premier wireless
+premiere cinema
+premiere nail club
+prepaid zone
+president tuxedo
+pretty girl
+pretzel maker
+pretzel twister
+pro-active
+professional hair
+professional tailor
+purrfect auto
+quality cellular
+quencher smoothies
+quicksilver
+quiznos
+r stafford
+rack room
+radio shack
+rafferty
+rallys
+ralph lauren
+ralphs
+randalls
+rave motion pictures
+reading cinema
+recreational equipment
+red mango
+red nails
+red persimmon
+red ribbon
+red robin
+reebok
+regions bank
+regis
+rejuvenation spa
+relax station
+relaxation station
+remax
+rice village
+right size alterations
+ritas ice
+ritas italian ice
+rite aid
+ritz camera
+robbstucky
+robert wayne
+rocco altobelli
+rochelle
+rock bottom
+rocky mountain chocolate
+rocky rococo
+rogershollands
+roman delight
+rooms to go
+rosario salazar
+rose valenti
+rosetta stone
+ross simons
+royal jewelers
+royal touch
+ruby thai
+ruby tuesday
+rudykelly
+rue 21
+ruffinos pizza
+rum runners
+ruths chris steakhouse
+s a elite
+saad jewelers
+safari mini golf
+saks fifth avenue
+sakura japan
+salem five bank
+sally beauty supply
+sally beauty supply
+salvatore ferragamo
+samis ice creamsmoothie
+sample house
+sams tailor
+sams watch
+samurai sams
+sarku japan
+sarku sushi
+sassy nail
+sassy tees
+saul good restaurantpub
+say cheese photo
+schakolad chocolate
+scheel
+schianos
+schmitt music
+scotts brewery
+scrub shack
+sean john
+seasons 52
+secret nail
+seen on tv
+seiki shi
+selah collection
+select comfort
+self expressions
+self storage
+sephora
+serenity nail
+serranos
+shakeys
+shalimar
+shapiro luggage
+shear performance
+sheepskin
+shemoni
+shenanigans
+shenktittle
+sheraton
+sherees natural cosmetic
+shi shoes
+shiekh
+shining star
+shoe carnival
+shoe dept
+shoebilee
+shogun japanese
+sign a rama
+signature shop
+silver and gold
+silver collection
+silver expression
+silver moon
+silver star
+silverball arcade
+silvergold
+silvermax
+silvertime
+silverwear
+simon youth foundation
+simply fashion
+simply unique
+simply wireless
+sit backrelax
+sk leather
+sleep country
+sleep inn
+sleep number
+sleeping tiger
+slimberry
+slingshot
+small wonders
+smart wireless
+smarte carte strollers
+smell good
+smoke anywhere
+smoke free
+smokehouse
+smokey bones
+snip-its
+software etc
+soho fashion
+solar ex
+solar x
+sole mio
+solemate
+solid gold
+solstice sunglass 
+something special
+sorabol
+sossi formal
+south philly steak
+special occasion
+spectacles
+spirit halloween
+splash perfume
+splitsville
+spoil me
+sports authority
+sports collection
+sports fanatic
+sports treasure
+sports zone
+spring communication
+springleaf financial
+st francis
+st john
+st louis taco
+st louis teacher
+stacy adams
+stacys menswear
+star image
+state farm
+state of the art hearing
+steak escape
+stein optical
+sterling optical
+steve madden
+stevebarrys
+stir fry
+stone creek dining
+strasburg child
+street scene
+street talk
+stride rite
+studio f x 
+studio nails
+studio one
+style nails
+sun nails
+sundance cinema
+sunglass hut
+sunglass shoppe
+sunsights solstice
+sunski sports
+super dollar
+super fitness
+super kmart
+super silver
+superstar barbershop
+surf city squeeze
+susan g komen
+swarovski
+sweet factory
+sweet peppers
+sweetness sweet
+swiss watch gallery
+sylvan learning
+sylvias beauty supply
+sylvias bridal
+t mobile
+t mobile
+taco bell
+taco palenque
+tag youre it
+takara japanese
+talk mobile
+talk wireless
+tcby treat
+teavana
+television frenzies
+tepanyaki
+teriyaki japan
+territorial savings
+territory ahead
+teuscher chocolates
+texas de brazil
+texas instruments
+texas roadhouse
+texas treasures
+texshirleys
+the airbrush 
+the arches threading
+the athletes foot
+the barber shop
+the burning sands
+the cheesecake factory
+the childrens place
+the corner bakery
+the diner
+the foundry bigtall
+the great frame up
+the great indoors
+the honey baked ham 
+the nail spa
+the noerr programs
+the shoe department
+the shop at equinox
+the tasting room
+things remembered
+this little piggy
+thomas kinkade
+tic tac toe
+ticketmaster
+tilt family entertainment
+time warner cable
+tinseltown
+tire america
+tj maxx
+todai
+todinos
+tokyo japan
+tomi sushiseafood
+tommy bahama
+tommy hilfiger
+torrid
+totes isotoner sunglass
+toys r us
+trade secret
+trader toms shellsgifts
+trend setters
+tri-valley cash
+tropical smoothie
+true religion
+trulucks seafood
+tuesday morning
+tumbleweed
+tutti frutti
+ultra diamond
+umi sushi
+uncle julios
+under armour
+under your skin
+union bank
+unique hair
+united states armed forces career center
+university sports
+urban outfitters
+us air force
+us armed forces
+us army
+us bank
+us cellular
+us marine
+us navy
+us polo
+us post office
+us postal service
+us recruit
+uv 400
+va abc
+valentino
+venetian nail
+vera bradley
+verizon
+viaero
+victoria gardens
+victoria secret
+victorias handbags
+video button
+villa fresh italian
+village gallery
+vintage jewel
+wachoiva
+wahoos fish taco
+walmart
+watchjewelry repair
+wells fargo
+wendys
+were rolling pretzel
+western union
+westfield concierge
+westwood cinema
+wetzels pretzel
+whats kickin maternity
+which wich
+white barn candle
+white house black market
+wholly cow
+wild country
+wildcats body jewelry
+william e wood
+williams sonoma
+wilsons leather
+windermere
+winespirits
+winners
+wireless 4 u
+wireless champs
+wireless connection
+wireless lifestyle
+wireless now
+wireless thats it
+wireless zone
+wolf camera
+wolfgang puck
+wood ranch
+work diamond king
+worldwide luggage
+wow brows
+wyndham
+wynfrey hotel
+xooro
+xpression
+xsport
+yanagi
+yankee candle
+yard house
+yeti wireless
+ymca
+yogen fruz
+you say when yogurt
+young laundry
+zinburger
+zingara
+zippys
+zocalo
+zoup!
+ztejas
+
+
+Make these changes compiling:
+champs sportort -> champs sport
+michaelkors -> michael kors
+footaction -> foot action
+applebee -> apple bee
