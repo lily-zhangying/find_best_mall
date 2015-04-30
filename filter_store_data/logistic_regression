@@ -1,0 +1,38 @@
+import org.apache.spark.mllib.regression.LabeledPoint
+import org.apache.spark.mllib.linalg.Vectors
+import org.apache.spark.mllib.classification.LogisticRegressionWithSGD
+val data = sc.textFile("/share/apps/spark-1.3.0/bin/allmallsfinal.txt")
+val splits = data.randomSplit(Array(0.7, 0.3), seed = 11L)
+val training = splits(0)
+val test = splits(1)
+
+val trainingData = training.map { row =>
+  val parts = row.split('\t')
+  val features = Vectors.dense(parts(9).toDouble, parts(10).toDouble,
+  parts(11).toDouble, parts(12).toDouble, parts(13).toDouble, parts(14).toDouble, parts(15).toDouble,
+  parts(16).toDouble, parts(17).toDouble, parts(18).toDouble, parts(19).toDouble, parts(20).toDouble,
+  parts(21).toDouble, parts(22).toDouble, parts(23).toDouble, parts(24).toDouble, parts(25).toDouble,
+  parts(26).toDouble, parts(27).toDouble, parts(28).toDouble, parts(29).toDouble, parts(30).toDouble, parts(31).toDouble, parts(32).toDouble)
+  LabeledPoint(parts(1).toDouble, features)
+}
+
+val numIterations = 100
+val model = LogisticRegressionWithSGD.train(trainingData, numIterations)
+
+case class Result (mallid: Int, predictedpresence: Double, originalpresence: Double)
+
+val finalpredictions = test.map { row =>
+  val parts = row.split('\t')
+  val features = Vectors.dense(parts(9).toDouble, parts(10).toDouble,
+  parts(11).toDouble, parts(12).toDouble, parts(13).toDouble, parts(14).toDouble, parts(15).toDouble,
+  parts(16).toDouble, parts(17).toDouble, parts(18).toDouble, parts(19).toDouble, parts(20).toDouble,
+  parts(21).toDouble, parts(22).toDouble, parts(23).toDouble, parts(24).toDouble, parts(25).toDouble,
+  parts(26).toDouble, parts(27).toDouble, parts(28).toDouble, parts(29).toDouble, parts(30).toDouble, parts(31).toDouble, parts(32).toDouble)
+  Result(parts(0).toInt, model.predict(features), parts(1).toInt)
+}
+
+val valuesAndPreds = finalpredictions.map { point =>
+  (point.originalpresence, point.predictedpresence)
+}
+val MSE = valuesAndPreds.map{case(v, p) => math.pow((v - p), 2)}.mean()
+println("Mean Squared Error = " + MSE)
