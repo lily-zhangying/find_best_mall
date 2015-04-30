@@ -14,6 +14,7 @@ for file in glob.glob(dir + "2013.q1-q4.by_area/*.csv"):
     i=i+1;
     with open(file, 'r') as csvfile:
         print("%i out of %i" % (i, file_count));
+        print file;
         reader = csv.reader(csvfile, delimiter=',')
         title_row = next(reader)
         for row in reader:

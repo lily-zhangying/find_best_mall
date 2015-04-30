@@ -45,6 +45,7 @@ with open(file, 'rU') as store_file:
         # lowercase and trim string
         mall_id = row[2].lower().strip()
         name = row[1].lower().strip()
+        print name
         # replace several spaces to one space
         name = re.sub("\s+", " ", name)
         # remove special characters
@@ -111,7 +112,6 @@ with open(file, 'rU') as store_file:
         for rule in change_rules:
             rule = rule.split("->")
             rule_from = rule[0].strip()
-            # rule_from = pattern = re.compile(re.escape(rule[0].strip()))
             rule_to = rule[1].strip()
             name = re.sub(rule_from, rule_to, name)
 
