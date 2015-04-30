@@ -352,12 +352,6 @@ f y e -> fye
 united states armed forces career center -> us armed forces
 
 
-find strings containing these substrings and replace them with the left side of the arrow except if they right side of the arrow has these patterns:
-amc -> namco | creamc |amcomm
-^ecco -> ^eccoci
-
-
-
 find strings containing these substrings and replace them with this string:
 24 hour fitness
 ^ambers
@@ -1917,3 +1911,10 @@ champs sportort -> champs sport
 michaelkors -> michael kors
 footaction -> foot action
 applebee -> apple bee
+
+
+
+find strings containing these substrings and replace them with the left side of the arrow except if they right side of the arrow has these patterns:
+amc -> namco | creamc |amcomm
+^ecco -> ^eccoci
+

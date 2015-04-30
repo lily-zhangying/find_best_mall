@@ -11,11 +11,11 @@ To determine what store should be selected to fit an empty slot in a (target) sh
 
 * big data technologies: Pig and Spark 
 * machine learning technologies 
-    * using item-based collaborative filtering, 
+    * item-based collaborative filtering
     * user-based collaborative filtering
     * top-k items
     * content based recommendation 
-    * occf
+    * one class collaborative filtering
     * combine all the results together
 
 ## clusers
@@ -23,6 +23,10 @@ To determine what store should be selected to fit an empty slot in a (target) sh
 * AWS run hadoop :http://aws.amazon.com/cn/elasticmapreduce/
 * AWS run pig: http://aws.amazon.com/cn/elasticmapreduce/
 * run spark on EC2: https://spark.apache.org/docs/latest/ec2-scripts.html
+
+## More Information
+* Diagram: https://github.com/lily-zhangying/find_best_mall/blob/master/diagrams.pdf
+* Paper: https://github.com/lily-zhangying/find_best_mall/blob/master/IEEE%2BRough%2BDraft.pdf
 
 ## grateful
 We are grateful to Professor Shasha, Professor Lawrence and Professor McIntosh for their guidance.
