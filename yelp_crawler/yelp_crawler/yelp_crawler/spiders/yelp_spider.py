@@ -11,9 +11,10 @@ class YelpSpider(Spider):
 
     def get_start_urls():
         start_urls = []
-        dir = "/Users/lily/workspace/crwaler/yelp_crawler/yelp_crawler/yelp_crawler/dataset/"
-        with open(dir + 'final_store_9.csv', 'rb') as csvfile:
+        dir = "/Users/lily/workspace/find_best_mall/yelp_crawler/yelp_crawler/yelp_crawler/dataset/"
+        with open(dir + 'sort_store_id_file.csv', 'rb') as csvfile:
             reader = csv.reader(csvfile, delimiter=',')
+            title_row = next(reader)
             for row in reader:
                 mall = row[0]
 # http://www.yelp.com/search?find_loc=USA&ns=1?#find_desc=prada
@@ -56,6 +57,6 @@ class YelpSpider(Spider):
             #@todo replace $$$$ with numbers
             item['price_range'] = first_store.xpath('.//div[@class="price-category"]/span/span/text()').extract()
             item['category'] = first_store.xpath('.//span[@class="category-str-list"]/a/text()').extract()
-            item['url'] = first_store.xpath('cd.//a[@class="biz-name"]/@href').extract()
+            # item['url'] = first_store.xpath('cd.//a[@class="biz-name"]/@href').extract()
             items.append(item)
         return items
