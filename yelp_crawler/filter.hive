@@ -1,16 +1,14 @@
+﻿DROP TABLE YELP_DATA;
 CREATE TABLE YELP_DATA (
-    category STRING
-    rate STRING
-    name STRING
-    address STRING
-    url STRING
+    category STRING,
+    rate STRING,
+    name STRING,
+    address STRING,
+    url STRING,
     price_range STRING
 )ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE;
 
-LOAD DATA LOCAL INPATH 'result/final_yelp_data.csv'
-OVERWRITE INTO TABLE YELP_DATA;
+LOAD DATA INPATH '/user/cloudera/hive/final_yelp_data.csv' OVERWRITE INTO TABLE YELP_DATA;
 
-INSERT OVERWRITE LOCAL DIRECTORY 'output/yelp_data' SELECT
-  YELP_DATA.name, YELP_DATA.category, YELP_DATA.rate, YELP_DATA.price_range)
-  AS (name, category, rate, price_range)
-FROM YELP_DATA;
+INSERT OVERWRITE DIRECTORY '/user/cloudera/hiveoutput/yelp_data' SELECT
+  name,category,rate,price_range FROM YELP_DATA;
