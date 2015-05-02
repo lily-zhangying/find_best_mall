@@ -1,4 +1,4 @@
-﻿DROP TABLE YELP_DATA;
+﻿﻿DROP TABLE YELP_DATA;
 CREATE TABLE YELP_DATA (
     category STRING,
     rate STRING,
@@ -8,7 +8,7 @@ CREATE TABLE YELP_DATA (
     price_range STRING
 )ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE;
 
-LOAD DATA INPATH '/user/cloudera/hive/final_yelp_data.csv' OVERWRITE INTO TABLE YELP_DATA;
+LOAD DATA INPATH 's3://lilybuckettest3210/input/final_yelp_data.csv' OVERWRITE INTO TABLE YELP_DATA;
 
-INSERT OVERWRITE DIRECTORY '/user/cloudera/hiveoutput/yelp_data' SELECT
+INSERT OVERWRITE DIRECTORY 's3://lilybuckettest3210/output/hive/yelp_data' SELECT
   name,category,rate,price_range FROM YELP_DATA;
