@@ -7,7 +7,7 @@ CREATE EXTERNAL TABLE YELP_DATA (
 LOAD DATA INPATH 's3://lilybuckettest3210/input/test.csv' OVERWRITE INTO TABLE YELP_DATA;
 
 insert overwrite table yelp_data
-SELECT
+SELECTclear
   regexp_extract(yelp_info, '^(?:([^,]*)\,?){1}', 1) category,
   regexp_extract(yelp_info, '^(?:([^,]*)\,?){2}', 1) rate,
   regexp_extract(yelp_info, '^(?:([^,]*)\,?){3}', 1) name,
