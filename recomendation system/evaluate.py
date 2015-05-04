@@ -23,7 +23,6 @@ def ranked_precision(*kwargs):
     #sort predictions
     (sorted_pred, index) = sort_prediction_all(predictions)
     truth = truth[index];
-    print(truth)
     if(len(kwargs) ==2):
         each_precision = np.divide(np.cumsum(truth), np.arange(1, (truth.shape[0]+1)))
         average_precision = np.dot(each_precision, truth)/np.sum(truth)
@@ -57,7 +56,6 @@ def map(X, X_predict, test_indices):
             truth = X[canidates[:, 0], canidates[:, 1]]
             #print(prediction)
             (sorted_pred, index) =sort_prediction_all(prediction)
-            print(truth[index])
             if(np.sum(truth) > 0):
                 val = val + ranked_precision(prediction, truth)
                 n_users_in_test = n_users_in_test +1

@@ -30,8 +30,8 @@ class recsys(object):
         #modifies S for cluster information
         cluster_ind = np.array([cluster]*features.shape[0])
         S = np.multiply(S, 1*(cluster_ind == cluster_ind.T))
-        #implement the neighborbased part. This is for better results. Get top K similar people for each user.        np.apply_along_axis(find_top_k, 0,S , k=k) #computations can be slow for this model
-        print(np.nonzero(S[1, :]))
+        #implement the neighborbased part. This is for better results. Get top K similar people for each user.
+        np.apply_along_axis(find_top_k, 0,S , k=k) #computations can be slow for this model
         S_norm =np.multiply(S, 1/np.sum(S, axis=0))  #fast multiplication
 
         S_norm[np.isnan(S_norm)]=0 #deals with nan problem. (Consider the instance that you are the only user and nobody is similar to you.)

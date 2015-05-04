@@ -169,35 +169,45 @@ class regression_ensemble(recsys.recsys):
         self.eps = eps
 
     def fit(self):
+        #create a linear regression between the predictions in the validation dataset
         X_model = np.zeros((self.validation_indices.shape[0], len(self.models)))
         for i in range(len(self.models)):
-            print(self.validation_indices)
-            print(self.models[i].X_predict)
             X_model[:, i] = self.models[i].X_predict[self.validation_indices[:, 0], self.validation_indices[:, 1]]
         y = self.X[self.validation_indices[:, 0], self.validation_indices[:, 1]]
         clf =  LinearRegression(False)
         clf.fit(X_model, y)
-        print(clf.score(X_model, y))
-        print(clf.coef_)
+        self.X_predict = np.zeros( self.X.shape)
+        self.coef= clf.coef_
+        for i in range(len(self.models)): #maybe could be faster
+            self.X_predict = self.X_predict + clf.coef_[i] *(self.models[i].X_predict) #Compute linear sum between models
         return clf.coef_
 
 
+    def score(self, truth_index):
+        return super(regression_ensemble,  self).score(truth_index)
 
+    def predict_for_user(self, user_ratings, user_feat, k, feature_transform_all =None):
+        self.predicted_values = np.zeros((1, self.X.shape[0]))
+        for i in range(len(self.models)):
+            self.models[i].predict_for_user(user_ratings, user_feat, k, feature_transform_all)
+            self.predicted_values = self.predicted_values + self.models[i].predicted_values
+        result = np.argsort(-1*self.predicted_values.T) #predict top results
+        return result[0:k]
 
 
 
 #
+# #
+# X = np.array([[1, 0, 1], [1, 1, 0], [0, 0, 0]])
+# models = list()
+# for i in range(3):
+#     models.append(pop_rec.pop_rec(X))
+# models[0].X_predict = np.array([[.5, -.25, 1], [1, 1, .25], [0, 0, 0]])
+# models[1].X_predict = np.array([[.7, .8, 1], [1, .9, .9], [0, 0, 0]])
+# models[2].X_predict = np.array([[1, 1.5, 1], [1, .9, .2], [0, 0, 0]])
+# validation_indices = np.array([[0, 0, 1], [0, 1, 2]]).T
 #
-X = np.array([[1, 0, 1], [1, 1, 0], [0, 0, 0]])
-models = list()
-for i in range(3):
-    models.append(pop_rec.pop_rec(X))
-models[0].X_predict = np.array([[.5, -.25, 1], [1, 1, .25], [0, 0, 0]])
-models[1].X_predict = np.array([[.7, .8, 1], [1, .9, .9], [0, 0, 0]])
-models[2].X_predict = np.array([[1, 1.5, 1], [1, .9, .2], [0, 0, 0]])
-validation_indices = np.array([[0, 0, 1], [0, 1, 2]]).T
-
-ensemble(models, SA)
+# ensemble(models, SA)
 
 
 

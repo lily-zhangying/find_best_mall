@@ -9,6 +9,8 @@ from sklearn import decomposition
 from numpy.linalg import inv
 from nmf_analysis import mall_latent_helper as nmf_helper
 from sklearn.metrics.pairwise import pairwise_distances
+import pandas as pd
+import re
 
 #feature helper and user_feature are derived from lambda functions
 
@@ -55,7 +57,8 @@ class cf_item(recsys.recsys):
             train_indices_for_model = np.column_stack((train_indices[:, 1], train_indices[:, 0]))
         if(not test_indices == None):
             test_indices_for_model = np.column_stack((test_indices[:, 1], test_indices[:, 0]))
-        self.X_predict = model.fit(train_indices, test_indices)
+        #self.X_predict = model.fit(train_indices, test_indices)
+        self.X_predict = model.fit(train_indices_for_model, test_indices_for_model)
         self.X_predict = self.X_predict.T
         self.X_train = model.X_train.T
 
@@ -64,6 +67,45 @@ class cf_item(recsys.recsys):
 
     def score(self, truth_index):
         return super(cf_item,  self).score(truth_index)
+
+
+def read_yelp_data():
+    yelp = pd.read_csv("../yelp_crawler/result/final_yelp_data.csv", encoding = "ISO-8859-1", index_col=False)
+    yelp["category"].fillna(value="", inplace=True)
+    yelp["rate"].str.replace('\D+', '').astype('float')/10
+    yelp["rate"].fillna(value="", inplace=True)
+    categories_dict = dict()
+    i=0
+    for index, row in yelp.iterrows():
+        print(i)
+        i=i+1
+        inner_dict = dict()
+        if i ==209:
+            print("lol")
+        if(not row["category"] =="" ):
+            categories = re.split(",", row["category"])
+
+            for values in categories:
+                inner_dict[values] = 1/len(categories)
+        categories_dict[row["name"]] = inner_dict
+        rating = float(re.sub(" star rating", "", row["rate"])) #change the value of rating
+
+
+    categories = pd.DataFrame(categories_dict).T.fillna(0)
+    print(categories.head())
+
+
+    #create a dictionary for each store
+
+read_yelp_data()
+
+
+
+
+
+
+
+
 
 # nmf = nmf_helper(2)
 # X= np.array([[1, 0, 0, 0],[0, 1, 1, 1]]).T

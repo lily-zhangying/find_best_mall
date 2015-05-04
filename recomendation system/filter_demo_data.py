@@ -30,9 +30,12 @@ def get_final_demo_revisited():
     mall = mall.groupby("mall", sort=True).filter(lambda x: len(x) ==1) #remove all entries with extra names. THis creates ambiguity and skewed results
 
 
-    store = pd.read_csv("../filter_store_data/dataset/store.csv", names=["instances", "store", "mall_id"], encoding = "ISO-8859-1")
+    #store = pd.read_csv("../filter_store_data/dataset/store.csv", names=["instances", "store", "mall_id"], encoding = "ISO-8859-1")
+    store = pd.read_csv("../filter_store_data/dataset/store.csv", index_col=False, encoding = "ISO-8859-1")
+    store.columns = ["store", "old_store_id", "mall_id"]
+    print(store.head())
     unique_mall_id = pd.unique(store["mall_id"]) #gets unique malls in the store table
-
+    #change this into an int.
 
 
 
@@ -40,6 +43,7 @@ def get_final_demo_revisited():
     intersected_malls = pd.Series(list(set(mall["mall"]) & set(category["mall"]))) #includes the intersection of mall and category
     mall.drop(mall[~mall.mall.isin(intersected_malls)].index)
 
+    #This has to be
     mall =mall[mall["mallid"].isin(unique_mall_id)] #filters out malls that do not exist in the store list
     mall = mall[mall["mallid"].isin(pd.unique(mall["mallid"]))] #filters out malls that do not exist in the mall_with_category list list
     #mall.insert(0, "new_id", pd.Series(range(mall.shape[0])))
@@ -56,17 +60,56 @@ def get_final_demo_revisited():
 
     mall_with_category = pd.merge(mall, category, on='mall', how='inner') #joining on the name of the mallmall
     mall_with_category.insert(0, "new_id", pd.Series(range(mall_with_category .shape[0])))
-    #print(mall[mall_with_category.duplicated()])
-    #new_category.insert(0, "new_id", pd.Series(range(new_category.shape[0])))
 
 
-    #Saving Category and Demographic Information
-    #mall_with_category[mall_with_category["old_id"].isin(unique_mall_id)]
-    #mall_with_category.insert(0, "new_id", pd.Series(range(mall_with_category.shape[0])))
-    #mall_with_category["new_id"] = pd.Series(range(mall_with_category.shape[0]))
-    #mall_with_category.rename(columns={"mallid": "old_id"}, inplace = True)
     mall_with_category.to_csv("Demographic Filtering/mall_with_demographic_category.csv")
     mall_with_category.to_csv("Demographic Filtering/mall_with_demographic_category_tabbed.csv", sep='\t')
+
+def get_binary_matrix():
+    #This is the skeleton of how to create the binary matrix shop-mall matrix
+    #needs dataframe with the stores and unique id.
+    mall_demo = pd.read_csv("Demographic Filtering/mall_with_demographic_category.csv", encoding = "ISO-8859-1", index_col=False) #every entry will not be Nan
+    N_malls = len(mall_demo.index)
+
+
+    item = pd.read_csv("../filter_store_data/dataset/store.csv", index_col=False, encoding = "ISO-8859-1")
+    item.columns = ["store", "old_store_id", "mall_id"]
+
+    item = item[item["mall_id"].isin(mall_demo["old_id"])] #This is to make the data smaller
+    joined = pd.merge(mall_demo[["new_id", "old_id", "mall"]], item, left_on='old_id', right_on='mall_id', how='inner') #a simple join betweem the old id in the mall table and the mall id in the store table
+
+
+    #initializing things
+    N_stores = joined["store"].nunique()
+    X = np.zeros( (N_stores, N_malls)) #the result
+
+
+    #####Created new id for the stores
+    stores = pd.unique(joined["store"].values.ravel()) #get unique ids for each store
+    values = range(N_stores)
+    stores = stores.tolist()
+    d = {'store_name': stores, 'store_id': values }
+    stores_df = pd.DataFrame(d)
+    stores_df.to_csv("store_id.csv", header="true")
+    #save for future reference
+    #the line above can be replaced by reading the store table with the unique ids of the stores
+
+
+    joined2 = pd.merge(joined, stores_df, left_on="store", right_on="store_name", how="inner")
+    #Saving to file
+    joined2[[ "mall", "new_id", "old_id", "store", "store_id"]].to_csv("Demographic Filtering/mall_store_list.csv", header="true")
+    joined3 = joined2[["new_id", "store_id"]] #find the relationship between stores
+    #joined.to_csv()
+
+
+    indices = joined3.values.astype(int)
+    X[indices[:, 1], indices[:, 0]] = np.ones(len(joined3.index)) #fill in the entries of the matrix fast
+    shop_mall_df = pd.DataFrame(X.astype(int))
+    total_stores = np.sum(X, axis=0)
+
+    #shop_mall_df = pd.DataFrame(X.T)
+    shop_mall_df.to_csv("Demographic Filtering/mall_store_matrix.csv") #index=False, index_label=False)
+    shop_mall_df.ix[0:100,:].to_csv("Demographic Filtering/mall_store_matrix_sample.csv") # get top 50 malls
 
 
 def get_X(): #just reads in X and category matrix so loading it will not take time
@@ -81,12 +124,13 @@ def get_X(): #just reads in X and category matrix so loading it will not take ti
     slave = pd.read_csv("Demographic Filtering/mall_with_demographic_category.csv", encoding = "ISO-8859-1", index_col=False)
     slave = slave.ix[:, " accessories": ].as_matrix()
 
-
-
-
     return (X, slave)
 
-def save_for_purnima(): #just reads in X and category matrix so loading it will not take time
+
+
+def save_for_purnima(mall_list):
+    #just reads in X and category matrix so loading it will not take time
+    #Also writes a second column
     master = pd.read_csv("Demographic Filtering/mall_store_list.csv", encoding = "ISO-8859-1", index_col=False)
     N_stores = master["store"].nunique()
     N_mall = max(master["new_id"])
@@ -95,16 +139,25 @@ def save_for_purnima(): #just reads in X and category matrix so loading it will 
     indices = joined3.values.astype(int)
     X[indices[:, 1], indices[:, 0]] = np.ones(len(joined3.index)) #fill in the entries of the matrix fast
 
+
     shop_mall_df = pd.DataFrame(X.T.astype(int))
+
 
     #shop_mall_df.to_csv("Purnima/mall_store_matrix.csv") #index=False, index_label=False)
     shop_mall_df.ix[:,0:20].to_csv("Purnima/mall_store_matrix_sample.csv", sep='\t') # get top 50 malls
-
     slave = pd.read_csv("Demographic Filtering/mall_with_demographic_category.csv", encoding = "ISO-8859-1", index_col=False)
-    slave = slave.ix[:, : ].to_csv("Purnima/mall_with_demographic_category.csv", sep='\t')
+    for i in mall_list:
+
+        hi = pd.concat([shop_mall_df.ix[:,i], slave.ix[:, :]], axis=1)
+        hi.drop('Unnamed: 0', axis=1, inplace=True)
+        print(hi.head())
+        hi.ix[:, :"Rental_vacancy_rate_percent"].to_csv("Purnima/mall_with_demographic%s.csv" % i, sep='\t')
+        hi.ix[:, :].to_csv("Purnima/mall_with_demographic_category%s.csv" % i, sep='\t')
+
+
 
     return (X, slave)
 
-# save_for_purnima()
-get_final_demo_revisited()
 #get_final_demo_revisited()
+#get_binary_matrix()
+#get_X()

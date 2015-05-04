@@ -51,19 +51,36 @@ class cf(recsys.recsys):
         user_averages = np.average(self.X, axis=0)
         average_matrix = np.array([user_averages]*Nitems) #create a average matrix for computation
 
+        if (feature_transform_all is None):
+            # #this deals with the matrix factorization prepossessing issue. deals with -b + 2a
+            if self.feature_helper is None:
+                self.feature_transform = self.user_feat #readily use the features
+            else:
+                self.feature_transform = self.feature_helper(np.concatenate((self.X, user_ratings), axis=1), np.concatenate((self.user_feat, user_feat)))
+                transformed_user = self.feature_transform[Nusers, :] #get the features of the user of interest
+                self.feature_transform = self.feature_transform[0:Nusers, :]
+        else:
+            self.feature_transform = feature_transform_all;
+            if self.feature_helper is None:
+                transformed_user = user_feat
+            else:
+                transformed_user = self.feature_helper(user_ratings, user_feat) #transform the users feature
 
-        self.feature_transform = feature_transform_all;
-        transformed_user = self.feature_helper(user_ratings.reshape((1, -1)), user_feat.reshape((1, -1))) #transform the users feature
         S=pairwise_distances(self.feature_transform, transformed_user, self.similarity_helper) #should be a 1-d array
+        #print(S)
         S=S.reshape((Nusers, 1))/np.sum(S) #create a column vector
-        recsys.find_top_k(S, self.top_k)
+        #recsys.find_top_k(S, self.top_k)
+        np.apply_along_axis(recsys.find_top_k, 0,S , k=k)
 
 
-        predicted_values = np.dot(self.X-average_matrix, S) + np.average(user_ratings)#simple matrix-vector multiplication
-
-        predicted_values[np.asarray(user_ratings)] = 0
-        result = np.argsort(-1*predicted_values.T) #predict top results
+        self.predicted_values = np.dot(self.X-average_matrix, S) + np.average(user_ratings)#simple matrix-vector multiplication
+        #self.predicted_values[np.asarray(user_ratings)] = 0
+        self.predicted_values[np.nonzero(user_ratings)] = 0
+        result = np.argsort(-1*self.predicted_values.T) #predict top results
+        result = result.reshape(-1)
         return result[0:k]
+
+
 
     def get_parameters(self):
         pass

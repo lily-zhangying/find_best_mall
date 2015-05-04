@@ -12,7 +12,7 @@ from numpy.linalg import inv
 
 class wlas(recsys.recsys):
     def __init__(self,X, feature_helper = None, score_helper = None, user_feat = None, item_feat = None,
-    iter_max = 100, sparseness =1, tol =1, n_topics = 10):
+    iter_max = 20, sparseness =1, tol =1, n_topics = 10):
         super(wlas, self).__init__(X)
         self.feature_helper = feature_helper
         self.score_helper = score_helper
@@ -68,6 +68,7 @@ class wlas(recsys.recsys):
 
 
         for k in range(self.iter_max):
+            print(k)
             for i in range(Nrow):
                 W_hat_i = np.diag(W[i, :])
                 (V.T).dot(W_hat_i)
@@ -94,12 +95,15 @@ class wlas(recsys.recsys):
         Nrow, Ncol = self.X_train.shape
         #unpack constants from dictionary here
         #setting constants
+        #self.X_train = self.X_train +.0000001
+        self.X_train = self.X_train + .000001
         if self.feature_helper == None:
             W = np.ones(Nrow, Ncol) #default
         else:
             W = self.feature_helper(self.X_train, self.item_feat, self.user_feat)
             if train_indices is None:
                 W[test_indices[:, 0], test_indices[:, 1]] = 0 #This is due to the fact that the test indices should not be considered in the matrix factorization part.
+
 
 
 
@@ -113,6 +117,7 @@ class wlas(recsys.recsys):
 
 
         for k in range(self.iter_max):
+            print(k)
             for i in range(Nrow):
                 W_hat_i = np.diag(W[i, :])
                 psm = (V.T).dot(W_hat_i).dot(V) +self.sparseness*sum(W[i, :])*I #the long matrix in the paper that is claimed to be semi positive definite
@@ -122,6 +127,7 @@ class wlas(recsys.recsys):
                 psm = U.T.dot(W_hat_j).dot( U) + self.sparseness*sum(W[:, j])*I
                 V[j, :] = (self.X_train[:, j].T).dot(W_hat_j).dot(U).dot(inv(psm))
             #computing error
+            result = np.dot(U, V.T)
             diff = self.X_train - np.dot(U, V.T)
             diff_square = np.multiply(diff, diff)
             error = sum(sum(np.multiply(W, diff_square)))

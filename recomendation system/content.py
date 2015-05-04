@@ -90,7 +90,10 @@ def user_to_item(X_train, item_feat, user_feat, start, end):
     for i in np.arange(X_train.shape[0]): #go through all stores
         mall_indexes = (X_train[i, :] == 1) #finds all the malls that have store i
         store_features = user_feat[mall_indexes, : ][:, START:END] #get coordinates fast
-        test = np.average(store_features, axis=0)
+        if(  np.sum(np.nonzero(mall_indexes)) == 0):
+            test = .001*np.ones(store_features.shape[1])
+        else:
+            test = np.average(store_features, axis=0)
         item_transform[i, :]= test
 
     return (item_transform, user_transform)

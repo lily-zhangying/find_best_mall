@@ -92,6 +92,21 @@ class one_class:
             writeup.to_csv(self.filename) #save results here
         return writeup
 
+
+    def save_indices(self, percent, k):
+        #save indices to file, so you can use the same data over and over again.
+        #k is the number of folds
+        train, test = self.train_test_split_percent(percent)
+        np.savetxt("Indices/test.csv", test)
+        training_ind, validation_ind=self.split_training(k, train)
+
+        for i in range(len(training_ind)):
+            print(i)
+            np.savetxt("Indices/local_training%s.csv" %i, training_ind[i])
+            np.savetxt("Indices/validation_ind%s.csv" %i, validation_ind[i])
+
+
+
     def cv_parameter_tuning_on_validation(self, k, training, testing, learner_dict=None, fun_list = None, filename = None):
         #creates a split on the training set to make a local training and validation set. This is used to train the recursive_parameter_tuning
         training_ind, validation_ind=self.split_training(k, training)
@@ -99,9 +114,8 @@ class one_class:
         self.iteration = 0
         #save everything to a csv file
         for validate in validation_ind:
-            lol = np.concatenate((validate ,testing ),axis=0)
 
-            self.recursive_parameter_tuning(self.learner, validate, learner_dict =learner_dict, fun_list=fun_list)
+            self.recursive_parameter_tuning(self.learner,testing, validate, learner_dict =learner_dict, fun_list=fun_list)
             #self.recursive_parameter_tuning(self.learner, np.concatenate((validate, testing), axis=0), learner_dict =learner_dict, fun_list=fun_list)
             self.iteration = self.iteration +1
         writeup = pd.DataFrame(self.results).T
@@ -114,7 +128,6 @@ class one_class:
         X = self.learner.X
         #keywords:
         #percent - the percent that you want the traiining data to be random
-        #folds - number of folds you are working with
 
         #find indices of ones and put them into training/testing sets
         ones_x, ones_y = np.nonzero(X[: ,:] == 1)
@@ -127,12 +140,14 @@ class one_class:
         zero_x, zero_y = np.nonzero(X[: ,:] == 0)
         zero_coord = np.array([zero_x, zero_y]);
         zero_coord = zero_coord.T
-        np.random.shuffle(zero_coord)
+        np.random.shuffle(zero_coord) #This takes an extremely long time
         zero_train, zero_test = train_test_split(zero_coord, test_size=percent)
 
         #create a numpy array
         return( (np.concatenate((ones_train, zero_train),axis=0), np.concatenate((ones_test, zero_test),axis=0) ))
         #concatenate the training and test array
+
+
     #equal cv for each user
 
     #partitions data into training and testing data by percentage
@@ -143,12 +158,19 @@ class one_class:
 
         #find indices of ones and put them into training/testing sets
         #go through each user and randomly split
+        #Step is really slow
+        train_result = list()
+        test_result = list()
         for i in range(X.shape[1]):
 
             ones_x, = np.nonzero(X[: ,i] == 1)
             np.random.shuffle(ones_x) #fix this
             ones_x = ones_x.T
-            ones_train, ones_test = train_test_split(ones_x, test_size=percent)
+            if(ones_x.shape[0] == 1):
+                ones_train = ones_x
+                ones_test = []
+            else:
+                ones_train, ones_test = train_test_split(ones_x, test_size=percent)
 
             #find indices of ones and put them into training/testing sets
 
@@ -162,16 +184,29 @@ class one_class:
             test= np.concatenate((ones_test, zero_test),axis=0)
             train = np.column_stack((train, i*np.ones((train.shape[0], 1))))
             test = np.column_stack((test, i*np.ones((test.shape[0], 1))))
-            if i == 0:
-                result_train = train
-                result_test = test
-            else:
-                result_train = np.concatenate((result_train, train),axis=0)
-                result_test = np.concatenate((result_test, test),axis=0)
+
+            train_result.append(train)
+            test_result.append(test)
+
+            # if i == 0:
+            #     result_train = train
+            #     result_test = test
+            # else:
+            #     result_train = np.concatenate((result_train, train),axis=0) #it is slow because i keep concatenating
+            #     result_test = np.concatenate((result_test, test),axis=0)
 
             #create a numpy array
-        return( (result_train, result_test ))
+        result_train = np.concatenate(train_result,axis=0) #it is slow because i keep concatenating
+        result_test = np.concatenate(test_result,axis=0)
+        return( (result_train.astype(int), result_test.astype(int) ))
             #concatenate the training and test array
+
+
+    def train_test_split_equal_item(self, X, percent):
+        train, test =self.train_test_split_equal_user(X.T, percent)
+        adjusted_train = np.array([train[:, 1], train[:, 0]]).T
+        adjusted_test = np.array([test[:, 1], test[:, 0]]).T
+        return (adjusted_train, adjusted_test)
 
 
     def function_plugger(self, fun,fun_dict):
@@ -190,7 +225,7 @@ class one_class:
         return (possible_functions, possible_parameters)
 
 
-    def recursive_parameter_tuning(self, learner, test_ind, learner_dict=None, fun_list=None):
+    def recursive_parameter_tuning(self, learner, test_ind,validate_ind = None, learner_dict=None, fun_list=None):
 
         #fun_list is a tuple with (name of function, actual helper function, dictionary ('parameter string', domain)
         #output best value
@@ -210,7 +245,7 @@ class one_class:
             for fun, current_combo in zip(possible_functions, possible_combinations):
                 learner.get_helper2(name , fun)
                 self.writing_string =self.writing_string + name+str(current_combo) #This is for writing stuff
-                (value, combined_combo)= self.recursive_parameter_tuning(learner, test_ind, learner_dict, fun_list_copied)
+                (value, combined_combo)= self.recursive_parameter_tuning(learner, test_ind, validate_ind, learner_dict, fun_list_copied)
                 self.writing_string = old_string
                 if(value >best_value):
                     best_value= value
@@ -225,8 +260,12 @@ class one_class:
         if(learner_dict==None or len(learner_dict) ==0):
             #combined_combo is an empty dictionary
             combined_combo = dict()
-            learner.fit(test_indices=test_ind)
-            value = learner.score(test_ind)
+            if validate_ind is None:
+                learner.fit(test_indices=test_ind)
+                value = learner.score(test_ind)
+            else:
+                learner.fit(test_indices=np.concatenate((test_ind, validate_ind), axis=0) )
+                value = learner.score(validate_ind)
             if not (str(self.writing_string) in self.results):
                 self.results[str(self.writing_string)] = dict()
 
@@ -251,7 +290,7 @@ class one_class:
                 #possible_parameters.append(parameters)
                 learner.get_parameters_2(parameters) #awesome
                 self.writing_string =self.writing_string + 'learner'+str(parameters) #This is for writing stuff
-                (value, combined_combo)= self.recursive_parameter_tuning(learner, test_ind)
+                (value, combined_combo)= self.recursive_parameter_tuning(learner, test_ind, validate_ind)
                 self.writing_string = old_string
                 if(value >best_value):
                     best_value= value
