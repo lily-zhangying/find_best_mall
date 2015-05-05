@@ -1,14 +1,16 @@
-﻿﻿DROP TABLE YELP_DATA;
-CREATE TABLE YELP_DATA (
-    category STRING,
-    rate STRING,
-    name STRING,
-    address STRING,
-    url STRING,
-    price_range STRING
-)ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE;
+DROP TABLE YELP_DATA;
+CREATE EXTERNAL TABLE YELP_DATA (
+    yelp_info STRING
+)ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE
+ LOCATION 's3://lilybuckettest3210/input/';
 
-LOAD DATA INPATH 's3://lilybuckettest3210/input/final_yelp_data.csv' OVERWRITE INTO TABLE YELP_DATA;
+LOAD DATA INPATH 's3://lilybuckettest3210/input/test.csv' OVERWRITE INTO TABLE YELP_DATA;
 
-INSERT OVERWRITE DIRECTORY 's3://lilybuckettest3210/output/hive/yelp_data' SELECT
-  name,category,rate,price_range FROM YELP_DATA;
+insert overwrite table yelp_data
+SELECTclear
+  regexp_extract(yelp_info, '^(?:([^,]*)\,?){1}', 1) category,
+  regexp_extract(yelp_info, '^(?:([^,]*)\,?){2}', 1) rate,
+  regexp_extract(yelp_info, '^(?:([^,]*)\,?){3}', 1) name,
+  regexp_extract(yelp_info, '^(?:([^,]*)\,?){6}', 1) price_range,
+from YELP_DATA;
+
