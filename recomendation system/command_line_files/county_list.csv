@@ -1,0 +1,590 @@
+,county,usps
+0,bexar county,texas
+1,broward county,florida
+2,san diego county,california
+3,bernalillo county,new mexico
+4,washington county,new york
+5,lenawee county,michigan
+6,fulton county,georgia
+7,alamance county,north carolina
+8,contra costa county,california
+10,montgomery county,alabama
+11,kitsap county,washington
+12,rapides parish,louisiana
+13,mchenry county,illinois
+14,santa clara county,california
+15,harris county,texas
+16,orange county,florida
+17,jersey county,illinois
+18,nassau county,new york
+19,orange county,california
+21,anderson county,south carolina
+22,san juan county,new mexico
+23,anne arundel county,maryland
+25,los angeles county,california
+26,olmsted county,minnesota
+27,winchester city,virginia
+28,douglas county,georgia
+29,travis county,texas
+30,sacramento county,california
+31,maricopa county,arizona
+33,tarrant county,texas
+34,chemung county,new york
+35,muskogee county,oklahoma
+37,suffolk county,massachusetts
+38,baltimore city,maryland
+39,buncombe county,north carolina
+40,ashtabula county,ohio
+41,jefferson county,colorado
+44,richmond county,georgia
+46,washington county,maine
+50,dinwiddie county,virginia
+51,hancock county,maine
+53,moody county,south dakota
+54,cobb county,georgia
+56,mercer county,new jersey
+57,el paso county,texas
+58,greene county,missouri
+59,bay county,michigan
+60,brown county,wisconsin
+61,sussex county,virginia
+63,galveston county,texas
+64,alameda county,california
+65,humboldt county,california
+66,waukesha county,wisconsin
+67,miami-dade county,florida
+68,geauga county,ohio
+69,beaver county,pennsylvania
+70,mobile county,alabama
+72,charleston county,south carolina
+73,king county,washington
+74,norfolk county,massachusetts
+75,whatcom county,washington
+76,denver county,colorado
+77,district of columbia,district of columbia
+82,st. clair county,michigan
+83,mecklenburg county,north carolina
+85,dupage county,illinois
+86,hartford county,connecticut
+88,ada county,idaho
+90,lauderdale county,mississippi
+92,erie county,new york
+94,palm beach county,florida
+95,bradley county,tennessee
+97,cascade county,montana
+98,taney county,missouri
+99,new haven county,connecticut
+102,washtenaw county,michigan
+103,madison county,alabama
+104,multnomah county,oregon
+105,somerset county,new jersey
+106,butler county,ohio
+107,durham county,north carolina
+108,bristol city,virginia
+109,horry county,south carolina
+112,smith county,texas
+116,windham county,vermont
+117,middlesex county,new jersey
+118,appomattox county,virginia
+121,burlington county,new jersey
+122,middlesex county,massachusetts
+123,chittenden county,vermont
+124,dakota county,minnesota
+125,cache county,utah
+128,clayton county,georgia
+129,cherokee county,georgia
+132,barnstable county,massachusetts
+133,dauphin county,pennsylvania
+134,cole county,missouri
+135,santa cruz county,california
+137,pacific county,washington
+138,cabarrus county,north carolina
+140,onondaga county,new york
+141,marion county,tennessee
+142,wake county,north carolina
+143,skagit county,washington
+145,marion county,indiana
+146,marathon county,wisconsin
+147,washington county,oregon
+148,ventura county,california
+149,kent county,michigan
+150,sebastian county,arkansas
+151,miller county,arkansas
+152,fredericksburg city,virginia
+155,allegheny county,pennsylvania
+159,liberty county,montana
+160,nobles county,minnesota
+161,cumberland county,new jersey
+164,hamilton county,indiana
+165,schenectady county,new york
+167,collier county,florida
+168,monroe county,tennessee
+169,seneca county,new york
+170,lee county,florida
+171,sonoma county,california
+172,monroe county,indiana
+173,hamblen county,tennessee
+174,black hawk county,iowa
+175,collin county,texas
+176,jefferson county,alabama
+178,tangipahoa parish,louisiana
+180,passaic county,new jersey
+181,albany county,new york
+182,plymouth county,massachusetts
+183,muskingum county,ohio
+185,benton county,washington
+186,boone county,missouri
+187,richland county,south carolina
+188,lexington county,south carolina
+190,muscogee county,georgia
+191,elkhart county,indiana
+193,hall county,nebraska
+194,rockdale county,georgia
+195,williamson county,tennessee
+198,johnson county,iowa
+200,escambia county,florida
+204,allegany county,maryland
+206,yolo county,california
+207,montgomery county,pennsylvania
+209,kenton county,kentucky
+210,st. louis county,missouri
+211,lorain county,ohio
+212,harris county,georgia
+213,bronx county,new york
+214,cumberland county,north carolina
+217,adams county,north dakota
+219,greenlee county,arizona
+220,wyandotte county,kansas
+221,beadle county,south dakota
+222,new london county,connecticut
+223,citrus county,florida
+224,forsyth county,georgia
+226,ward county,north dakota
+227,pinal county,arizona
+228,fairfield county,connecticut
+229,currituck county,north carolina
+230,bristol county,massachusetts
+231,montgomery county,ohio
+232,morgan county,alabama
+235,cook county,illinois
+241,camden county,new jersey
+245,manatee county,florida
+247,santa fe county,new mexico
+248,rutland county,vermont
+251,kent county,delaware
+254,will county,illinois
+257,st. louis city,missouri
+258,jefferson county,pennsylvania
+259,loudoun county,virginia
+261,polk county,florida
+263,lanier county,georgia
+264,buchanan county,missouri
+265,dane county,wisconsin
+267,baldwin county,alabama
+268,hampden county,massachusetts
+269,clermont county,ohio
+270,macomb county,michigan
+271,franklin county,ohio
+276,natrona county,wyoming
+277,ontario county,new york
+278,trumbull county,ohio
+279,ingham county,michigan
+280,harrison county,mississippi
+281,pike county,mississippi
+283,delaware county,ohio
+286,providence county,rhode island
+287,minnehaha county,south dakota
+290,snohomish county,washington
+291,chester county,pennsylvania
+292,fairfax county,virginia
+293,fairfax city,virginia
+294,berks county,pennsylvania
+295,wayne county,michigan
+297,arlington county,virginia
+298,fresno county,california
+301,salt lake county,utah
+302,clark county,nevada
+303,saginaw county,michigan
+305,fayette county,kentucky
+307,montgomery county,maryland
+308,charles county,maryland
+311,hancock county,ohio
+312,cayuga county,new york
+313,rockwall county,texas
+314,summit county,ohio
+315,fort bend county,texas
+316,grant county,indiana
+317,coconino county,arizona
+319,broomfield county,colorado
+320,boone county,kentucky
+321,bureau county,illinois
+323,fond du lac county,wisconsin
+324,winnebago county,illinois
+325,jefferson county,ohio
+327,guilford county,north carolina
+328,outagamie county,wisconsin
+329,rockingham county,new hampshire
+330,frederick county,maryland
+332,philadelphia county,pennsylvania
+333,monmouth county,new jersey
+336,laramie county,wyoming
+337,etowah county,alabama
+338,lake county,indiana
+339,marion county,florida
+340,gallatin county,montana
+341,ramsey county,north dakota
+342,orange county,new york
+345,dallas county,texas
+346,dekalb county,georgia
+347,kent county,rhode island
+349,lane county,oregon
+351,genesee county,michigan
+352,kane county,illinois
+353,clarke county,georgia
+354,allen county,indiana
+356,amite county,mississippi
+357,glynn county,georgia
+358,newport news city,virginia
+359,nash county,north carolina
+360,denton county,texas
+362,leon county,florida
+363,montgomery county,tennessee
+364,wood county,west virginia
+365,new york county,new york
+366,bonneville county,idaho
+368,oakland county,michigan
+374,weld county,colorado
+375,queens county,new york
+376,floyd county,indiana
+378,chesapeake city,virginia
+379,worcester county,massachusetts
+381,pitt county,north carolina
+383,warren county,kentucky
+384,johnson county,indiana
+386,starr county,texas
+389,pasco county,florida
+392,gwinnett county,georgia
+395,atlantic county,new jersey
+396,hamilton county,tennessee
+398,hampshire county,massachusetts
+399,forsyth county,north carolina
+400,kings county,california
+405,harford county,maryland
+406,ramsey county,minnesota
+408,greenville county,south carolina
+409,benton county,oregon
+410,davidson county,tennessee
+411,sarasota county,florida
+415,san mateo county,california
+420,vigo county,indiana
+421,garland county,arkansas
+422,peach county,georgia
+423,hudson county,new jersey
+424,ulster county,new york
+426,baltimore county,maryland
+427,cabell county,west virginia
+428,franklin county,pennsylvania
+430,clinton county,new york
+431,el paso county,colorado
+432,kanawha county,west virginia
+433,charlottesville city,virginia
+434,chautauqua county,new york
+437,portsmouth city,virginia
+440,richmond city,virginia
+442,new castle county,delaware
+445,cumberland county,illinois
+446,imperial county,california
+447,jackson county,missouri
+449,licking county,ohio
+450,indian river county,florida
+451,indiana county,pennsylvania
+454,hillsborough county,florida
+457,prince george's county,maryland
+458,onslow county,north carolina
+459,columbia county,oregon
+460,shenandoah county,virginia
+461,rock county,wisconsin
+462,marin county,california
+463,jefferson county,kentucky
+465,jefferson county,arkansas
+466,putnam county,new york
+468,dallas county,iowa
+471,kandiyohi county,minnesota
+474,dubuque county,iowa
+475,tyler county,west virginia
+476,mccracken county,kentucky
+477,hamilton county,ohio
+478,bell county,texas
+480,kings county,new york
+482,lubbock county,texas
+483,sullivan county,tennessee
+484,burleigh county,north dakota
+486,hennepin county,minnesota
+487,knox county,tennessee
+489,hidalgo county,texas
+491,medina county,ohio
+493,medina county,texas
+495,lake county,florida
+496,sumter county,florida
+498,wheeler county,georgia
+500,williamson county,texas
+504,douglas county,nebraska
+505,st. charles parish,louisiana
+506,calhoun county,michigan
+508,marion county,oregon
+510,alexandria city,virginia
+511,clinton county,michigan
+513,howard county,maryland
+515,davis county,utah
+516,lebanon county,pennsylvania
+519,lehigh county,pennsylvania
+521,essex county,massachusetts
+522,allen county,ohio
+526,linn county,iowa
+527,essex county,new jersey
+530,blair county,pennsylvania
+532,gregg county,texas
+534,caddo parish,louisiana
+535,angelina county,texas
+536,lycoming county,pennsylvania
+537,virginia beach city,virginia
+541,new hanover county,north carolina
+544,jerome county,idaho
+545,darlington county,south carolina
+546,pima county,arizona
+548,boyd county,kentucky
+551,maverick county,texas
+552,webb county,texas
+553,taylor county,texas
+556,east baton rouge parish,louisiana
+557,hillsborough county,new hampshire
+559,pottawattamie county,iowa
+563,manassas city,virginia
+564,riley county,kansas
+568,champaign county,illinois
+569,montgomery county,texas
+572,howard county,indiana
+574,brevard county,florida
+577,pulaski county,arkansas
+580,storey county,nevada
+582,wayne county,new york
+586,merced county,california
+589,polk county,iowa
+591,doña ana county,new mexico
+593,hendricks county,indiana
+597,miami county,ohio
+598,st. charles county,missouri
+599,midland county,michigan
+600,midland county,texas
+601,tuscaloosa county,alabama
+602,erie county,pennsylvania
+603,douglas county,wisconsin
+606,union county,north carolina
+615,monongalia county,west virginia
+616,floyd county,georgia
+618,shasta county,california
+619,delaware county,indiana
+620,grand forks county,north dakota
+622,rockland county,new york
+625,sarpy county,nebraska
+628,tuscarawas county,ohio
+630,st. clair county,alabama
+635,centre county,pennsylvania
+638,story county,iowa
+639,adams county,pennsylvania
+644,st. tammany parish,louisiana
+649,kankakee county,illinois
+654,madison county,texas
+660,defiance county,ohio
+661,washington county,arkansas
+664,solano county,california
+665,shelby county,tennessee
+667,johnson county,kansas
+669,jasper county,georgia
+670,broome county,new york
+672,orleans parish,louisiana
+673,ocean county,new jersey
+674,chatham county,georgia
+675,belmont county,ohio
+677,madison county,tennessee
+678,deschutes county,oregon
+680,duval county,florida
+686,norfolk city,virginia
+692,northampton county,pennsylvania
+693,latah county,idaho
+694,bay county,florida
+698,bergen county,new jersey
+699,lancaster county,pennsylvania
+701,santa cruz county,arizona
+708,santa barbara county,california
+711,shelby county,alabama
+714,ouachita parish,louisiana
+715,warren county,mississippi
+719,oklahoma county,oklahoma
+721,lasalle county,illinois
+725,danville city,virginia
+728,bingham county,idaho
+729,benton county,arkansas
+734,kinney county,texas
+739,coos county,oregon
+740,charlotte county,florida
+741,brazos county,texas
+742,prince william county,virginia
+743,dutchess county,new york
+744,yavapai county,arizona
+745,calcasieu parish,louisiana
+746,orangeburg county,south carolina
+754,wilson county,tennessee
+757,pueblo county,colorado
+761,adams county,illinois
+762,calhoun county,alabama
+763,randolph county,north carolina
+764,grand county,colorado
+765,washington county,utah
+768,racine county,wisconsin
+770,madison county,mississippi
+776,wayne county,indiana
+778,yellowstone county,montana
+779,apache county,arizona
+782,blue earth county,minnesota
+785,spokane county,washington
+786,lynchburg city,virginia
+787,fairfield county,ohio
+788,crockett county,tennessee
+795,york county,south carolina
+796,morris county,new jersey
+797,jackson county,oregon
+800,douglas county,oregon
+804,pennington county,south dakota
+805,huron county,ohio
+807,polk county,oregon
+808,jefferson county,new york
+810,kimble county,texas
+812,oneida county,new york
+814,san luis obispo county,california
+816,okaloosa county,florida
+828,dallas county,alabama
+829,seminole county,florida
+831,carroll county,new hampshire
+832,van buren county,michigan
+833,pottawatomie county,oklahoma
+834,mercer county,pennsylvania
+836,san joaquin county,california
+842,berkeley county,west virginia
+844,wichita county,texas
+846,kootenai county,idaho
+849,suffolk county,new york
+853,cleveland county,oklahoma
+857,pierce county,washington
+863,mingo county,west virginia
+866,desoto county,mississippi
+868,cerro gordo county,iowa
+871,dakota county,nebraska
+872,mahoning county,ohio
+873,missoula county,montana
+874,union county,south carolina
+881,colonial heights city,virginia
+882,rock island county,illinois
+883,lancaster county,nebraska
+885,otsego county,new york
+892,st. clair county,illinois
+896,st. lawrence county,new york
+900,richmond county,new york
+901,bulloch county,georgia
+902,merrimack county,new hampshire
+906,rutherford county,tennessee
+911,monroe county,pennsylvania
+913,campbell county,wyoming
+917,sumter county,south carolina
+920,tom green county,texas
+921,madison county,nebraska
+925,northumberland county,pennsylvania
+926,bristol county,rhode island
+931,sevier county,tennessee
+939,windham county,connecticut
+945,fayette county,georgia
+950,morton county,north dakota
+953,wicomico county,maryland
+958,kalamazoo county,michigan
+967,westchester county,new york
+971,martin county,florida
+972,riverside county,california
+973,franklin county,idaho
+978,ottawa county,michigan
+980,la paz county,arizona
+982,greene county,ohio
+983,monroe county,new york
+986,washington county,tennessee
+991,beaufort county,south carolina
+993,lackawanna county,pennsylvania
+995,craighead county,arkansas
+999,lafayette parish,louisiana
+1000,monroe county,michigan
+1006,stanislaus county,california
+1022,boulder county,colorado
+1027,kendall county,texas
+1034,peoria county,illinois
+1037,bibb county,georgia
+1040,clearfield county,pennsylvania
+1043,laurens county,south carolina
+1044,tompkins county,new york
+1060,bath county,kentucky
+1069,sumner county,tennessee
+1085,tippecanoe county,indiana
+1087,cuyahoga county,ohio
+1089,caledonia county,vermont
+1097,sedgwick county,kansas
+1098,daviess county,kentucky
+1100,carroll county,maryland
+1103,canyon county,idaho
+1107,tulsa county,oklahoma
+1108,forrest county,mississippi
+1112,pinellas county,florida
+1113,falls church city,virginia
+1116,spartanburg county,south carolina
+1117,fayette county,pennsylvania
+1120,jackson county,illinois
+1121,st. joseph county,indiana
+1123,platte county,nebraska
+1124,clark county,ohio
+1128,lowndes county,georgia
+1131,cameron county,texas
+1132,gooding county,idaho
+1133,catawba county,north carolina
+1135,bucks county,pennsylvania
+1139,navarro county,texas
+1144,lee county,alabama
+1146,seward county,nebraska
+1150,hanover county,virginia
+1151,tulare county,california
+1153,volusia county,florida
+1156,whitfield county,georgia
+1161,washington county,pennsylvania
+1162,washington county,oklahoma
+1167,prentiss county,mississippi
+1170,kittitas county,washington
+1171,clay county,minnesota
+1173,cullman county,alabama
+1176,cape girardeau county,missouri
+1177,shawnee county,kansas
+1186,stark county,ohio
+1189,thurston county,washington
+1197,gaston county,north carolina
+1200,lucas county,ohio
+1234,clark county,washington
+1239,potter county,texas
+1240,costilla county,colorado
+1243,westmoreland county,pennsylvania
+1247,jackson county,michigan
+1252,napa county,california
+1253,sangamon county,illinois
+1257,wilson county,north carolina
+1258,saratoga county,new york
+1261,houston county,alabama
+1264,union county,new jersey
+1265,yamhill county,oregon
+1266,washington county,minnesota
+1270,luzerne county,pennsylvania
+1271,york county,pennsylvania
+1273,yuma county,arizona
+1274,platte county,missouri
