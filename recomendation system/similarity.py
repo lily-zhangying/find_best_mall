@@ -11,4 +11,4 @@ def gaussian(alpha=1, sigma=1):
     return lambda x, y: alpha* np.exp(-1*pow(norm(x-y), 2)/sigma)
 
 def haversine_helper():
-    return lambda x, y: haversine(x, y, miles=True)
+    return lambda x, y: 1/np.log(haversine(x, y, miles=True) +1)

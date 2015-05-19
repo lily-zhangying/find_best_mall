@@ -51,31 +51,14 @@ class recsys(object):
         #f transform user into a more appropiate feature
         #makes a prediction for the user
         #for matrix factorization, preprocessing must be made. Specifically, user_feat and feat must be already defined
-        Nitems, Nusers= self.X.shape
-        if (feature_transform_all == None):
-            #this deals with the mf_preprocessing issue
-            self.X = np.concatenate((self.X, user_ratings));
-            self.feature = np.concatenate((self.feature, user_feat))
-            transformed_user = self.feature_helper(self.X, self.feature)[:, Nusers] #get the features of the user of interest
-            self.X = self.X[:, 0:Nusers] #now reset X and feature back to normal
-            self.feature = self.feature[:, 0:Nusers]
-        else:
-            self.feature_transform = feature_transform_all;
-            transformed_user = self.feature_helper(user_ratings, user_feat)
-        S=pairwise_distances(self.feature_transform, transformed_user, self.similarity_helper) #should be a 1-d array
-        S = S.reshape((1, Nusers))
-        #garuntees that the shape is row matrix
-        #np.array([S,]*Nitems) #creates duplicates of S rowwise
-        predicted_values = np.average(np.multiply(self.X, np.array([S,]*Nitems)))/np.sum(S)
-        predicted_values[user_ratings == 1] = 0
-        result = np.argsort(predicted_values)
-        return result[0:k]
+        pass
 
 
 
 
 
     def transform_training(self, train_indices,  test_indices):
+        #Uses the information of the training and testing indices to transform X for training purposes
         #train_incides must be a |Train_Data|-by-2 matrix.
         #train_indices come in tuples
         self.X_train = np.copy(self.X);
@@ -107,8 +90,6 @@ class recsys(object):
         if(not isinstance(truth_index, np.ndarray)):
             raise Exception("Dawg, your testing indices have to be an ndarray")
         return self.score_helper(self.X, self.X_predict, truth_index)
-        #do ranked precision
-        #first
 
     def get_helper2(self, name, function):
         if(name == 'feature_helper'):
@@ -131,13 +112,5 @@ def find_top_k(x, k):
         x[x < -1*np.partition(-1*x, k)[k]] = 0
         return x
 
-#This will be used if the algorithm is too slow
-def test_helper(x, k):
-    fun = lambda i: find_top_k(x[:, i], k)
-    return np.vectorize(fun)
 
-#clean similarity matrix
-# def cluster_neighbors(cluster, S):
-#     fun = lambda i : (S[i, cluster[i]] = 0)
-#     return np.vectorize(fun)
 
